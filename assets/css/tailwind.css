@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Reggae+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base  {
+  * {
+    @apply font-k2d;
+  }
+}
+.section1 {
+  @apply bg-gray-900 w-screen h-screen mx-auto;
+}
+.section2 {
+  @apply bg-gray-800 w-screen h-screen mx-auto;
+}
+.router-link {
+  @apply transition-colors hover:border-l-2 hover:border-l-green-500 ease-in-out duration-700 flex items-center w-full h-9 px-3 mt-2 hover:text-white hover:font-bold;
+}
+.router-link-active {
+  @apply bg-green-500 bg-opacity-50 border-l-2 border-l-green-500 font-bold text-white;
+}
+.profile {
+  @apply flex bg-green-100 h-[100px] w-[100px] ring-2 ring-green-200 rounded-full self-center items-center justify-center cursor-pointer;
+}
+.profile-square {
+  @apply flex bg-green-100 h-1/2 w-1/2 ring-green-200 rounded border-dashed border-2 border-green-800 items-center justify-center cursor-pointer;
+}
+.file-picker {
+  @apply flex bg-green-100 h-full min-h-[100px] w-full ring-green-200 rounded-lg  border-0 border-green-800 items-center justify-center cursor-pointer;
+}
+.avatar {
+  @apply flex bg-green-100 h-[35px] w-[35px] rounded-lg self-center items-center justify-center cursor-pointer object-cover;
+}
+
+/* Table */
+tr {
+  @apply table-row h-10 ml-5 pl-1 hover:bg-green-50 rounded;
+}
+tr th {
+  @apply h-10 pl-1 bg-blue-200 text-left first-letter:uppercase;
+}
+td {
+  @apply first-letter:uppercase text-left pl-1 table-cell;
+}
+
+.nav {
+  @apply container mx-auto bg-gray-800 bg-opacity-0 h-14 w-full inline-flex space-x-32 items-center absolute justify-center z-10 top-0 right-0;
+}
+.card {
+  @apply rounded flex flex-col p-3 h-full shadow-lg shadow-gray-100 bg-white;
+}
+.card-emp {
+  @apply rounded flex flex-col h-full shadow-lg shadow-gray-100 bg-white mx-0 px-0;
+}
+.card2 {
+  @apply rounded-lg flex flex-col p-3 h-full shadow-xl shadow-gray-200 bg-white;
+}
+.list-document {
+  @apply grid grid-cols-1 gap-2 items-start p-0 justify-start content-start;
+}
+.document {
+  @apply bg-green-500 w-1/2 my-2 rounded border-2 border-dashed flex flex-row cursor-default py-2 border-green-200 text-green-600 pl-2 bg-opacity-5 align-top justify-start;
+}
+.document-other {
+  @apply bg-red-500 w-1/2 my-2 rounded border-2 border-dashed flex flex-row cursor-default py-2 border-red-200 text-red-500 pl-2 bg-opacity-5 align-top justify-start;
+}
+.step-content {
+  @apply flex flex-row w-1/2 justify-center h-1/2;
+}
+.form {
+  @apply flex flex-col w-full justify-between items-center;
+}
+
+/* For modal */
+
+.modal {
+  @apply flex flex-col items-center justify-center;
+}
+.modal-content {
+  @apply flex flex-col items-center justify-between h-1/2 w-1/2;
+}
+
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  .animation-delay-6000 {
+    animation-delay: 6s;
+  }
+}
+
+input:valid + span:after {
+  content: "✓";
+  padding-left: 5px;
+}
+
+.row {
+  @apply flex flex-row;
+}
+.row-reverse {
+  @apply flex flex-row-reverse;
+}
+.col {
+  @apply flex flex-col;
+}
+
+.divider {
+  @apply h-1 w-full border-b border-yellow-300 my-2;
+}
+
+/* Input */
+.input {
+  @apply w-full px-4 bg-gray-100 outline-none flex my-0 h-8 py-1 p-0 text-sm ring-transparent rounded-none rounded-t-md rounded-b-none ring-gray-200  focus:outline-none focus:border-b-2 focus:border-b-green-500 focus:ring-0 focus:ring-green-300 placeholder:text-gray-300 invalid:border-red-500 focus:invalid:border-red-500 invalid:placeholder:text-red-600;
+}
+.input-textarea {
+  @apply w-full px-4 bg-gray-100 outline-none flex my-0 max-h-24 py-1 p-0 text-sm ring-transparent rounded-none rounded-t-md rounded-b-none ring-gray-200  focus:outline-none focus:border-b-2 focus:border-b-green-500 focus:ring-0 focus:ring-green-300 placeholder:text-gray-300;
+}
+.g-input-checkbox {
+  @apply form-checkbox border-none focus:ring-green-500 bg-gray-400 h-4 w-4 py-1 rounded my-2 text-green-500;
+}
+.placeholder-label {
+  @apply transform group-focus-within:font-bold transition-all italic group-focus-within:not-italic  text-gray-900 group-focus-within:text-gray-900 absolute top-0 left-0 h-full flex items-center pl-1 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0;
+}
+.input-group {
+  @apply py-1 flex flex-col relative mb-2;
+}
+.input-group-grid {
+  @apply py-1 grid grid-cols-1 relative mb-2;
+}
+.form-file {
+  @apply block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-400 file:italic;
+}
+.form-input {
+  @apply placeholder-gray-400 placeholder:italic placeholder:first-letter:uppercase focus:border-green-400 focus:outline-none py-2 my-1 border-0 pr-2 rounded-lg bg-gray-100 focus:ring-green-200;
+}
+.form-select {
+  @apply placeholder-gray-400 placeholder:italic placeholder:first-letter:uppercase focus:border-green-400 focus:outline-none py-2 my-1 border-0 pr-2 rounded-lg bg-gray-100 focus:ring-green-200;
+}
+.form-textarea {
+  @apply placeholder-gray-400 focus:border-green-400 border-0 bg-gray-100 focus:outline-none my-1 py-2 rounded-lg;
+}
+.input-error {
+  @apply text-red-600 text-xs peer-invalid:animate-shake pl-2;
+}
+
+/* Button */
+.btn-disable {
+  @apply rounded mt-2 bg-gray-200 h-9 text-white px-4 py-4;
+}
+
+.btn-primary {
+  @apply min-w-[50px] px-4 py-2 overflow-visible flex flex-row hover:cursor-pointer justify-center items-center text-center tracking-wide shadow-green-200 text-white transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-600 focus:outline-none active:shadow-lg ease-in-out;
+}
+.btn-danger {
+  @apply px-4 py-2 ease-in-out overflow-visible flex flex-row hover:cursor-pointer justify-center items-center text-center tracking-wide shadow-red-200 text-white transition-colors duration-200 transform bg-red-500 rounded-md hover:bg-red-600 focus:outline-none;
+}
+.btn-tab {
+  @apply h-10 cursor-pointer px-4 py-2 -mb-px text-sm transition-border ease-in-out hover:border-green-500 duration-700 text-center border-b-2 sm:text-base whitespace-nowrap focus:outline-none;
+}
+.btn-tab2 {
+  @apply h-10 cursor-pointer px-4 py-2 -mb-px text-sm transition-border ease-in-out hover:border-blue-500 duration-700 text-center border-b-2 sm:text-base whitespace-nowrap focus:outline-none;
+}
+.btn-tab-active {
+  @apply text-green-600 ease-in-out border-green-500 bg-green-50 rounded-tl rounded-tr font-bold;
+}
+.btn-tab-active2 {
+  @apply text-blue-600 ease-in-out border-blue-500 bg-blue-50 rounded-tl rounded-tr;
+}
+.btn-unstate {
+  @apply bg-green-50 min-w-[50px] ease-in-out text-green-900 px-4 py-2 rounded-md font-bold hover:cursor-pointer focus:outline-none;
+}
+.btn-unstate-min {
+  @apply bg-green-50 min-w-[40px] ease-in-out text-green-900 px-2 py-1 rounded-md font-bold hover:cursor-pointer focus:outline-none;
+}
+.btn-header {
+  @apply relative items-center z-20 ease-in-out text-gray-700 bg-white border border-transparent rounded-md focus:border-transparent focus:ring-opacity-40 focus:ring-transparent focus:outline-none flex flex-row;
+}
+
+.course-card {
+  @apply overflow-hidden bg-white rounded-lg transition-all delay-150 duration-300 hover:shadow-lg col h-[250px] w-1/5 relative;
+}
+.toggle {
+  @apply appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top  bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm;
+}
+
+/* Calendar */
+
+/* Green-theme. */
+.vuecal__menu,
+.vuecal__cell-events-count {
+  @apply bg-blue-600;
+}
+.vuecal__title-bar {
+  @apply bg-green-300;
+}
+.vuecal__cell--today,
+.vuecal__cell--current {
+  @apply bg-gray-300;
+}
+.vuecal:not(.vuecal--day-view) .vuecal__cell--selected {
+  @apply bg-blue-600;
+}
+.vuecal__cell--selected:before {
+  border-color: rgba(66, 185, 131, 0.5);
+}
+
+.vuecal__cell--disabled {
+  text-decoration: line-through;
+}
+.vuecal__cell--before-min {
+  color: #b6d6c7;
+}
+.vuecal__cell--after-max {
+  color: #008b8b;
+}
+
+.vuecal__cell--disabled {
+  text-decoration: line-through;
+  color: #bbb;
+}
+
+.vuecal__event {
+  cursor: pointer;
+}
+
+.vuecal__event-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 4px 0 8px;
+}
+
+.vuecal__event-time {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.vuecal__event-content {
+  font-style: italic;
+}
