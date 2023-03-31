@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
-  plugins: ["~server/index.ts"],
+  // plugins: ["~server/index.ts"],
   head: {
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
