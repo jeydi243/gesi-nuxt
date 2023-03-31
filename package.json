@@ -16,6 +16,11 @@
     "nuxt": "^3.3.2"
   },
   "dependencies": {
-    "mongoose": "^7.0.3"
+    "chancejs": "^0.0.8",
+    "date-fns": "^2.29.3",
+    "gsap": "^3.11.5",
+    "mongoose": "^7.0.3",
+    "vee-validate": "^4.8.4",
+    "vue-toastification": "^1.7.14"
   }
 }
