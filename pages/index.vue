@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from "vue"
-import { goto, beforeEnterList, enterList, leaveList } from "@/utils/utils"
+import { goto, beforeEnterList, enterList, leaveList } from "~/utils/index.ts"
 
 const currentTab = computed(() => tabsGestion.value.find((tab) => tab.current).name.toLowerCase())
 const tabsGestion = ref([

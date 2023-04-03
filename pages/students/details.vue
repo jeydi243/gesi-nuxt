@@ -105,7 +105,7 @@ import { UserIcon, ArrowRightIcon } from "@heroicons/vue/solid";
 import studentsAPI from "@/api/students";
 import { Field, Form, ErrorMessage } from "vee-validate";
 import { CirclesToRhombusesSpinner } from "epic-spinners";
-import { toast } from "@/utils/utils";
+import { toast } from "~~/utils/index.js";
 
 export default {
 	name: "students-details",

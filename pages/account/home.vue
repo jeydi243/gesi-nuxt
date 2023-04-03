@@ -39,9 +39,9 @@
 </template>
 
 <script setup>
-	import { chance } from "@/utils/utils"
+	import { chance } from "~~/utils/index.js"
 	import { ref } from "vue"
-	import { beforeEnterList, enterList, leaveList } from "@/utils/utils"
+	import { beforeEnterList, enterList, leaveList } from "~~/utils/index.js"
 	const chartOptions = ref({
 		title: {
 			text: "List of students by year",

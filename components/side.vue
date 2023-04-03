@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-	import { beforeEnterList, enterList, leaveList } from "@/utils/utils"
+	import { beforeEnterList, enterList, leaveList } from "~~/utils/index.js"
 	import { useElementBounding } from "@vueuse/core"
 	import { computed, ref, onMounted, watch } from "vue"
 	import { useConfig } from "@/store/config"

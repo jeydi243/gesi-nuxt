@@ -1,13 +1,9 @@
-<script>
-export default {
-	name: "layout-auth",
-};
-</script>
+<script lang="ts" setup></script>
 
 <template>
-	<div v-bind="$attrs">
-		<div class="h-full">
-			<slot></slot>
-		</div>
-	</div>
+  <div v-bind="$attrs">
+    <div class="h-full">
+      <slot />
+    </div>
+  </div>
 </template>

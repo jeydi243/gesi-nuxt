@@ -91,7 +91,7 @@ import { useConfig } from "@/store/config"
 import { useOrganization } from "@/store/organization"
 import { ref } from "vue"
 import { onBeforeRouteLeave, useRouter } from "vue-router"
-import { toast } from "@/utils/utils"
+import { toast } from "~~/utils/index.js"
 
 const store = useOrganization()
 const router = useRouter()

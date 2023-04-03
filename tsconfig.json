@@ -1,6 +1,5 @@
 {
   "extends": "./.nuxt/tsconfig.json",
-  "compilerOptions": {
-    "types": ["vue-toastification/nuxt"]
-  }
+  "compilerOptions": {}
+
 }

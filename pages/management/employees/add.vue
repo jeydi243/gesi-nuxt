@@ -153,11 +153,11 @@ import { parseISO } from "date-fns"
 import { UserIcon } from "@heroicons/vue/solid"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { isLength, isDate, isEmail } from "validator"
-import { toast } from "@/utils/utils"
+import { toast } from "~~/utils/index.js"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { mapActions } from "pinia"
 import { useManagement } from "@/store/management"
-import { goto, chance } from "@/utils/utils"
+import { goto, chance } from "~~/utils/index.js"
 const store = useManagement()
 const src = ref(null)
 

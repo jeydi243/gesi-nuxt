@@ -40,7 +40,7 @@
 
 <script setup>
 import { ref } from "vue"
-import { goto } from "@/utils/utils"
+import { goto } from "~~/utils"
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"
 import { ArrowLeftIcon } from "@heroicons/vue/solid"

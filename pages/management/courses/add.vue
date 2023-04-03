@@ -50,7 +50,7 @@
 <script setup>
 import * as yup from "yup"
 import { useCourses } from "@/store/courses"
-import { toast, goto } from "@/utils/utils"
+import { toast, goto } from "~~/utils/index.js"
 import { useFileDialog, get } from "@vueuse/core"
 import { ref, watch, computed } from "vue"
 import { Form, ErrorMessage, Field } from "vee-validate"

@@ -282,7 +282,7 @@
 </template>
 
 <script setup>
-import { toast } from "@/utils/utils"
+import { toast } from "~~/utils/index.js"
 import { useStudents } from "@/store/students"
 import { SaveIcon, UserIcon } from "@heroicons/vue/solid"
 import { markRaw, ref, computed } from "vue"

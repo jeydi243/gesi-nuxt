@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "vue-toastification/nuxt"],
-  // plugins: ["~server/index.ts"],
+  modules: ["@nuxtjs/tailwindcss"],
+  buildModules: ["@pinia/nuxt"],
+  runtimeConfig: { MONGO_URI_DEV: process.env.MONGO_URI_DEV, MONGO_URI_PROD: process.env.MONGO_URI_PROD },
   head: {
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },

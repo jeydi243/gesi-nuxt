@@ -84,7 +84,7 @@
 <script setup>
 	import { ref } from "vue"
 	import { UseImage } from "@vueuse/components"
-	import { onBeforeEnter, onEnter, onLeave, goto, chance } from "@/utils/utils"
+	import { onBeforeEnter, onEnter, onLeave, goto, chance } from "~~/utils/index.js"
 
 	const rating = ref()
 	function rand(max) {

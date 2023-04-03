@@ -13,5 +13,6 @@
   "workbench.colorTheme": "Bearded Theme Monokai Black",
   "prettier.printWidth": 300,
   "prettier.useTabs": false,
-  "html.format.wrapLineLength": 0
+  "html.format.wrapLineLength": 0,
+  "['vue']": { "editor.autoIndent": "full", "editor.guides.indentation": true, "editor.defaultFormatter": "Vue.volar" }
 }

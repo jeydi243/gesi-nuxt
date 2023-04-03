@@ -76,7 +76,7 @@
 <script setup>
 	import { ref } from "vue"
 	import { format } from "date-fns"
-	import { toast, goto, chance } from "@/utils/utils"
+	import { toast, goto, chance } from "~~/utils/index.js"
 	import { parseISO } from "date-fns"
 	import { Form, Field, ErrorMessage } from "vee-validate"
 	import { isLength, isDate, isEmail } from "validator"

@@ -67,7 +67,7 @@
 <script setup>
 	import { computed } from "vue"
 	import { useRouter, useRoute } from "vue-router"
-	import { beforeEnterList, enterList, leaveList, goto, chance } from "@/utils/utils"
+	import { beforeEnterList, enterList, leaveList, goto, chance } from "~~/utils/index.js"
 	import { useManagement } from "@/store/management"
 	import { UserAddIcon, DotsHorizontalIcon, MailIcon, PhoneIcon, PencilIcon, UserIcon, RefreshIcon } from "@heroicons/vue/solid"
 
