@@ -9,7 +9,7 @@
     </MenuItems>
   </Menu> -->
   <header class="sticky top-0 right-0 z-0 flex w-full h-[6%] bg-white text-black select-none items-center justify-between pr-10 pl-5 border-t-2 border-t-gray-300">
-    <ArrowLeftIcon class="flex h-5 w-5 text-green-600 cursor-pointer" @click="goto" />
+    <ArrowLeftIcon class="flex h-5 w-5 text-green-600 cursor-pointer" @click="useRouter().back()" />
     <Breadcrumbs />
 
     <div class="relative row space-x-5">
@@ -24,14 +24,14 @@
       </button>
       <ul class="dropdown-menu min-w-max absolute hidden bg-white text-base z-990 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
         <li>
-          <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#" @click="goto('profile')"> Profile </a>
+          <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#" @click="useRouter().push('profile')"> Profile </a>
         </li>
         <li>
-          <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#" @click="goto('index-settings')">Settings</a>
+          <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#" @click="useRouter().push('index-settings')">Settings</a>
         </li>
         <hr class="h-0 my-2 border border-solid border-t-0 border-gray-700 opacity-25" />
         <li>
-          <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-red-700 hover:bg-red-50" href="#" @click="goto('login')">Sign Out</a>
+          <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-red-700 hover:bg-red-50" href="#" @click="useRouter().push('login')">Sign Out</a>
         </li>
       </ul>
     </div>
@@ -40,7 +40,7 @@
 
 <script setup>
 import { ref } from "vue"
-import { goto } from "~~/utils"
+
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"
 import { ArrowLeftIcon } from "@heroicons/vue/solid"

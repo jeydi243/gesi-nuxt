@@ -19,8 +19,8 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from "vue"
-import { goto, beforeEnterList, enterList, leaveList } from "~/utils/index.ts"
-
+import { beforeEnterList, enterList, leaveList } from "~/utils/index.ts"
+const router = useRouter()
 const currentTab = computed(() => tabsGestion.value.find((tab) => tab.current).name.toLowerCase())
 const tabsGestion = ref([
   { name: "courses", current: true },
@@ -33,7 +33,7 @@ onMounted(() => {
   // if (currentTab.value == "employees" || currentTab.value == "courses") {
   goto(`${currentTab.value}-index`)
   // } else {
-  // 	goto(`${currentTab.value}-index`)
+  // 	router.push(`${currentTab.value}-index`)
   // }
 })
 
@@ -41,9 +41,9 @@ watch(currentTab, function (newval, oldval) {
   // if (newval != oldval && newval != "employees") {
   goto(`${newval}-index`)
   // } else if (newval == oldval && ["employees", "courses"].includes(newval)) {
-  // 	goto(`${newval}-list`)
+  // 	router.push(`${newval}-list`)
   // } else {
-  // 	goto(`${newval}-list`)
+  // 	router.push(`${newval}-list`)
   // }
 })
 

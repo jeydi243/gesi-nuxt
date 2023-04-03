@@ -157,7 +157,7 @@ import { toast } from "~~/utils/index.js"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { mapActions } from "pinia"
 import { useManagement } from "@/store/management"
-import { goto, chance } from "~~/utils/index.js"
+import {  chance } from "~~/utils/index.js"
 const store = useManagement()
 const src = ref(null)
 

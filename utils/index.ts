@@ -5,7 +5,7 @@ import Chance from "chance"
 
 export const src: string | null = null
 // export const toast = useToast()
-const router = useRouter()
+
 export const chance = Chance()
 export function onFileChange(event: any) {
   if (event.target.files && event.target.files[0]) {
@@ -82,14 +82,4 @@ export function enterList(el: HTMLElement | null, done: any) {
     delay: Number(el?.dataset?.index) * 0.15,
     onComplete: done,
   })
-}
-export async function goto(to: string, data = null) {
-  if (data != null) {
-    await router.push({ name: to, params: { id: data } })
-  } else if (to == null) {
-    await router.back()
-  } else {
-    console.log({ to })
-    await router.push({ name: to })
-  }
 }

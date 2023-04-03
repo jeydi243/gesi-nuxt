@@ -283,7 +283,7 @@
 
 <script setup>
 import { toast } from "~~/utils/index.js"
-import { useStudents } from "@/store/students"
+import { useStudents } from "~~/store/students.js"
 import { SaveIcon, UserIcon } from "@heroicons/vue/solid"
 import { markRaw, ref, computed } from "vue"
 import { Field, Form, ErrorMessage } from "vee-validate"

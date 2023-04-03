@@ -9,4 +9,3 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     console.error(e)
   }
 })
-// export default async (_nitroApp: Nitro) => {}

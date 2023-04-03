@@ -562,7 +562,7 @@ import { useRoute } from "vue-router"
 import { parseISO } from "date-fns"
 import { ref, computed, onBeforeMount } from "vue"
 import { useManagement } from "@/store/management"
-import { toast, goto, chance } from "~~/utils/index.js"
+import { toast, chance } from "~~/utils/index.js"
 import { onBeforeRouteUpdate } from "vue-router"
 import { isLength, isDate, isEmail } from "validator"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
@@ -573,6 +573,7 @@ import api_resources from "@/api/resources.js"
 const error = computed(() => store.error)
 const store = useManagement()
 const route = useRoute()
+const router = useRouter()
 const userData = computed(() => store.employees.find((emp) => emp._id == route.params.id))
 const edit_mode = ref(false)
 const onboardings = computed(() => Object.fromEntries(new Map(userData.value.onboarding.map((obj) => [obj["field"], obj["state"]]))))
@@ -806,7 +807,7 @@ async function updateBiography(biography) {
   }
 }
 async function deleteEmployee() {
-  goto("employees-list")
+  router.push("employees-list")
   const result = await store.deleteEmployee(route.params.id)
   if (result) {
   } else {

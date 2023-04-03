@@ -19,7 +19,7 @@
 
 <script setup>
 import { useConfig } from "@/store/config"
-import { useStudents } from "@/store/students"
+import { useStudents } from "~~/store/students.js"
 import { useIpcRenderer } from "@vueuse/electron"
 import { mapState, mapActions } from "pinia"
 import { ref, computed, watch } from "vue"
