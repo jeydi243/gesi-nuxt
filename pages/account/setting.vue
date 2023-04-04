@@ -2,10 +2,8 @@
     <div>Setting</div>
 </template>
 
-<script>
-export default {
-    name: "setting"
-}
+<script setup lang="ts">
+
 </script>
 
 <style lang="scss" scoped>

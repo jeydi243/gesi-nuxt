@@ -1,14 +1,7 @@
 <template>
-	<div>
-		Library index
-	</div>
+  <div>Library index</div>
 </template>
 
-<script>
-export default {
-	name: "index-library",
-};
-</script>
+<script setup lang="ts"></script>
 
-<style scoped>
-</style>
+<style scoped></style>

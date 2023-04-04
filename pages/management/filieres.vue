@@ -81,17 +81,15 @@
   </div>
 </template>
 
-<script>
-  import { mapState, mapActions } from "pinia"
+<script setup lang="ts">
+  import { mapState, mapActions, storeToRefs } from "pinia"
   import * as yup from "yup"
   import { useManagement } from "@/store/management"
   import { CirclesToRhombusesSpinner } from "epic-spinners"
   import { Form, Field, ErrorMessage } from "vee-validate"
   import { AcademicCapIcon, PlusIcon, UserIcon } from "@heroicons/vue/solid"
   import { isLength } from "validator"
-  export default {
-    name: "index-filiere",
-    components: { AcademicCapIcon, MyModal, CirclesToRhombusesSpinner, Form, Field, ErrorMessage },
+
     data() {
       const filiereSchema = {
         img(value) {
@@ -187,9 +185,9 @@
     computed: {
       ...mapState(useManagement, ["getEmployees"]),
     },
-    methods: {
-      ...mapActions(useManagement, ["addFiliere"]),
-      add(values, { resetForm }) {
+    const employees = computed(()=> useManagement.employees)
+      ...mapActions(useManagement, ["addFiliere"])
+      function add(values, { resetForm }) {
         try {
           var response = this.addFiliere(values)
           if (res) {
@@ -199,17 +197,17 @@
             resetForm()
           }
         } catch (e) {}
-      },
-      closeModal() {
+      }
+      function closeModal() {
         this.showModalFiliere = false
-      },
-      pickPicture() {
+      }
+      function pickPicture() {
         document.getElementById("bind-profile").click()
         const fi = document.getElementById("bind-profile")
         console.log(fi)
         fi.addEventListener("change", this.onProfilePictureChange)
-      },
-      onProfilePictureChange(event) {
+      }
+      function onProfilePictureChange(event) {
         console.log("Profile picture change and is ", event.target.files[0])
         if (event.target.files && event.target.files[0]) {
           this.previewSRC = window.URL.createObjectURL(event.target.files[0])
@@ -217,13 +215,13 @@
         } else {
           this.previewSRC = null
         }
-      },
-      clickOutside() {},
-      onInvalidFiliere({ values, result, errors }) {
+      }
+      function clickOutside() {}
+      function onInvalidFiliere({ values, result, errors }) {
         console.log(errors)
-      },
-    },
-  }
+      }
+    
+  
 </script>
 
 <style scoped></style>

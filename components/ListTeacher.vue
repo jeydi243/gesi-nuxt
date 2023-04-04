@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { mapState } from "pinia"
 import { useTeachers } from "@/store/teachers"
 import { computed } from "vue"

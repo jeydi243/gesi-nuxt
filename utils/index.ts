@@ -18,7 +18,7 @@ export function pickFile(idInput: string) {
   file_input?.addEventListener("change", onFileChange)
 }
 
-export function onEnter(el: HTMLElement | null, done: any) {
+export function onEnter(el: Element, done: any) {
   gsap.to(el, {
     opacity: 1,
     duration: 2,
@@ -27,57 +27,57 @@ export function onEnter(el: HTMLElement | null, done: any) {
     onComplete: done,
   })
 }
-export function onLeave(el: HTMLElement | null, done: any) {
+export function onLeave(el: Element | HTMLElement) {
   gsap.to(el, {
     opacity: 0,
     duration: 2,
     x: -50,
     delay: Number(el?.dataset.index) * 0.25,
-    onComplete: done,
+    // onComplete: done,
   })
 }
-export function onLeaveTop(el: HTMLElement, done: any) {
+export function onLeaveTop(el: Element) {
   gsap.to(el, {
     duration: 1,
     height: 0,
     delay: Number(el!.dataset!.index) * 0.25,
-    onComplete: done,
+    // onComplete: done,
   })
 }
-export function onBeforeEnter(el: HTMLElement, done: any) {
+export function onBeforeEnter(el: Element) {
   gsap.to(el, {
     opacity: 0,
     x: -20,
     delay: Number(el?.dataset?.index) * 0.25,
-    onComplete: done,
+    // onComplete: done,
   })
 }
-export function beforeEnterList(el: HTMLElement | null, done: any) {
+export function beforeEnterList(el: Element | null) {
   gsap.to(el, {
     opacity: 0,
     y: -40,
     rotationZ: -10,
     delay: Number(el?.dataset?.index) * 0.15,
-    onComplete: done,
+    // onComplete: done,
   })
 }
-export function leaveList(el: HTMLElement | null, done: any) {
+export function leaveList(el: Element | null) {
   gsap.to(el, {
     opacity: 0,
     duration: 2,
     rotationZ: -10,
     y: -20,
     delay: Number(el?.dataset?.index) * 0.15,
-    onComplete: done,
+    // onComplete: done,
   })
 }
-export function enterList(el: HTMLElement | null, done: any) {
+export function enterList(el: Element | null) {
   gsap.to(el, {
     opacity: 1,
     duration: 2,
     rotationZ: 0,
     y: 0,
     delay: Number(el?.dataset?.index) * 0.15,
-    onComplete: done,
+    // onComplete: done,
   })
 }

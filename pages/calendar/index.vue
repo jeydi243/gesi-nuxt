@@ -4,12 +4,7 @@
 	</div>
 </template>
 
-<script>
-
-	export default {
-		name: "index-calendar",
-		components: { Calendar },
-	}
+<script setup lang="ts">
 </script>
 
 <style lang="scss" scoped></style>

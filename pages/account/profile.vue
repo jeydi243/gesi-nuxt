@@ -2,10 +2,8 @@
     <div>Profile</div>
 </template>
 
-<script>
-export default {
-    name: "profile"
-}
+<script setup lang="ts">
+
 </script>
 
 <style lang="scss" scoped>

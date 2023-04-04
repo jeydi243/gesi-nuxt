@@ -43,8 +43,8 @@ import { ref } from "vue"
 
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"
-import { ArrowLeftIcon } from "@heroicons/vue/solid"
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue"
+import { ArrowLeftIcon } from "@heroicons/vue/24/solid"
+
 
 const dropdown = ref(null)
 

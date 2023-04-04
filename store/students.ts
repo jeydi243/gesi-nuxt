@@ -2,7 +2,15 @@ import studentsAPI from "@/api/students"
 import { useConfig } from "@/store/config"
 import { defineStore } from "pinia"
 
-export class Student {
+export interface Person {
+  adresse?: string
+  email?: string
+}
+export class Student implements Person {
+  adresse?: string
+  email?: string
+  matricule?: string
+  status?: string
   name?: string
   level?: string
 }
