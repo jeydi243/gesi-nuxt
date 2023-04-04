@@ -17,7 +17,7 @@ export const useConfig = defineStore("config", {
       { text: "Teachers", to: "/teachers", icon: "adjust", active: false, mouseHover: false },
       { text: "Calendar", to: "/calendar", icon: "message-square", active: false, mouseHover: false },
       { text: "Library", to: "/library", icon: "library", active: false, mouseHover: false },
-      { text: "Management", to: "/management", icon: "book", active: false, mouseHover: false },
+      { text: "Management", to: "/management/employees", icon: "book", active: false, mouseHover: false },
       { text: "Settings", to: "/settings", icon: "cog", active: false, mouseHover: false },
     ],
     listLevel: [

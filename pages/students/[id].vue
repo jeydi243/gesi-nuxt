@@ -53,7 +53,7 @@
               <Calendar />
             </div>
             <div class="flex flex-col h-1/2 w-full" v-else-if="currentComponent == 'documents'">
-              <Form class="flex flex-col mb-4 justify-center items-center" @submit="addFiledoc" :validation-schema="filedocSchema" v-slot="{ isSubmitting }" :initial-values="filedocValues" @invalid-submit="onInvalidfiledoc">
+              <Form class="flex flex-col mb-4 justify-center items-center" @submit="addFiledoc" v-slot="{ isSubmitting }" :initial-values="filedocValues" @invalid-submit="onInvalidfiledoc">
                 <div class="flex flex-row justify-start w-full">
                   <Field name="code" id="select-doc" as="select" class="rounded form-select block w-full">
                     <option :value="doc.code" v-for="(doc, index) in listDoc" :key="index" :selected="index == 0">{{ doc.name }}</option>
@@ -115,12 +115,6 @@ import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const router = useRouter()
 const route = useRoute()
-
-definePageMeta({
-  middleware(to, from) {
-    to?.meta?.pageTransition?.name = +to.params.id > +from.params.id ? "fadeSlideY" : "fadeSlideX"
-  },
-})
 
 const docaddSchema = ref({
   document(value: any) {

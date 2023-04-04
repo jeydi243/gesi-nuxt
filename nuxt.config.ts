@@ -44,7 +44,7 @@ export default defineNuxtConfig({
       },
     ],
   },
-  plugins: [{ src: "~/pinia.js", mode: "client" }],
+  // plugins: [{ src: "~/pinia.js", mode: "client" }],
   app: {
     pageTransition: { name: "fadeSlideY", mode: "out-in" },
     layoutTransition: {

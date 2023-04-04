@@ -30,9 +30,10 @@ const tabsGestion = ref([
   { name: "academique", current: false },
 ])
 onMounted(() => {
-  // if (currentTab.value == "employees" || currentTab.value == "courses") {
-  router.push(`management/${currentTab.value}`)
-  // } else {
+  if (currentTab.value == "employees" || currentTab.value == "courses") {
+    router.push(`${currentTab.value}`)
+  }
+  //else {
   // 	router.push(`${currentTab.value}-index`)
   // }
 })

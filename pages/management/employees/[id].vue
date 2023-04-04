@@ -569,10 +569,9 @@ import { Form, Field, ErrorMessage } from "vee-validate"
 import api_resources from "@/api/resources.js"
 
 definePageMeta({
-
-  middleware (to, from) {
-    to.meta.pageTransition.name = +to.params.id > +from.params.id ? 'fadeSlideY' : 'fadeSlideX'
-  }
+  middleware(to, from) {
+    to.meta.pageTransition.name = +to.params.id > +from.params.id ? "fadeSlideY" : "fadeSlideX"
+  },
 })
 
 const error = computed(() => store.error)
