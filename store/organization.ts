@@ -1,7 +1,12 @@
-import axios from "@/api/myaxios"
+// import axios from "@/api/myaxios"
 import { defineStore } from "pinia"
 import configAPI from "@/api/config"
 import orgsAPI from "@/api/orgs"
+
+export interface Organization {
+  org_id: string
+  organization_parent_id: string
+}
 
 export const useOrganization = defineStore("organization", {
   state: () => ({
@@ -60,6 +65,6 @@ export const useOrganization = defineStore("organization", {
     },
   },
   getters: {
-    rootOrg: (state) => state.organizations.find((org) => org.organization_parent_id == null),
+    rootOrg: (state) => state.organizations.find((org: Organization) => org.organization_parent_id == null),
   },
 })

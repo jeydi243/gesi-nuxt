@@ -36,6 +36,14 @@ export function onLeave(el: Element | HTMLElement) {
     // onComplete: done,
   })
 }
+
+export function firstUpper(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1)
+}
+
+export function toiso(value: string) {
+  return new Date(value).getFullYear()
+}
 export function onLeaveTop(el: Element) {
   gsap.to(el, {
     duration: 1,

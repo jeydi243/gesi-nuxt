@@ -52,7 +52,7 @@ export const useTeachers = defineStore("teachers", {
   },
   getters: {
     myteachers: (state) =>
-      function (filter) {
+      function (filter: string) {
         if (filter) {
           return state.teachers.find((professor) => professor.name.toLowerCase().includes(filter.toLowerCase()))
         }
