@@ -282,7 +282,7 @@
 </template>
 
 <script setup>
-import { useStudents } from "~~/store/students.js"
+import { useStudents } from "~~/store/students"
 import { SaveIcon, UserIcon } from "@heroicons/vue/solid"
 import { markRaw, ref, computed } from "vue"
 import { Field, Form, ErrorMessage } from "vee-validate"

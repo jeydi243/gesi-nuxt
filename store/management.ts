@@ -7,7 +7,7 @@ import { useTeachers } from "./teachers"
 import { useRouter } from "vue-router"
 import { useConfig } from "@/store/config"
 
-const router = useRouter()
+// const router = useRouter()
 export const useManagement = defineStore("management", {
 	state: () => ({
 		courses: [],

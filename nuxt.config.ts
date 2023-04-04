@@ -44,4 +44,5 @@ export default defineNuxtConfig({
       },
     ],
   },
+  plugins: [{ src: "~/pinia.js", mode: "client" }],
 })

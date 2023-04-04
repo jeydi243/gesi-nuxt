@@ -2,6 +2,7 @@ import axios from "@/api/myaxios"
 import { defineStore } from "pinia"
 import configAPI from "@/api/config"
 import orgsAPI from "@/api/orgs"
+
 export const useOrganization = defineStore("organization", {
   state: () => ({
     count: 0,

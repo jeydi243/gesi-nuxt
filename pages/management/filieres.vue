@@ -19,7 +19,12 @@
                 <h5 class="text-gray-900 text-xl font-medium mb-2">Card title</h5>
                 <p class="text-gray-700 text-base mb-4">{{ item.name }} Some quick example text to build on the card title and make up the bulk of the card's content.hy jhjh</p>
                 <h6>{{ item.manager }}</h6>
-                <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
+                <button
+                  type="button"
+                  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                >
+                  Button
+                </button>
               </div>
             </div>
           </div>
@@ -82,146 +87,139 @@
 </template>
 
 <script setup lang="ts">
-  import { mapState, mapActions, storeToRefs } from "pinia"
-  import * as yup from "yup"
-  import { useManagement } from "@/store/management"
-  import { CirclesToRhombusesSpinner } from "epic-spinners"
-  import { Form, Field, ErrorMessage } from "vee-validate"
-  import { AcademicCapIcon, PlusIcon, UserIcon } from "@heroicons/vue/solid"
-  import { isLength } from "validator"
+import { mapState, mapActions } from "pinia"
+import * as yup from "yup"
+import { useManagement } from "~~/store/management"
+import { CirclesToRhombusesSpinner } from "epic-spinners"
+import { Form, Field, ErrorMessage } from "vee-validate"
+import { AcademicCapIcon, PlusIcon, UserIcon } from "@heroicons/vue/solid"
+import { isLength } from "validator"
+const management = useManagement()
+const { addFiliere } = management
+const filiereSchema = ref({
+  img(value) {
+    if (value) {
+      if (value[0] instanceof File || value[0] instanceof Blob) {
+        return true
+      }
+    }
+    return "Veuillez choisir une image"
+  },
+  name(value) {
+    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+  },
+  manager(value) {
+    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+  },
+  sub_manager(value) {
+    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+  },
+  description(value) {
+    return isLength(value, { min: 6, max: 500 }) ? true : "Le minimum de caracteres est 6 et le maximum 500"
+  },
+  long_name(value) {
+    return isLength(value, { min: 6, max: 12 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+  },
+})
+//links to 5 unsplash profiles pictures
+// const img = [
+// 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+// 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+// 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+// 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+// 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+// ];
 
-    data() {
-      const filiereSchema = {
-        img(value) {
-          if (value) {
-            if (value[0] instanceof File || value[0] instanceof Blob) {
-              return true
-            }
-          }
-          return "Veuillez choisir une image"
-        },
-        name(value) {
-          return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
-        },
-        manager(value) {
-          return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
-        },
-        sub_manager(value) {
-          return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
-        },
-        description(value) {
-          return isLength(value, { min: 6, max: 500 }) ? true : "Le minimum de caracteres est 6 et le maximum 500"
-        },
-        long_name(value) {
-          return isLength(value, { min: 6, max: 12 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
-        },
-      }
-      //links to 5 unsplash profiles pictures
-      // const img = [
-      // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      // ];
-      return {
-        filiereSchema,
-        previewSRC: null,
-        filieres: [
-          {
-            name: "G1",
-            img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            manager: "John Doe",
-            long_name: "Genie Logiciel - Systemes informatique",
-            sub_manager: "Pere Nsuko",
-          },
-          {
-            name: "G2",
-            img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            long_name: "Genie Logiciel - Gestion",
-            manager: "John Doe",
-            sub_manager: "Nsulo George",
-          },
-          {
-            name: "G3",
-            img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            long_name: "Design et Multimedia",
-            manager: "John Doe",
-            sub_manager: "Ndize Mbirwe",
-          },
-          {
-            name: "Prépa",
-            img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            long_name: "Reseau et telecom",
-            manager: "John Doe",
-            sub_manager: "Kongolo Nbiko",
-          },
-          {
-            name: "G3",
-            img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            long_name: "Design et Multimedia",
-            manager: "John Doe",
-            sub_manager: "Ndize Mbirwe",
-          },
-          {
-            name: "Prepa",
-            img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            long_name: "Reseau et telecom",
-            sub_manager: "Kongolo Nbiko",
-            manager: "John Doe",
-          },
-        ],
-        showModalFiliere: false,
-        initialFiliereValue: {
-          name: "",
-          img: null,
-          long_name: "",
-          manager: "",
-          description: "Pariatur ea ut commodo duis.Id irure elit in non nostrud consectetur qui mollit fugiat eu eu.",
-          sub_manager: "",
-        },
-      }
-    },
-    computed: {
-      ...mapState(useManagement, ["getEmployees"]),
-    },
-    const employees = computed(()=> useManagement.employees)
-      ...mapActions(useManagement, ["addFiliere"])
-      function add(values, { resetForm }) {
-        try {
-          var response = this.addFiliere(values)
-          if (res) {
-            toast.success("Document modifié avec succes")
-          } else {
-            this.closeModal()
-            resetForm()
-          }
-        } catch (e) {}
-      }
-      function closeModal() {
-        this.showModalFiliere = false
-      }
-      function pickPicture() {
-        document.getElementById("bind-profile").click()
-        const fi = document.getElementById("bind-profile")
-        console.log(fi)
-        fi.addEventListener("change", this.onProfilePictureChange)
-      }
-      function onProfilePictureChange(event) {
-        console.log("Profile picture change and is ", event.target.files[0])
-        if (event.target.files && event.target.files[0]) {
-          this.previewSRC = window.URL.createObjectURL(event.target.files[0])
-          window.URL.revokeObjectURL(event.target.files[0]) // free memory
-        } else {
-          this.previewSRC = null
-        }
-      }
-      function clickOutside() {}
-      function onInvalidFiliere({ values, result, errors }) {
-        console.log(errors)
-      }
-    
-  
+const previewSRC = ref(null)
+const filieres = ref([
+  {
+    name: "G1",
+    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    manager: "John Doe",
+    long_name: "Genie Logiciel - Systemes informatique",
+    sub_manager: "Pere Nsuko",
+  },
+  {
+    name: "G2",
+    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    long_name: "Genie Logiciel - Gestion",
+    manager: "John Doe",
+    sub_manager: "Nsulo George",
+  },
+  {
+    name: "G3",
+    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    long_name: "Design et Multimedia",
+    manager: "John Doe",
+    sub_manager: "Ndize Mbirwe",
+  },
+  {
+    name: "Prépa",
+    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    long_name: "Reseau et telecom",
+    manager: "John Doe",
+    sub_manager: "Kongolo Nbiko",
+  },
+  {
+    name: "G3",
+    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    long_name: "Design et Multimedia",
+    manager: "John Doe",
+    sub_manager: "Ndize Mbirwe",
+  },
+  {
+    name: "Prepa",
+    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    long_name: "Reseau et telecom",
+    sub_manager: "Kongolo Nbiko",
+    manager: "John Doe",
+  },
+])
+const showModalFiliere = ref(false)
+const initialFiliereValue = ref({
+  name: "",
+  img: null,
+  long_name: "",
+  manager: "",
+  description: "Pariatur ea ut commodo duis.Id irure elit in non nostrud consectetur qui mollit fugiat eu eu.",
+  sub_manager: "",
+})
+
+const employees = computed(() => management.employees)
+
+function add(values: any, { resetForm }) {
+  try {
+    var response = this.addFiliere(values)
+    if (res) {
+      toast.success("Document modifié avec succes")
+    } else {
+      this.closeModal()
+      resetForm()
+    }
+  } catch (e) {}
+}
+function closeModal() {
+  showModalFiliere.value = false
+}
+function pickPicture() {
+  document.getElementById("bind-profile").click()
+  const fi = document.getElementById("bind-profile")
+  console.log(fi)
+  fi.addEventListener("change", this.onProfilePictureChange)
+}
+function onProfilePictureChange(event) {
+  console.log("Profile picture change and is ", event.target.files[0])
+  if (event.target.files && event.target.files[0]) {
+    this.previewSRC = window.URL.createObjectURL(event.target.files[0])
+    window.URL.revokeObjectURL(event.target.files[0]) // free memory
+  } else {
+    this.previewSRC = null
+  }
+}
+function clickOutside() {}
+function onInvalidFiliere({ values, result, errors }) {
+  console.log(errors)
+}
 </script>
 
 <style scoped></style>
