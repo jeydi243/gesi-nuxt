@@ -23,7 +23,7 @@ import { useStudents } from "~~/store/students.js"
 import { useIpcRenderer } from "@vueuse/electron"
 import { mapState, mapActions } from "pinia"
 import { ref, computed, watch } from "vue"
-import ListStudent from "@/components/list-student.vue"
+
 const store = useStudents()
 const storeConfig = useConfig()
 const ipcRenderer = useIpcRenderer()

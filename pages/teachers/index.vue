@@ -33,7 +33,6 @@
 </template>
 
 <script lang="ts" setup>
-// import ListTeacher from "@/components/list-teacher.vue";
 
 const display = ref("list")
 const teachers = ref([

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import Calendar from "~~/components/Calendar.vue.js"
+
 	export default {
 		name: "index-calendar",
 		components: { Calendar },

@@ -113,7 +113,6 @@
 </template>
 
 <script setup>
-	import MyModal from "@/components/mymodal"
 	import * as yup from "yup"
 	import { useManagement } from "@/store/management"
 	import { ref, computed, onMounted } from "vue"

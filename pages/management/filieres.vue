@@ -84,7 +84,6 @@
 <script>
   import { mapState, mapActions } from "pinia"
   import * as yup from "yup"
-  import MyModal from "@/components/mymodal"
   import { useManagement } from "@/store/management"
   import { CirclesToRhombusesSpinner } from "epic-spinners"
   import { Form, Field, ErrorMessage } from "vee-validate"
