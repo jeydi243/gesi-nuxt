@@ -43,7 +43,7 @@
     </div>
     <div class="flex flex-col w-4/5 h-full card align-middle justify-start">
       <div class="flex border-b border-gray-200 mb-2">
-        <button v-for="(tab, index) in tabsDetails" :key="index" class="btn-tab" :class="{ 'btn-tab-active': tab.current }" @click="changeTab(index)">{{ firstUpper(tab.last_name) }}</button>
+        <button v-for="(tab, index) in tabsDetails" :key="index" class="btn-tab" :class="{ 'btn-tab-active': tab.current }" @click="changeTab(index)">{{ firstUpper(tab.name) }}</button>
       </div>
 
       <div class="contentTab">
@@ -108,146 +108,149 @@
 </template>
 
 <script setup lang="ts">
-import studentsAPI from "@/api/students"
+// import studentsAPI from "@/api/students"
 import { UserIcon, ArrowRightIcon } from "@heroicons/vue/24/solid"
-import {computed} from "vue"
+import { computed } from "vue"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const router = useRouter()
-    const docaddSchema = ref({
-      document(value) {
-        if (value[0] instanceof File || value[0] instanceof Blob) {
-          return true
-        }
-        return "Vous devez choisir un fichier pdf valide"
-      },
-      code(value) {
-        if (listCodeDocument.includes(value)) {
-          return true
-        }
-        return "Le code doit correspondre a un code document valide"
-      },
-    })
+const route = useRoute()
 
-      let canshowModal=ref(false)
-      let filedocValues=ref({ document: null, code: null },)
-      let listDocuments=ref([
-        {
-          name: "Certificat d'aptitude physique",
-          type: "pdf",
-          code: "UR-070",
-          state: true,
-          lien: "https://www.google.com",
-        },
-        {
-          name: "Bonne Vie  et  Moeurs",
-          type: "pdf",
-          code: "YW-315",
-          state: true,
-          lien: "https://www.google.com",
-        },
-        {
-          name: "Bulletin 5eme",
-          type: "pdf",
-          code: "BK-818",
-          state: false,
-          lien: "https://www.google.com",
-        },
-        {
-          name: "Attestation de scolarité",
-          type: "pdf",
-          code: "GE-818",
-          state: true,
-          lien: "https://www.google.com",
-        },
-        {
-          name: "Bulletin 6eme",
-          type: "pdf",
-          code: "UD-222",
-          state: true,
-          lien: "https://www.google.com",
-        },
-      ])
-      let listResponsables=ref([
-        {
-          name: "Mme. Mwanga",
-          phone: "5561217231",
-          email: "awzal@felewle.ir",
-        },
-        {
-          name: "Mme. Josephine",
-          phone: "3319607751",
-          email: "cemueko@job.fi",
-        },
-      ])
-      const tabsDetails=ref([
-        { name: "Calendrier", current: false },
-        { name: "Documents", current: true },
-      ]),
+definePageMeta({
+  middleware(to, from) {
+    to?.meta?.pageTransition?.name = +to.params.id > +from.params.id ? "fadeSlideY" : "fadeSlideX"
+  },
+})
 
+const docaddSchema = ref({
+  document(value: any) {
+    if (value[0] instanceof File || value[0] instanceof Blob) {
+      return true
+    }
+    return "Vous devez choisir un fichier pdf valide"
+  },
+  // code(value) {
+  //   if (listCodeDocument.includes(value)) {
+  //     return true
+  //   }
+  //   return "Le code doit correspondre a un code document valide"
+  // },
+})
 
+let canshowModal = ref(false)
+let filedocValues = ref({ document: null, code: null })
+let listDocuments = ref([
+  {
+    name: "Certificat d'aptitude physique",
+    type: "pdf",
+    code: "UR-070",
+    state: true,
+    lien: "https://www.google.com",
+  },
+  {
+    name: "Bonne Vie  et  Moeurs",
+    type: "pdf",
+    code: "YW-315",
+    state: true,
+    lien: "https://www.google.com",
+  },
+  {
+    name: "Bulletin 5eme",
+    type: "pdf",
+    code: "BK-818",
+    state: false,
+    lien: "https://www.google.com",
+  },
+  {
+    name: "Attestation de scolarité",
+    type: "pdf",
+    code: "GE-818",
+    state: true,
+    lien: "https://www.google.com",
+  },
+  {
+    name: "Bulletin 6eme",
+    type: "pdf",
+    code: "UD-222",
+    state: true,
+    lien: "https://www.google.com",
+  },
+])
+let listResponsables = ref([
+  {
+    name: "Mme. Mwanga",
+    phone: "5561217231",
+    email: "awzal@felewle.ir",
+  },
+  {
+    name: "Mme. Josephine",
+    phone: "3319607751",
+    email: "cemueko@job.fi",
+  },
+])
+const tabsDetails = ref([
+  { name: "Calendrier", current: false },
+  { name: "Documents", current: true },
+])
 
-    const currentComponent = computed(()=>{
-      return tabsDetails.value?.find((tab:any) => tab.current)?.name.toLowerCase()
-    }) ,
-    const listDoc= computed(()=>{
-      return listDocuments.value.filter((doc:any) => !doc["state"])
-    }),
+const currentComponent = computed(() => {
+  return tabsDetails.value?.find((tab: any) => tab.current)?.name.toLowerCase()
+})
+const listDoc = computed(() => {
+  return listDocuments.value.filter((doc: any) => !doc["state"])
+})
 
+function back() {
+  router.back()
+}
+function showModal() {
+  canshowModal.value = !canshowModal.value
+}
+function clickOutside() {
+  // alert("click-outside");
+}
+function beforeOpen() {
+  // alert("beforeOpen");
+}
+function opened() {
+  // alert("opened");
+}
+function modifFile() {
+  // alert("closed");
+}
+function showFile() {
+  // alert("closed");
+}
+function addFiledoc(values: any) {
+  var formdata = new FormData()
+  formdata.append("document", values.document[0])
+  formdata.append("code", values.code)
 
-    function back() {
-     router.back()
-    }
-    function showModal() {
-      canshowModal.value = !canshowModal.value
-    }
-    function clickOutside() {
-      // alert("click-outside");
-    }
-    function beforeOpen() {
-      // alert("beforeOpen");
-    }
-    function opened() {
-      // alert("opened");
-    }
-    function modifFile() {
-      // alert("closed");
-    }
-    function showFile() {
-      // alert("closed");
-    }
-    function addFiledoc(values:any) {
-      var formdata = new FormData()
-      formdata.append("document", values.document[0])
-      formdata.append("code", values.code)
+  var studentId = route.params.id
+  console.log(values.document[0], studentId)
 
-      var studentId = this.$route.params.id
-      console.log(values.document[0], studentId)
-
-      studentsAPI
-        .addDocument(studentId, formdata)
-        .then((response) => {
-          if (response.status < 300) {
-            toast.success(`Enregistrement terminé :${response.data}`, {
-              timeout: 5000,
-            })
-          } else {
-            toast.error(`Impossible d'ajouter le document: ${response.data}`, {
-              timeout: 5000,
-            })
-          }
-        })
-        .catch((err) => {})
-    }
-    function onInvalidfiledoc() {
-      console.log("Le fichier n'est pas valide")
-    }
-    function changeTab(index:number) {
-      var currentTrue = tabsDetails.value.findIndex((tab) => tab.current)
-      tabsDetails.value[currentTrue].current = false
-      tabsDetails.value[index].current = true
-    }
-
+  // studentsAPI
+  //   .addDocument(studentId, formdata)
+  //   .then((response: any) => {
+  //     if (response.status < 300) {
+  //       // toast.success(`Enregistrement terminé :${response.data}`, {
+  //       //   timeout: 5000,
+  //       // })
+  //     } else {
+  //       // toast.error(`Impossible d'ajouter le document: ${response.data}`, {
+  //       //   timeout: 5000,
+  //       // })
+  //     }
+  //   })
+  //   .catch(console.log)
+}
+function onInvalidfiledoc() {
+  console.log("Le fichier n'est pas valide")
+}
+function changeTab(index: number) {
+  var currentTrue = tabsDetails.value.findIndex((tab) => tab.current)
+  tabsDetails.value[currentTrue].current = false
+  tabsDetails.value[index].current = true
 }
 </script>
 

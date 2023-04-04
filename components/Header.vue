@@ -10,7 +10,7 @@
   </Menu> -->
   <header class="sticky top-0 right-0 z-0 flex w-full h-[6%] bg-white text-black select-none items-center justify-between pr-10 pl-5 border-t-2 border-t-gray-300">
     <ArrowLeftIcon class="flex h-5 w-5 text-green-600 cursor-pointer" @click="useRouter().back()" />
-    <Breadcrumbs />
+    <BreadCrumbs />
 
     <div class="relative row space-x-5">
       <button id="toggle-dropdown" class="btn-header" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,7 +40,6 @@
 
 <script setup>
 import { ref } from "vue"
-
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"
 import { ArrowLeftIcon } from "@heroicons/vue/24/solid"

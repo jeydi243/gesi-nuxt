@@ -19,17 +19,11 @@
 
 <script setup>
 import { useConfig } from "@/store/config"
-import { useStudents } from "~~/store/students.js"
-import { useIpcRenderer } from "@vueuse/electron"
-import { mapState, mapActions } from "pinia"
+import { useStudents } from "~~/store/students"
 import { ref, computed, watch } from "vue"
 
 const store = useStudents()
 const storeConfig = useConfig()
-const ipcRenderer = useIpcRenderer()
-ipcRenderer.on("finish_load", (event, message) => {
-  console.log(message)
-})
 const isloading = ref("")
 const isLevelChanged = ref(true)
 const students = computed(() => store.students)

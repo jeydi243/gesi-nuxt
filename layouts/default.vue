@@ -1,5 +1,5 @@
 <template>
-  <div class="row" v-bind="$attrs">
+  <div class="row h-screen w-screen" v-bind="$attrs">
     <SideBar class="flex w-[15%] h-full bg-gray-900" />
     <main class="col w-[85%] h-full relative bg-gray-100 overflow-auto">
       <Header />
@@ -19,6 +19,7 @@ import { onActivated } from "vue"
 const isMenuCondensed = ref(false)
 const showBraedCrumbs = ref(false)
 // props: { typeLayout: String },
+const router = useRouter()
 onActivated(() => {
   //   document.body.removeAttribute("data-layout", "horizontal")
   //   document.body.removeAttribute("data-topbar", "dark")
@@ -42,7 +43,7 @@ function toggleMenu() {
     })
     document.body.classList.remove("vertical-collpsed")
   }
-  this.isMenuCondensed = !this.isMenuCondensed
+  isMenuCondensed.value = !isMenuCondensed.value
 }
 function toggleRightSidebar() {
   document.body.classList.toggle("right-bar-enabled")

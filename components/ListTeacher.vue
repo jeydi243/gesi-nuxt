@@ -26,7 +26,7 @@
       </thead>
       <!-- <tbody v-if="professors != null"> -->
       <transition-group name="fade" tag="tbody" mode="out-in">
-        <tr class="table-row cursor-pointer" v-for="(teacher, index) in teachers(filtre)" :key="index" @click="router.push(index)">
+        <tr class="table-row cursor-pointer" v-for="(teacher, index) in teachers" :key="index" @click="router.push(`${index}`)">
           <td class="table-cell">{{ index }}</td>
           <td class="table-cell">{{ teacher.matricule }}</td>
           <td class="table-cell">{{ teacher.name }}</td>
@@ -48,9 +48,9 @@ const router = useRouter()
 const filtre = ref("")
 const teacherStore = useTeachers()
 
-const myteachers = computed(() => teacherStore.getTeachers())
-async function goto(index) {
-  return await this.$router.push({ name: "teachers-details", params: { id: this.teachers[index]._id } })
+const teachers = computed(() => teacherStore.myteachers(filtre.value))
+async function goto(index: number) {
+  return await router.push({ name: "teachers-details", params: { id: teachers.value[index]._id } })
 }
 </script>
 

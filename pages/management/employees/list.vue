@@ -42,8 +42,8 @@
               <div class="rounded-full bg-green-50 h-16 w-16 cursor-pointer overflow-clip" @click="routeur.push('employees-details', emp._id)">
                 <img :src="`http://localhost:3000/resources/file/${emp.profile_image}`" class="object-cover" />
               </div>
-              <span class="text-lg font-bold">{{ emp.gender == "M" ? "M. " : "Ms. " }}{{ filters.firstUpper(emp.last_name) }}</span>
-              <span class="text-lg">{{ filters.firstUpper(emp.position[0]) }} </span>
+              <span class="text-lg font-bold">{{ emp.gender == "M" ? "M. " : "Ms. " }}{{ firstUpper(emp.last_name) }}</span>
+              <span class="text-lg">{{ firstUpper(emp.position[0]) }} </span>
               <div class="rounded-lg bg-blue-50 col p-2 w-full">
                 <div class="flex flex-col mb-4">
                   <span class="text-gray-500">Departement</span>

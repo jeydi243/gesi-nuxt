@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt"],
-  buildModules: ["@pinia/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "@pinia/nuxt"],
+  // buildModules: ["@pinia/nuxt"],
   runtimeConfig: { MONGO_URI_DEV: process.env.MONGO_URI_DEV, MONGO_URI_PROD: process.env.MONGO_URI_PROD },
   head: {
     link: [
@@ -45,4 +45,16 @@ export default defineNuxtConfig({
     ],
   },
   plugins: [{ src: "~/pinia.js", mode: "client" }],
+  app: {
+    pageTransition: { name: "fadeSlideY", mode: "out-in" },
+    layoutTransition: {
+      name: "fadeSlideY",
+      mode: "out-in",
+      onBeforeEnter: (el) => {
+        console.log("Before enter...")
+      },
+      onEnter: (el, done) => {},
+      onAfterEnter: (el) => {},
+    },
+  },
 })

@@ -5,7 +5,7 @@
         <div class="flex border-b border-gray-200 mb-2 select-none">
           <template v-for="(tab, indexTab) in tabsEmp" :key="indexTab">
             <a class="btn-tab2 align-middle items-center row" :class="{ 'btn-tab-active2': tab.current }" @click="changeTab(indexTab)">
-              {{ filters.firstUpper(tab.name) }}
+              {{ firstUpper(tab.name) }}
               <box-icon v-if="indexTab != 0" name="lock-alt" type="regular" :color="!tab.current ? 'gray' : 'blue'" size="sm" class="self-center text-center"></box-icon>
             </a>
           </template>
@@ -567,6 +567,13 @@ import { isLength, isDate, isEmail } from "validator"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, ErrorMessage } from "vee-validate"
 import api_resources from "@/api/resources.js"
+
+definePageMeta({
+
+  middleware (to, from) {
+    to.meta.pageTransition.name = +to.params.id > +from.params.id ? 'fadeSlideY' : 'fadeSlideX'
+  }
+})
 
 const error = computed(() => store.error)
 const store = useManagement()
