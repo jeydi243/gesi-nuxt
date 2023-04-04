@@ -39,9 +39,7 @@
 </template>
 
 <script setup>
-	import { chance } from "~~/utils/index.js"
 	import { ref } from "vue"
-	import { beforeEnterList, enterList, leaveList } from "~~/utils/index.js"
 	const chartOptions = ref({
 		title: {
 			text: "List of students by year",
@@ -51,10 +49,10 @@
 			offsetY: 0,
 			floating: false,
 			style: {
-				fontSize: "24px",
 				fontWeight: "bold",
 				fontFamily: "k2d",
 				color: "#263238",
+				fontSize: "24px",
 			},
 		},
 		colors: ["#6af699", "#f7b731", "#231ac9"],

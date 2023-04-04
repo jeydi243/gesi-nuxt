@@ -44,7 +44,6 @@ import { ref } from "vue"
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"
 import { ArrowLeftIcon } from "@heroicons/vue/solid"
-import Breadcrumbs from "./breadcrumbs.vue"
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue"
 
 const dropdown = ref(null)

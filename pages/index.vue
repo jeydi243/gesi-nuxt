@@ -31,7 +31,7 @@ const tabsGestion = ref([
 ])
 onMounted(() => {
   // if (currentTab.value == "employees" || currentTab.value == "courses") {
-  goto(`${currentTab.value}-index`)
+  router.push(`management/${currentTab.value}`)
   // } else {
   // 	router.push(`${currentTab.value}-index`)
   // }
@@ -39,7 +39,7 @@ onMounted(() => {
 
 watch(currentTab, function (newval, oldval) {
   // if (newval != oldval && newval != "employees") {
-  goto(`${newval}-index`)
+  router.push(`${newval}-index`)
   // } else if (newval == oldval && ["employees", "courses"].includes(newval)) {
   // 	router.push(`${newval}-list`)
   // } else {

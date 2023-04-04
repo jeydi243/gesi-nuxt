@@ -49,8 +49,8 @@
 			<div class="contentTab">
 				<Transition name="fadeSlideX" mode="out-in">
 					<KeepAlive>
-						<div class="flex h-full w-full" v-if="currentComponent == 'calendrier'">
-							<Calendrier />
+						<div class="flex h-full w-full" v-if="currentComponent == 'Calendar'">
+							<Calendar />
 						</div>
 						<div class="flex flex-col h-1/2 w-full" v-else-if="currentComponent == 'documents'">
 							<Form class="flex flex-col mb-4 justify-center items-center" @submit="addFiledoc" :validation-schema="filedocSchema" v-slot="{isSubmitting}" :initial-values="filedocValues" @invalid-submit="onInvalidfiledoc">
@@ -100,12 +100,10 @@
 </template>
 
 <script>
-import Calendrier from "@/components/calendar.vue";
 import { UserIcon, ArrowRightIcon } from "@heroicons/vue/solid";
 import studentsAPI from "@/api/students";
 import { Field, Form, ErrorMessage } from "vee-validate";
 import { CirclesToRhombusesSpinner } from "epic-spinners";
-import { toast } from "~~/utils/index.js";
 
 export default {
 	name: "students-details",

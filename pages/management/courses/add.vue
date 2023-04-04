@@ -50,7 +50,6 @@
 <script setup>
 import * as yup from "yup"
 import { useCourses } from "@/store/courses"
-import { toast, goto } from "~~/utils/index.js"
 import { useFileDialog, get } from "@vueuse/core"
 import { ref, watch, computed } from "vue"
 import { Form, ErrorMessage, Field } from "vee-validate"
@@ -89,7 +88,7 @@ async function submit(values, { resetForm, setFieldError }) {
   try {
     var result = await store.addCourse(values)
     if (!result) {
-      goto("courses-index")
+      routeur.push("courses-index")
       toast.success("Course added successfully !")
     } else {
       for (const key in result) {

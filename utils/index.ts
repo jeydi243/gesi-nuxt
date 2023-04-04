@@ -1,10 +1,7 @@
 import { ref } from "vue"
 import { gsap } from "gsap"
 import Chance from "chance"
-// import { useToast } from "vue-toastification";
-
-export const src: string | null = null
-// export const toast = useToast()
+export let src: string | null = null
 
 export const chance = Chance()
 export function onFileChange(event: any) {
@@ -20,6 +17,7 @@ export function pickFile(idInput: string) {
   file_input?.click()
   file_input?.addEventListener("change", onFileChange)
 }
+
 export function onEnter(el: HTMLElement | null, done: any) {
   gsap.to(el, {
     opacity: 1,

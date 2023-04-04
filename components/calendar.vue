@@ -18,21 +18,7 @@
       </div>
       <button @click="modalEventAdd = true" class="btn-primary overflow-clip" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button"><box-icon type="regular" name="plus" color="white" size="sm" class="text-green-900"></box-icon> Add</button>
     </div>
-    <calendar
-      class="mt-3"
-      :active-view="actualView"
-      :selected-date="selectedDate"
-      :time-from="6 * 60"
-      :time-to="20 * 60"
-      hide-view-selector
-      hide-weekends
-      :editable-events="{ title: true, drag: false, resize: true, delete: true, create: false }"
-      :events="events"
-      :show-week-numbers="false"
-      locale="fr"
-      :on-event-click="onEventClick"
-      events-on-month-view="short"
-    />
+    <FullCalendar :options="calendarOptions" />
     <MyModal v-show="modalEventAdd" @close="closeModal">
       <template #header>
         <h1 class="text-4xl">Modifier ce document</h1>
@@ -76,17 +62,22 @@
 <script setup>
 import { ref } from "vue"
 import { format } from "date-fns"
-import { toast, chance } from "~~/utils/index.js"
 import { parseISO } from "date-fns"
 import { Form, Field, ErrorMessage } from "vee-validate"
-import { isLength, isDate, isEmail } from "validator"
-import calendar from "vue-cal"
-import MyModal from "@/components/mymodal"
+import { isLength, isDate } from "validator"
+import FullCalendar from "@fullcalendar/vue3"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const modalEventAdd = ref(false)
 const nowformatted = format(new Date(), "yyyy-MM-dd")
 const selectedDate = ref(nowformatted)
 const selectedEvent = ref(null)
+
+const calendarOptions = ref({
+  plugins: [dayGridPlugin],
+  initialView: "dayGridMonth",
+  weekends: false,
+  events: [{ title: "Meeting", start: new Date() }],
+})
 const eventValue = ref({ name: "Festival", description: "La description de cette evenement", start: "2019-10-20", end: "2020-09-09", type: "" })
 const eventSchema = ref({
   name(value) {

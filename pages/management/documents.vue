@@ -115,7 +115,6 @@
 <script setup>
 	import MyModal from "@/components/mymodal"
 	import * as yup from "yup"
-	import { toast } from "~~/utils/index.js"
 	import { useManagement } from "@/store/management"
 	import { ref, computed, onMounted } from "vue"
 	import { CirclesToRhombusesSpinner } from "epic-spinners"

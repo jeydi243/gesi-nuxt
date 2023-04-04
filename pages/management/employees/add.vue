@@ -153,11 +153,9 @@ import { parseISO } from "date-fns"
 import { UserIcon } from "@heroicons/vue/solid"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { isLength, isDate, isEmail } from "validator"
-import { toast } from "~~/utils/index.js"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { mapActions } from "pinia"
 import { useManagement } from "@/store/management"
-import {  chance } from "~~/utils/index.js"
 const store = useManagement()
 const src = ref(null)
 
@@ -260,7 +258,7 @@ async function submitEmployee(values) {
   try {
     var result = await store.addEmployee(other)
     if (result) {
-      goto("employees-index")
+      routeur.push("employees-index")
       toast.success("Employee added successfully !")
     } else {
       toast.error(`Can't add new employee`)

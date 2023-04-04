@@ -21,7 +21,6 @@
 	import { computed } from "vue"
 	import { useManagement } from "@/store/management"
 	import { UseOnline } from "@vueuse/components"
-	import { onLeaveTop, onEnter, onBeforeEnter, chance } from "~~/utils/index.js"
 
 	const employees = computed(() => store.getEmployees)
 	const store = useManagement()
