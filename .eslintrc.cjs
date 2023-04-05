@@ -1,5 +1,6 @@
 module.exports = {
-  extends: ["@nuxtjs/eslint-config-typescript", "plugin:vue/vue3-recommended", "plugin:vue/base"],
+  extends: ["@nuxtjs/eslint-config-typescript", "plugin:vue/vue3-recommended", "plugin:vue/base", "prettier/@typescript-eslint"],
+  plugins: ["prettier"],
   rules: {
     "comma-dangle": ["off", "always-multiline"],
     "vue/no-unused-vars": "error",
@@ -67,7 +68,7 @@ module.exports = {
     ],
     quotes: ["off", "single", "double"],
     "vue/script-indent": [
-      "off",
+      "warn",
       2,
       {
         baseIndent: 4,

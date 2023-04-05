@@ -219,14 +219,13 @@ function showFile() {
   // alert("closed");
 }
 function addFiledoc(values: any) {
-  var formdata = new FormData()
+  const formdata = new FormData()
   formdata.append("document", values.document[0])
   formdata.append("code", values.code)
 
-  var studentId = route.params.id
+  const studentId: string = route.params.id
   console.log(values.document[0], studentId)
-  const { data, pending } = useFetch("/teachers")
-
+  const { data, pending } = await useFetch("/teachers")
   // studentsAPI
   //   .addDocument(studentId, formdata)
   //   .then((response: any) => {

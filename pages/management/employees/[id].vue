@@ -558,7 +558,6 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router"
 import { parseISO } from "date-fns"
 import { ref, computed, onBeforeMount } from "vue"
 import { useManagement } from "@/store/management"
@@ -579,8 +578,8 @@ const store = useManagement()
 const route = useRoute()
 const router = useRouter()
 const userData = computed(() => store.employees.find((emp) => emp._id == route.params.id))
-const edit_mode = ref(false)
-const onboardings = computed(() => Object.fromEntries(new Map(userData.value.onboarding.map((obj) => [obj["field"], obj["state"]]))))
+const editMode = ref(false)
+const onboardings = computed(() => Object.fromEntries(new Map(userData.value.onboarding.map((obj) => [obj.field, obj.state]))))
 const showModalAddExper = ref(false)
 const showModalUpdateDoc = ref(false)
 const showModalAddContact = ref(false)
