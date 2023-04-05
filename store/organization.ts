@@ -1,14 +1,14 @@
-// import axios from "@/api/myaxios"
-import { defineStore } from "pinia"
-import configAPI from "@/api/config"
-import orgsAPI from "@/api/orgs"
+const axios = '';
+import { defineStore } from 'pinia';
+import configAPI from '@/api/config';
+import orgsAPI from '@/api/orgs';
 
 export interface Organization {
-  org_id: string
-  organization_parent_id: string
+  org_id: string;
+  organization_parent_id: string;
 }
 
-export const useOrganization = defineStore("organization", {
+export const useOrganization = defineStore('organization', {
   state: () => ({
     count: 0,
     organizations: [],
@@ -19,52 +19,52 @@ export const useOrganization = defineStore("organization", {
   actions: {
     async init() {
       try {
-        await this.getOrgs()
+        await this.getOrgs();
       } catch (er) {
-        console.log("Error on init organizations: ", er)
+        console.log('Error on init organizations: ', er);
       }
     },
     async setRootOrg(payload) {
       try {
-        const { data, status } = configAPI.add(payload)
-        console.log({ data }, { status })
+        const { data, status } = configAPI.add(payload);
+        console.log({ data }, { status });
         if (status == 200 || status == 201) {
-          this.organizations.unshift(data)
+          this.organizations.unshift(data);
         }
       } catch (error) {
-        console.log("Can't add organization: ", error)
+        console.log("Can't add organization: ", error);
       }
     },
     async getOrgs() {
       try {
-        const { data, status } = configAPI.getAll()
-        console.log({ data }, { status })
+        const { data, status } = configAPI.getAll();
+        console.log({ data }, { status });
         if (status == 200 || status == 201) {
           data.forEach((element) => {
-            this.organizations.unshift(element)
-          })
+            this.organizations.unshift(element);
+          });
         }
       } catch (error) {
-        console.log("Can't retrieve all organizations: ", error)
+        console.log("Can't retrieve all organizations: ", error);
       }
     },
     async addOrg() {
-      const auth = useAuth()
+      const auth = useAuth();
       try {
-        const { status, data } = await orgsAPI.add({ createdBy: auth.user.id })
-        console.log({ data })
+        const { status, data } = await orgsAPI.add({ createdBy: auth.user.id });
+        console.log({ data });
         if (status == 200 || status == 201) {
-          this.organizations.unshift(data)
-          return true
+          this.organizations.unshift(data);
+          return true;
         }
-        return false
+        return false;
       } catch (err) {
         // console.log({ err })
-        return err.data?.dto_validation_error
+        return err.data?.dto_validation_error;
       }
     },
   },
   getters: {
     rootOrg: (state) => state.organizations.find((org: Organization) => org.organization_parent_id == null),
   },
-})
+});

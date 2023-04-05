@@ -63,14 +63,13 @@
                   </Field>
                   <Field placeholder="Inserer le fichier au format PDF" v-slot="{ handleChange, handleBlur }" name="document">
                     <input
-                      type="file"
-                      name="document"
-                      accept=".pdf"
-                      id="document"
-                      @change="handleChange"
-                      @blur="handleBlur"
-                      class="text-sm text-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
-                    />
+                           type="file"
+                           name="document"
+                           accept=".pdf"
+                           id="document"
+                           @change="handleChange"
+                           @blur="handleBlur"
+                           class="text-sm text-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
                   </Field>
                   <ErrorMessage name="document" v-slot="{ message }">
                     <p class="input-error">{{ message }}</p>
@@ -218,12 +217,12 @@ function modifFile() {
 function showFile() {
   // alert("closed");
 }
-function addFiledoc(values: any) {
+async function addFiledoc(values: any) {
   const formdata = new FormData()
   formdata.append("document", values.document[0])
   formdata.append("code", values.code)
 
-  const studentId: string = route.params.id
+  const studentId: string | string[] = route.params.id
   console.log(values.document[0], studentId)
   const { data, pending } = await useFetch("/teachers")
   // studentsAPI

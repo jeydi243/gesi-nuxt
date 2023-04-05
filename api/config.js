@@ -1,10 +1,10 @@
-// import axios from "./myaxios"
+const axios = '';
 
-// export default {
-// 	getAll: async function () {
-// 		return await axios.get("/organization")
-// 	},
-// 	add: async function (payload) {
-// 		return await axios.post("/organization", payload)
-// 	},
-// }
+export default {
+  getAll: async function () {
+    return await axios.get('/organization');
+  },
+  add: async function (payload) {
+    return await axios.post('/organization', payload);
+  },
+};

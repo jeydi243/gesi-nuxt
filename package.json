@@ -17,6 +17,7 @@
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
     "eslint": "^8.37.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "nuxt": "^3.3.2"
   },
   "overrides": {
