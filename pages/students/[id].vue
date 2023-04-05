@@ -42,6 +42,9 @@
       </div>
     </div>
     <div class="flex flex-col w-4/5 h-full card align-middle justify-start">
+      <!-- <div v-if="pending">
+      sa rame encore
+      </div> -->
       <div class="flex border-b border-gray-200 mb-2">
         <button v-for="(tab, index) in tabsDetails" :key="index" class="btn-tab" :class="{ 'btn-tab-active': tab.current }" @click="changeTab(index)">{{ firstUpper(tab.name) }}</button>
       </div>
@@ -109,7 +112,7 @@
 
 <script setup lang="ts">
 // import studentsAPI from "@/api/students"
-import { UserIcon, ArrowRightIcon } from "@heroicons/vue/24/solid"
+// import { UserIcon, ArrowRightIcon } from "@heroicons/vue/24/solid"
 import { computed } from "vue"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
@@ -131,9 +134,9 @@ const docaddSchema = ref({
   // },
 })
 
-let canshowModal = ref(false)
-let filedocValues = ref({ document: null, code: null })
-let listDocuments = ref([
+const canshowModal = ref(false)
+const filedocValues = ref({ document: null, code: null })
+const listDocuments = ref([
   {
     name: "Certificat d'aptitude physique",
     type: "pdf",
@@ -170,7 +173,7 @@ let listDocuments = ref([
     lien: "https://www.google.com",
   },
 ])
-let listResponsables = ref([
+const listResponsables = ref([
   {
     name: "Mme. Mwanga",
     phone: "5561217231",
@@ -191,7 +194,7 @@ const currentComponent = computed(() => {
   return tabsDetails.value?.find((tab: any) => tab.current)?.name.toLowerCase()
 })
 const listDoc = computed(() => {
-  return listDocuments.value.filter((doc: any) => !doc["state"])
+  return listDocuments.value.filter((doc: any) => !doc.state)
 })
 
 function back() {
@@ -222,6 +225,7 @@ function addFiledoc(values: any) {
 
   var studentId = route.params.id
   console.log(values.document[0], studentId)
+  const { data, pending } = useFetch("/teachers")
 
   // studentsAPI
   //   .addDocument(studentId, formdata)
@@ -242,7 +246,7 @@ function onInvalidfiledoc() {
   console.log("Le fichier n'est pas valide")
 }
 function changeTab(index: number) {
-  var currentTrue = tabsDetails.value.findIndex((tab) => tab.current)
+  const currentTrue = tabsDetails.value.findIndex((tab) => tab.current)
   tabsDetails.value[currentTrue].current = false
   tabsDetails.value[index].current = true
 }

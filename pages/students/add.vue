@@ -12,7 +12,6 @@
         <span class="text-xs">{{ i }}</span>
       </div>
     </div>
-    
 
     <!-- <Transition name="fadeSlideY" mode="out-in"> -->
     <Form class="form grow" @submit="goNext" :validation-schema="currentSchema" keep-values :initial-values="currentValues" v-slot="{ isSubmitting }">
@@ -282,14 +281,14 @@
 </template>
 
 <script setup>
-import { useStudents } from "~~/store/students"
+import * as yup from "yup"
 import { SaveIcon, UserIcon } from "@heroicons/vue/solid"
 import { markRaw, ref, computed } from "vue"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
-import * as yup from "yup"
+import { useStudents } from "~~/store/students"
 
-let step = ref(0)
+const step = ref(0)
 const store = useStudents()
 const previewSRC = ref(null)
 

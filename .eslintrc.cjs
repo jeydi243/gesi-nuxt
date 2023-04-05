@@ -1,11 +1,8 @@
 module.exports = {
-  extends: [
-    "@nuxtjs/eslint-config-typescript",
-    "plugin:vue/vue3-recommended",
-    "plugin:vue/base",
-  ],
+  extends: ["@nuxtjs/eslint-config-typescript", "plugin:vue/vue3-recommended", "plugin:vue/base"],
   rules: {
-    'vue/no-unused-vars': 'error',
+    "comma-dangle": ["off", "always-multiline"],
+    "vue/no-unused-vars": "error",
     "vue/valid-v-model": 0,
     "vue/require-component-is": 0,
     "vue/component-definition-name-casing": ["off", "kebab-case" | "PascalCase"],
@@ -40,6 +37,15 @@ module.exports = {
         },
       },
     ],
+    "vue/multi-word-component-names": [
+      "off",
+      {
+        ignores: [],
+      },
+    ],
+    "no-tabs": ["off", "always"],
+    "arrow-parens": ["off", "always"],
+    "space-before-function-paren": ["off", "always"],
     "vue/html-self-closing": [
       "off",
       {
@@ -59,7 +65,7 @@ module.exports = {
         alphabetical: false,
       },
     ],
-
+    quotes: ["off", "single", "double"],
     "vue/script-indent": [
       "off",
       2,

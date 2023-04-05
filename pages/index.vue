@@ -30,15 +30,15 @@ const tabsGestion = ref([
   { name: "academique", current: false },
 ])
 onMounted(() => {
-  if (currentTab.value == "employees" || currentTab.value == "courses") {
+  if (currentTab.value === "employees" || currentTab.value === "courses") {
     router.push(`${currentTab.value}`)
   }
-  //else {
+  // else {
   // 	router.push(`${currentTab.value}-index`)
   // }
 })
 
-watch(currentTab, function (newval, oldval) {
+watch(currentTab, function (newval) {
   // if (newval != oldval && newval != "employees") {
   router.push(`${newval}-index`)
   // } else if (newval == oldval && ["employees", "courses"].includes(newval)) {
@@ -49,7 +49,7 @@ watch(currentTab, function (newval, oldval) {
 })
 
 function changeTab(indexTab) {
-  var currentTrue = tabsGestion.value.findIndex((tab) => tab.current == true)
+  const currentTrue = tabsGestion.value.findIndex((tab) => tab.current === true)
   tabsGestion.value[currentTrue].current = false
   tabsGestion.value[indexTab].current = true
 }

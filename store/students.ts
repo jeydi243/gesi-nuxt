@@ -31,7 +31,7 @@ export const useStudents = defineStore("students", {
     },
     async getAllStudents() {
       try {
-        const { data, status } = await studentsAPI.getAll()
+        const { data, pending } = await useFetch("/teachers")
         if (status == 200 || status == 201) {
           this.students = data
           return true
