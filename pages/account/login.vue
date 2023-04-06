@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-row justify-center h-full bg-gray-100 relative">
 		<div class="absolute top-0 left-0 h-full w-full z-1">
-			<img src="@/assets/img/bg-1.jpg" class="h-full w-full object-cover" />
+			<img src="~/assets/img/bg-1.jpg" class="h-full w-full object-cover" />
 		</div>
 		<div class="w-full z-3 max-w-sm p-3 flex flex-col h-[70%] justify-center self-center bg-white rounded-md shadow-md font-k2d">
 			<h1 class="flex text-3xl font-semibold self-center text-center text-green-500">GESI</h1>

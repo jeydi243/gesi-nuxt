@@ -41,7 +41,7 @@
 					<rect width="100%" height="100%" fill="transparent" filter="url(#gggrain-filter)" opacity="1" style="mix-blend-mode: soft-light"></rect>
 				</g>
 			</svg> -->
-      <img :src="require('@/assets/img/global_child.png')" class="flex z-10 absolute cursor-pointer self-center align-center object-cover rounded-full h-1/2 w-1/2" />
+      <img :src="'~/assets/img/global_child.png'" class="flex z-10 absolute cursor-pointer self-center align-center object-cover rounded-full h-1/2 w-1/2" />
     </div>
     <div class="col h-full w-2/3 p-6">
       <span class="text-cyan-700 text-4xl text-center font-bold">Great Learning, Great Organization</span>
@@ -77,10 +77,8 @@
           </div>
         </Form>
       </div>
-      <span class="text-center"
-        >By clicking on <a href="#!" class="text-indigo-600 hover:text-blue-700 transition duration-300 ease-in-out">Continue</a> , you accept <a href="#!" class="text-indigo-600 hover:text-blue-700 transition duration-300 ease-in-out">The term of use</a> and
-        <a href="#!" class="text-indigo-600 hover:text-blue-700 transition duration-300 ease-in-out">Data processing agreement</a></span
-      >
+      <span class="text-center">By clicking on <a href="#!" class="text-indigo-600 hover:text-blue-700 transition duration-300 ease-in-out">Continue</a> , you accept <a href="#!" class="text-indigo-600 hover:text-blue-700 transition duration-300 ease-in-out">The term of use</a> and
+        <a href="#!" class="text-indigo-600 hover:text-blue-700 transition duration-300 ease-in-out">Data processing agreement</a></span>
     </div>
   </div>
 </template>

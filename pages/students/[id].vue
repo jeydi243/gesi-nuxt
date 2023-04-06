@@ -3,7 +3,7 @@
     <div class="flex flex-col w-1/5 h-full card mr-2 relative">
       <div class="rounded-full profile mb-2">
         <img src="https://images.generated.photos/pn-4ub1PeBlBuDILgChTqIwjBIMhxm-Ah_rzk9t0GD8/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/ODUwMDk3LmpwZw.jpg" class="flex z-10 cursor-pointer self-center object-cover rounded-full h-[100px] w-[100px]" />
-        <!-- <img :src="require('@/assets/img/user.png')" class="flex z-10 cursor-pointer self-center object-cover rounded-full h-[100px] w-[100px]" /> -->
+        <!-- <img :src="'~/assets/img/user.png'" class="flex z-10 cursor-pointer self-center object-cover rounded-full h-[100px] w-[100px]" /> -->
       </div>
       <span class="text-gray-700 text-center text-base mb-2">Student Name</span>
       <div class="flex flex-row justify-center mb-2 items-center">
