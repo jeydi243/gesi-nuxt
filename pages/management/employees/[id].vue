@@ -557,14 +557,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { parseISO } from "date-fns"
 import { ref, computed, onBeforeMount } from "vue"
 import { useManagement } from "@/store/management"
 import { onBeforeRouteUpdate } from "vue-router"
 import { isLength, isDate, isEmail } from "validator"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
-import { Form, Field, ErrorMessage } from "vee-validate"
+import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
 import api_resources from "@/api/resources.js"
 
 definePageMeta({
@@ -613,7 +613,7 @@ const basicInfoSchema = {
   first_name(value) {
     return isLength(value, { min: 2, max: 20 }) ? true : "First name must be between 2 and 20 characters"
   },
-  last_name(value) {},
+  last_name(value) { },
   telephones(value) {
     return isLength(value, { min: 10 }) ? true : "telephones must be 10 characters or more"
   },
@@ -875,7 +875,8 @@ function closeModal() {
 function onInvalidEducation({ values, result, errors }) {
   console.log("Invalid education", errors)
 }
-function onInvalidExperience({ values, result, errors }) {
+function onInvalidExperience(ctx: InvalidSubmissionContext) {
+  const { values, result, errors } = ctx
   console.log("Invalid experience", errors)
 }
 function onInvalidContact({ values, result, errors }) {
@@ -918,8 +919,8 @@ async function changeDocument(values) {
     console.log(err)
   }
 }
-async function changepicture() {}
-async function updateBasic() {}
+async function changepicture() { }
+async function updateBasic() { }
 function changeTab(index) {
   const currentTrue = tabsEmp.value.findIndex((tab) => tab.current == true)
   tabsEmp.value[currentTrue].current = false

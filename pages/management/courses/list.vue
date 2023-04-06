@@ -27,7 +27,7 @@
             </router-link>
           </div>
           <footer class="flex items-center justify-start leading-none bottom-0 left-0 p-2 h-[20%] w-full">
-            <img @click="routeur.push('teachers-details', item.authors[0])" class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
+            <img @click="routeur.push(`/teachers/${item.authors[0]}`)" class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
             <router-link :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
               <p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
             </router-link>

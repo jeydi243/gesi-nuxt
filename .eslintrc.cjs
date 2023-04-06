@@ -3,6 +3,7 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'comma-dangle': ['off', 'always-multiline'],
+    'no-explicit-any': 'off',
     'vue/no-unused-vars': 'error',
     'vue/valid-v-model': 0,
     'vue/require-component-is': 0,

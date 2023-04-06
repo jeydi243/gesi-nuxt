@@ -147,13 +147,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 import { parseISO } from "date-fns"
 import { UserIcon } from "@heroicons/vue/solid"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { isLength, isDate, isEmail } from "validator"
-import { Field, Form, ErrorMessage } from "vee-validate"
+import { Field, Form, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
 import { mapActions } from "pinia"
 import { useManagement } from "@/store/management"
 const store = useManagement()
@@ -228,7 +228,8 @@ function beforeCancel(values) {
     this.$router.back()
   }
 }
-function onInvalidEmployee({ values, errors, results }) {
+function onInvalidEmployee(ctx: InvalidSubmissionContext) {
+  const { values, errors, results } = ctx
   console.log({ errors })
 }
 function pickFile(idInput) {

@@ -20,9 +20,8 @@
                 <p class="text-gray-700 text-base mb-4">{{ item.name }} Some quick example text to build on the card title and make up the bulk of the card's content.hy jhjh</p>
                 <h6>{{ item.manager }}</h6>
                 <button
-                  type="button"
-                  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                >
+                        type="button"
+                        class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                   Button
                 </button>
               </div>
@@ -42,7 +41,7 @@
           <p class="input-error">{{ message }}</p>
         </ErrorMessage>
         <Field name="manager" id="select-doc" as="select" class="rounded form-select block w-full" placeholder="Manager">
-          <option :value="employee.name" v-for="(personne, index) in getEmployees" :key="index" :selected="index == 0">{{ doc.name }}</option>
+          <option :value="emp.name" v-for="(emp, index) in employees" :key="index" :selected="index == 0">{{ emp.name }}</option>
         </Field>
         <ErrorMessage name="manager" v-slot="{ message }">
           <p class="input-error">{{ message }}</p>
@@ -91,8 +90,8 @@ import { mapState, mapActions } from "pinia"
 import * as yup from "yup"
 import { useManagement } from "~~/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
-import { Form, Field, ErrorMessage } from "vee-validate"
-import { AcademicCapIcon, PlusIcon, UserIcon } from "@heroicons/vue/solid"
+import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
+import { AcademicCapIcon, PlusIcon, UserIcon } from "@heroicons/vue/24/solid"
 import { isLength } from "validator"
 const management = useManagement()
 const { addFiliere } = management
@@ -130,7 +129,7 @@ const filiereSchema = ref({
 // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
 // ];
 
-const previewSRC = ref(null)
+let previewSRC: string | null = ref(null)
 const filieres = ref([
   {
     name: "G1",
@@ -196,7 +195,7 @@ function add(values: any, { resetForm }) {
       this.closeModal()
       resetForm()
     }
-  } catch (e) {}
+  } catch (e) { }
 }
 function closeModal() {
   showModalFiliere.value = false
@@ -210,14 +209,15 @@ function pickPicture() {
 function onProfilePictureChange(event) {
   console.log("Profile picture change and is ", event.target.files[0])
   if (event.target.files && event.target.files[0]) {
-    this.previewSRC = window.URL.createObjectURL(event.target.files[0])
+    previewSRC.value = window.URL.createObjectURL(event.target.files[0])
     window.URL.revokeObjectURL(event.target.files[0]) // free memory
   } else {
-    this.previewSRC = null
+    previewSRC.value = null
   }
 }
-function clickOutside() {}
-function onInvalidFiliere({ values, result, errors }) {
+function clickOutside() { }
+function onInvalidFiliere(ctx: InvalidSubmissionContext) {
+  const { errors } = ctx
   console.log(errors)
 }
 </script>
