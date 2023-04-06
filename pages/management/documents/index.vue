@@ -121,6 +121,10 @@ import { ref, computed, onMounted } from "vue"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, InvalidSubmissionContext } from "vee-validate"
 import { SearchIcon, TrashIcon, ClipboardIcon, DocumentAddIcon, RefreshIcon } from "@heroicons/vue/solid"
+definePageMeta({
+	layout: "management",
+	// middleware: 'auth'
+});
 const store = useManagement()
 var docSchema = yup.object({
 	name: yup.string().required().label("Name"),
@@ -128,7 +132,6 @@ var docSchema = yup.object({
 	description: yup.string().required().label("Description"),
 })
 const errorCall = ref(null)
-
 const search = ref("")
 const dropdown = ref(false)
 const showModalAdd = ref(false)
@@ -146,13 +149,13 @@ onMounted(() => {
 const { addDocument, deleteDocument, removeDocument, updateDocument, getAllDocuments } = useManagement()
 
 function onInvalidDocument(ctx: InvalidSubmissionContext) {
-	const { values, result, errors } = ctx
+	const { values, errors } = ctx
 	console.log(errors)
 }
 async function updateDoc(values, { resetForm }) {
 	var res = await updateDocument(values)
 	if (res) {
-		toast.success("Document modifié avec succes")
+		// toast.success("Document modifié avec succes")
 	} else {
 		resetForm()
 	}
@@ -161,17 +164,17 @@ async function updateDoc(values, { resetForm }) {
 async function softdeleteDoc(code) {
 	var res = await deleteDocument(code)
 	if (res) {
-		toast.success("Successfully softdelete document")
+		// toast.success("Successfully softdelete document")
 	} else {
-		toast.error("Can't delete document")
+		// toast.error("Can't delete document")
 	}
 }
 async function removeDoc(id) {
 	var res = await removeDocument(id)
 	if (res) {
-		toast.success("Successfully remove document")
+		// toast.success("Successfully remove document")
 	} else {
-		toast.error("Can't remove this document")
+		// toast.error("Can't remove this document")
 	}
 }
 async function add(values, { resetForm }) {
@@ -179,13 +182,13 @@ async function add(values, { resetForm }) {
 	console.log({ response })
 	if (response === true) {
 		closeModal()
-		toast.success("Document ajouté avec succès", {
-			timeout: 5000,
-		})
+		// toast.success("Document ajouté avec succès", {
+		// 	timeout: 5000,
+		// })
 		resetForm()
 	}
 }
-function closeModal(resetForm = null) {
+function closeModal(resetForm: | null | undefined | MouseEvent | (() => void) = null) {
 	showModalAdd.value = false
 	showModalUpdate.value = false
 	if (resetForm) {
@@ -199,7 +202,7 @@ function showModif(index, values) {
 	if (currentTrue != -1) {
 		if (currentTrue != index) {
 			console.log(`SO ${currentTrue} is != 1 and ${index} is != ${currentTrue}`)
-			listDocuments.value[currentTrue].show = false
+			listDocuments.value[currentTrue]['show'] = false
 			listDocuments.value[index].show = true
 		} else {
 			console.log("You click the same item")
