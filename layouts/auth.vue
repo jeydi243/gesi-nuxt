@@ -2,7 +2,7 @@
 
 <template>
   <div v-bind="$attrs">
-    <div class="h-full">
+    <div class="row h-screen w-screen">
       <slot />
     </div>
   </div>

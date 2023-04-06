@@ -50,103 +50,105 @@
 </template>
 
 <script setup>
-	import { useConfig } from "@/store/config"
-	import { gsap, Elastic } from "gsap"
-	import { mapActions } from "pinia"
-	import { Field, Form, ErrorMessage } from "vee-validate"
-	import { CirclesToRhombusesSpinner } from "epic-spinners"
-	import { useRouter } from "vue-router"
-	import { ref, computed, watch, onMounted } from "vue"
-	import * as yup from "yup"
-	import { useAuth } from "@/store/authentication"
-	import anime from "animejs/lib/anime.es.js"
-	import { useToggle } from "@vueuse/core"
-	const auth = useAuth()
-	const config = useConfig()
-	const router = useRouter()
-
-	const loginSchema = ref(
-		yup.object({
-			username: yup.string().required().label("Username"),
-			password: yup.string().required().min(8).label("Password"),
-			stay_connected: yup.string().default("off").label("Stay connected"),
-		})
-	)
-
-	const user = ref({ username: "rootuser", password: "rootpass", stay_connected: "on" })
-	const token = computed(() => auth.token)
-	const loading = ref(false)
-	const forAanime = ref({ atat: 0 })
-	const isLoading = useToggle(loading)
-	const authresponse = computed(() => auth.authresponse)
-	const placeholderSuggestion = ref(["17ki2022", "18gk2022", "55gk20", "18gk2024", "202218gk", "18gk2041", "18gk2022", "18gk1022", "18gk2022"])
-
-	watch(token, function (newavalue, oldvalue) {
-		if (newavalue) {
-			router.push("/").catch(() => {})
-		}
+import { useConfig } from "@/store/config"
+import { gsap, Elastic } from "gsap"
+import { mapActions } from "pinia"
+import { Field, Form, ErrorMessage } from "vee-validate"
+import { CirclesToRhombusesSpinner } from "epic-spinners"
+import { useRouter } from "vue-router"
+import { ref, computed, watch, onMounted } from "vue"
+import * as yup from "yup"
+import { useAuth } from "@/store/authentication"
+import anime from "animejs/lib/anime.es.js"
+import { useToggle } from "@vueuse/core"
+const auth = useAuth()
+const config = useConfig()
+const router = useRouter()
+definePageMeta({
+	layout: "auth",
+});
+const loginSchema = ref(
+	yup.object({
+		username: yup.string().required().label("Username"),
+		password: yup.string().required().min(8).label("Password"),
+		stay_connected: yup.string().default("off").label("Stay connected"),
 	})
-	onMounted(function () {
-		anime({
-			targets: forAanime.value,
-			atat: function () {
-				return anime.random(0, 5)
-			},
-			easing: "linear",
-			round: 1,
-			duration: 5000,
-			update: function () {
-				// console.log("OKAY. Ca change")
-			},
-		})
-	})
+)
 
-	const { login } = useAuth()
-	const { changeLayout } = useConfig()
-	async function loger() {
+const user = ref({ username: "rootuser", password: "rootpass", stay_connected: "on" })
+const token = computed(() => auth.token)
+const loading = ref(false)
+const forAanime = ref({ atat: 0 })
+const isLoading = useToggle(loading)
+const authresponse = computed(() => auth.authresponse)
+const placeholderSuggestion = ref(["17ki2022", "18gk2022", "55gk20", "18gk2024", "202218gk", "18gk2041", "18gk2022", "18gk1022", "18gk2022"])
+
+watch(token, function (newavalue, oldvalue) {
+	if (newavalue) {
+		router.push("/").catch(() => { })
+	}
+})
+onMounted(function () {
+	anime({
+		targets: forAanime.value,
+		atat: function () {
+			return anime.random(0, 5)
+		},
+		easing: "linear",
+		round: 1,
+		duration: 5000,
+		update: function () {
+			// console.log("OKAY. Ca change")
+		},
+	})
+})
+
+const { login } = useAuth()
+const { changeLayout } = useConfig()
+async function loger() {
+	isLoading()
+	setTimeout(() => {
+		login(user) // $swal('Hello Vue world!!!');
+		gsap.fromTo(
+			"#authresponse",
+			{
+				opacity: 0,
+				y: -10,
+			},
+			{
+				opacity: 1,
+				y: 0,
+				duration: 1,
+				ease: Elastic.easeOut.config(1, 0.3),
+			}
+		)
+		isloading.value = !isloading.value
+	}, 2000)
+}
+async function submitForm(user) {
+	try {
 		isLoading()
-		setTimeout(() => {
-			login(user) // $swal('Hello Vue world!!!');
-			gsap.fromTo(
-				"#authresponse",
-				{
-					opacity: 0,
-					y: -10,
-				},
-				{
-					opacity: 1,
-					y: 0,
-					duration: 1,
-					ease: Elastic.easeOut.config(1, 0.3),
-				}
-			)
-			isloading.value = !isloading.value
-		}, 2000)
+		await login(user)
+		isLoading()
+	} catch (e) {
+		console.log(e)
 	}
-	async function submitForm(user) {
-		try {
-			isLoading()
-			await login(user)
-			isLoading()
-		} catch (e) {
-			console.log(e)
-		}
+}
+function onInvalidSubmit({ errors }) {
+	console.log("Invalid submit")
+	for (const key in errors) {
+		var el = document.getElementById(`${key}Error`)
+		gsap.to(el, { x: "+=5", yoyo: true, repeat: 5, duration: 0.1 })
+		gsap.to(el, { x: "-=5", yoyo: true, repeat: 5, duration: 0.1 })
 	}
-	function onInvalidSubmit({ errors }) {
-		console.log("Invalid submit")
-		for (const key in errors) {
-			var el = document.getElementById(`${key}Error`)
-			gsap.to(el, { x: "+=5", yoyo: true, repeat: 5, duration: 0.1 })
-			gsap.to(el, { x: "-=5", yoyo: true, repeat: 5, duration: 0.1 })
-		}
-	}
+}
 </script>
 
 <style lang="css" scoped>
-	::placeholder {
-		color: #c2bebe;
-		font-style: italic;
-		transition: all 0.7s ease;
-		transform: rotateX(20px);
-	}
+::placeholder {
+	color: #c2bebe;
+	font-style: italic;
+	transition: all 0.7s ease;
+	transform: rotateX(20px);
+}
 </style>

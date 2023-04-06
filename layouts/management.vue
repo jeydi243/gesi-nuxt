@@ -7,7 +7,7 @@
             <div class="h-[90%] w-full bg-gray-100 px-6 py-6 overflow-auto">
                 <div class="flex border-b border-gray-200 mb-2 select-none">
                     <TransitionGroup :css="false" @before-enter="beforeEnterList" @enter="enterList" @leave="leaveList" mode="out-in">
-                        <a v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': current }" @click="changeTab(indexTab)">{{ name }}</a>
+                        <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': current }" :to="`/management/${name}`">{{ name }}</NuxtLink>
                     </TransitionGroup>
                 </div>
                 <slot />
