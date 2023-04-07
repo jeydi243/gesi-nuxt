@@ -23,15 +23,15 @@
 								Find out more
 								<span aria-hidden="true" class="block transition group-hover:translate-x-0.5"> &rarr; </span>
 							</a>
-							<router-link :to="{ name: 'teachers-details' }" tag="div">
+							<NuxtLink :to="{ name: 'teachers-details' }" tag="div">
 								<p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
-							</router-link>
+							</NuxtLink>
 						</div>
 						<footer class="flex items-center justify-start leading-none bottom-0 left-0 p-2 h-[20%] w-full">
 							<img @click="router.push(`/teachers/${index}`)" class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
-							<router-link :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
+							<NuxtLink :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
 								<p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
-							</router-link>
+							</NuxtLink>
 
 							<a class="no-underline text-grey-darker hover:text-red-dark" href="#">
 								<span class="ml-2">{{ chance.name() }}</span>
@@ -68,9 +68,9 @@
 				</section>
 				<footer class="flex items-center justify-start leading-none bottom-0 left-0 p-2 h-[20%] w-full mt-2">
 					<img class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
-					<router-link :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
+					<NuxtLink :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
 						<p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
-					</router-link>
+					</NuxtLink>
 
 					<a class="no-underline text-grey-darker hover:text-red-dark" href="#">
 						<span class="hidden">Like</span>

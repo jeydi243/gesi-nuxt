@@ -3,6 +3,13 @@
     <NuxtPage />
   </NuxtLayout>
 </template>
+<script setup lang="ts">
+const route = useRoute()
+
+console.log(route.path.split('/')[2]);
+
+
+</script>
 
 <style>
 .fade-enter-active,
@@ -80,6 +87,7 @@
     transform: translateY(10px);
   }
 }
+
 .pima::-webkit-scrollbar {
   width: 10px;
 }

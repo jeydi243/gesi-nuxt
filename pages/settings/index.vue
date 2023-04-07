@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link to="org" class="btn-unstate">Got to Org</router-link>
+    <NuxtLink to="/org" class="btn-unstate">Got to Org</NuxtLink>
   </div>
 </template>
 
