@@ -355,7 +355,7 @@ const studentValues = [basicInfoValues, addressValues, profileValues, contactVal
 const currentValues = computed(() => studentValues[step.value])
 
 function pickPicture() {
-  document.getElementById("bind-profile").click()
+  document.getElementById("bind-profile")!.click()
   const fi = document.getElementById("bind-profile")
   console.log(fi)
   fi.addEventListener("change", onFileChange)
@@ -387,4 +387,4 @@ function goBack() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped></style>

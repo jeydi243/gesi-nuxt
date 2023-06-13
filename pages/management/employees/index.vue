@@ -76,7 +76,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useManagement } from "@/store/management"
-import { UserAddIcon, DotsHorizontalIcon, MailIcon, PhoneIcon, PencilIcon, UserIcon, RefreshIcon } from "@heroicons/vue/24/solid"
+import { PhoneIcon, PencilIcon, UserIcon } from "@heroicons/vue/24/solid"
 
 definePageMeta({
   layout: "management",

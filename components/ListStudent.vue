@@ -66,4 +66,4 @@ async function goto(index: number) {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped></style>

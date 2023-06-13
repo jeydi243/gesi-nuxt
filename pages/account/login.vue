@@ -87,40 +87,40 @@ watch(token, function (newavalue, oldvalue) {
 		router.push("/").catch(() => { })
 	}
 })
-onMounted(function () {
-	anime({
-		targets: forAanime.value,
-		atat: function () {
-			return anime.random(0, 5)
-		},
-		easing: "linear",
-		round: 1,
-		duration: 5000,
-		update: function () {
-			// console.log("OKAY. Ca change")
-		},
-	})
-})
+// onMounted(function () {
+// 	anime({
+// 		targets: forAanime.value,
+// 		atat: function () {
+// 			return anime.random(0, 5)
+// 		},
+// 		easing: "linear",
+// 		round: 1,
+// 		duration: 5000,
+// 		update: function () {
+// 			// console.log("OKAY. Ca change")
+// 		},
+// 	})
+// })
 
 const { login } = useAuth()
 const { changeLayout } = useConfig()
 async function loger() {
 	isLoading()
 	setTimeout(() => {
-		login(user) // $swal('Hello Vue world!!!');
-		gsap.fromTo(
-			"#authresponse",
-			{
-				opacity: 0,
-				y: -10,
-			},
-			{
-				opacity: 1,
-				y: 0,
-				duration: 1,
-				ease: Elastic.easeOut.config(1, 0.3),
-			}
-		)
+		login(user); // $swal('Hello Vue world!!!');
+		// gsap.fromTo(
+		// 	"authresponse",
+		// 	{
+		// 		opacity: 0,
+		// 		y: -10,
+		// 	},
+		// 	{
+		// 		opacity: 1,
+		// 		y: 0,
+		// 		duration: 1,
+		// 		ease: Elastic.easeOut.config(1, 0.3),
+		// 	}
+		// )
 		isLoading()
 	}, 2000)
 }
