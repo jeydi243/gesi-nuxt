@@ -49,10 +49,9 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useConfig } from "@/store/config"
 import { gsap, Elastic } from "gsap"
-import { mapActions } from "pinia"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { useRouter } from "vue-router"
@@ -80,7 +79,7 @@ const token = computed(() => auth.token)
 const loading = ref(false)
 const forAanime = ref({ atat: 0 })
 const isLoading = useToggle(loading)
-const authresponse = computed(() => auth.authresponse)
+const authresponse = computed(() => auth!.authResponse)
 const placeholderSuggestion = ref(["17ki2022", "18gk2022", "55gk20", "18gk2024", "202218gk", "18gk2041", "18gk2022", "18gk1022", "18gk2022"])
 
 watch(token, function (newavalue, oldvalue) {
@@ -122,7 +121,7 @@ async function loger() {
 				ease: Elastic.easeOut.config(1, 0.3),
 			}
 		)
-		isloading.value = !isloading.value
+		isLoading()
 	}, 2000)
 }
 async function submitForm(user) {
@@ -142,6 +141,8 @@ function onInvalidSubmit({ errors }) {
 		gsap.to(el, { x: "-=5", yoyo: true, repeat: 5, duration: 0.1 })
 	}
 }
+
+
 </script>
 
 <style lang="css" scoped>

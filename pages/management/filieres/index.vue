@@ -1,6 +1,6 @@
 <template>
   <div class="h-full w-full">
-    <div class="card row mb-4 justify-between">
+    <div class="row mb-4 justify-between">
       <span class="text-4xl font-bold border-0 border-l-4 border-l-yellow-400 pl-2">Filières</span>
       <button type="button" class="btn-primary" @click="showModalFiliere = !showModalFiliere">
         <AcademicCapIcon class="h-5 w-5 text-white" />
@@ -19,9 +19,7 @@
                 <h5 class="text-gray-900 text-xl font-medium mb-2">Card title</h5>
                 <p class="text-gray-700 text-base mb-4">{{ item.name }} Some quick example text to build on the card title and make up the bulk of the card's content.hy jhjh</p>
                 <h6>{{ item.manager }}</h6>
-                <button
-                        type="button"
-                        class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                   Button
                 </button>
               </div>
@@ -86,14 +84,16 @@
 </template>
 
 <script setup lang="ts">
-import { mapState, mapActions } from "pinia"
 import { ref } from "vue"
 import * as yup from "yup"
 import { useManagement } from "~~/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
-import { AcademicCapIcon, PlusIcon, UserIcon } from "@heroicons/vue/24/solid"
-import { isLength, } from "validator"
+import { AcademicCapIcon } from "@heroicons/vue/24/solid"
+
+definePageMeta({
+  layout: "management",
+});
 const management = useManagement()
 const { addFiliere } = management
 const filiereSchema = ref({

@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import * as yup from "yup"
 import { useCourses } from "@/store/courses"
 import { useFileDialog, get } from "@vueuse/core"
@@ -59,7 +59,7 @@ const { files, open, reset } = useFileDialog()
 const store = useCourses()
 const img = computed({
   get() {
-    return URL.createObjectURL(files.value[0])
+    return URL.createObjectURL(files.value![0])
   },
   set(newVal) {
     files.value = []

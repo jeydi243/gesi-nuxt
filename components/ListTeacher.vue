@@ -31,8 +31,7 @@
           <td class="table-cell">{{ teacher.matricule }}</td>
           <td class="table-cell">{{ teacher.name }}</td>
           <td class="table-cell">{{ teacher.email }}</td>
-          <td class="table-cell">{{ teacher.niveau }}</td>
-          <td class="table-cell">{{ teacher.statut }}</td>
+          <td class="table-cell">{{ teacher.status }}</td>
         </tr>
       </transition-group>
       <!-- </tbody> -->
@@ -50,7 +49,7 @@ const teacherStore = useTeachers()
 
 const teachers = computed(() => teacherStore.myteachers(filtre.value))
 async function goto(index: number) {
-  return await router.push({ name: "teachers-details", params: { id: teachers.value[index]._id } })
+  return await router.push(`/teachers/${teachers.value[index]._id}`)
 }
 </script>
 

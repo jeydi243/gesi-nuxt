@@ -1,14 +1,13 @@
 <template>
   <div>
-
+sdfgsdfsdf
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed, watch } from "vue"
-import { beforeEnterList, enterList, leaveList } from "~/utils/index.ts"
+
 const router = useRouter()
-const currentTab = computed(() => tabsGestion.value.find((tab) => tab.current).name.toLowerCase())
 const tabsGestion = ref([
   { name: "courses", current: true },
   { name: "filieres", current: false },
@@ -16,6 +15,7 @@ const tabsGestion = ref([
   { name: "employees", current: false },
   { name: "academique", current: false },
 ])
+const currentTab = computed(() => tabsGestion.value.find((tab) => tab.current).name.toLowerCase())
 onMounted(() => {
   console.log("mounteing");
   router.push(`/management/${currentTab.value}`)

@@ -1,6 +1,7 @@
 <template>
   <NuxtLayout>
-    <NuxtPage />
+    <NuxtLoadingIndicator />
+    <NuxtPage :key="$route.fullPath" />
   </NuxtLayout>
 </template>
 <script setup lang="ts">

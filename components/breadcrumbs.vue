@@ -4,16 +4,16 @@
 		<!-- {{ b }} -->
 		<ol class="list-rese flex">
 			<li v-for="(item, index) in b" :key="index">
-				<router-link :to="item">
+				<NuxtLink :to="item">
 					{{ item }}
-				</router-link>
+				</NuxtLink>
 				<span v-if="index != b.length - 1" class="mx-2">/</span>
 			</li>
 		</ol>
 	</nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { computed } from "vue"
 	import { useRoute } from "vue-router"
 

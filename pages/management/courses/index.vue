@@ -1,8 +1,9 @@
 <template>
 	<div>
 		<div class="row w-full justify-end mb-2">
-			<button @click="router.push('courses-add')" class="btn-primary"><box-icon name="plus" color="white"></box-icon>Add Course</button>
-		</div>
+			<button @click="router.push('/management/course/add')" class="btn-primary"><box-icon name="plus" color="white"></box-icon>Add Course</button>
+		</div>µ
+		µµµ
 		<div class="justify-start items-start flex-wrap row space-x-2 space-y-4">
 			<TransitionGroup :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave">
 				<div class="grid grid-cols-4 gap-2 justify-center items-center">
@@ -23,13 +24,13 @@
 								Find out more
 								<span aria-hidden="true" class="block transition group-hover:translate-x-0.5"> &rarr; </span>
 							</a>
-							<NuxtLink :to="{ name: 'teachers-details' }" tag="div">
+							<NuxtLink to="/teachers/${index}" >
 								<p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
 							</NuxtLink>
 						</div>
 						<footer class="flex items-center justify-start leading-none bottom-0 left-0 p-2 h-[20%] w-full">
 							<img @click="router.push(`/teachers/${index}`)" class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
-							<NuxtLink :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
+							<NuxtLink :to="`/teachers/${index}`" class="flex cursor-pointer items-center no-underline hover:underline text-black">
 								<p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
 							</NuxtLink>
 
@@ -68,7 +69,7 @@
 				</section>
 				<footer class="flex items-center justify-start leading-none bottom-0 left-0 p-2 h-[20%] w-full mt-2">
 					<img class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
-					<NuxtLink :to="{ name: 'teachers-details' }" class="flex cursor-pointer items-center no-underline hover:underline text-black">
+					<NuxtLink :to="`/teachers/${index}`" class="flex cursor-pointer items-center no-underline hover:underline text-black">
 						<p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
 					</NuxtLink>
 

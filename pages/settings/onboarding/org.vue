@@ -83,7 +83,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Form, ErrorMessage, Field } from "vee-validate"
 import { useConfig } from "@/store/config"
 import { useOrganization } from "@/store/organization"

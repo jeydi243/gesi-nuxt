@@ -38,7 +38,7 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"

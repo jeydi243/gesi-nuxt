@@ -59,7 +59,7 @@
     <!-- Button trigger modal -->
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 import { format } from "date-fns"
 import { parseISO } from "date-fns"
@@ -122,6 +122,6 @@ function getStudent() {
 function closeModal() {
   modalEventAdd.value = false
 }
-function addEvent() {}
-function onInvalidEvent() {}
+function addEvent() { }
+function onInvalidEvent() { }
 </script>

@@ -12,7 +12,7 @@ export const useConfig = defineStore('config', {
     layout: 'main',
     config: {},
     sideMenus: [
-      { text: 'Home', to: '/home', icon: 'home', active: true, mouseHover: false },
+      { text: 'Home', to: '/', icon: 'home', active: true, mouseHover: false },
       { text: 'Students', to: '/students', icon: 'group', active: false, mouseHover: false },
       { text: 'Teachers', to: '/teachers', icon: 'adjust', active: false, mouseHover: false },
       { text: 'Calendar', to: '/calendar', icon: 'message-square', active: false, mouseHover: false },
@@ -107,7 +107,7 @@ export const useConfig = defineStore('config', {
       console.log('Reload side menu');
       this.sideMenus = [];
       const side = [
-        { text: 'Home', to: '/home', icon: 'home', active: true, mouseHover: false },
+        { text: 'Home', to: '/', icon: 'home', active: true, mouseHover: false },
         { text: 'Settings', to: '/settings', icon: 'cog', active: false, mouseHover: false },
         { text: 'Students', to: '/students', icon: 'group', active: false, mouseHover: false },
         { text: 'Library', to: '/library', icon: 'library', active: false, mouseHover: false },

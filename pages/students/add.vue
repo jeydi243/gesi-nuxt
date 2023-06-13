@@ -280,7 +280,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import * as yup from "yup"
 import { SaveIcon, UserIcon } from "@heroicons/vue/solid"
 import { markRaw, ref, computed } from "vue"

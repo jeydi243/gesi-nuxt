@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useConfig } from '@/store/config';
 import { useStudents } from '~~/store/students';

@@ -15,16 +15,11 @@
             <span class="text-sm">{{ prof.lastname }}</span>
           </div>
           <div
-            class="footer flex flex-row rounded-lg absolute bottom-0 w-full left-0 h-[20%] items-center content-center place-items-center"
-          >
-            <a class="bg-blue-200 text-blue-900 w-full h-full rounded-bl-lg text-center" href="tel:+243897949336"
-              >Call</a
-            >
+               class="footer flex flex-row rounded-lg absolute bottom-0 w-full left-0 h-[20%] items-center content-center place-items-center">
+            <a class="bg-blue-200 text-blue-900 w-full h-full rounded-bl-lg text-center" href="tel:+243897949336">Call</a>
             <a
-              class="bg-green-200 text-green-900 w-full h-full rounded-br-lg text-center"
-              :href="`mailto:${prof.email}`"
-              >Text</a
-            >
+               class="bg-green-200 text-green-900 w-full h-full rounded-br-lg text-center"
+               :href="`mailto:${prof.email}`">Text</a>
           </div>
         </div>
       </div>
@@ -32,7 +27,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts" >
 
 const display = ref("list")
 const teachers = ref([

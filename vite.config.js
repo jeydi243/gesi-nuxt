@@ -1,7 +1,15 @@
+import vue from '@vitejs/plugin-vue';
+
 export default {
-  vue: {
-    compilerOptions: {
-      isCustomElement: (tag) => tag.startsWith("box-icon"),
-    },
-  },
-}
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => {
+            return tag.includes('-');
+          },
+        },
+      },
+    }),
+  ],
+};

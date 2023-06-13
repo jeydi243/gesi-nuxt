@@ -3,7 +3,7 @@
     <NuxtLink to="/org" class="btn-unstate">Got to Org</NuxtLink>
   </div>
 </template>
+<script setup lang="ts">
 
-<script setup lang="ts"></script>
-
+</script>
 <style lang="scss" scoped></style>

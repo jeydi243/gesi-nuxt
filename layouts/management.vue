@@ -7,7 +7,7 @@
             <div class="h-[90%] w-full bg-gray-100 px-6 py-6 overflow-auto">
                 <div class="flex border-b border-gray-200 mb-2 select-none">
                     <TransitionGroup :css="false" @before-enter="beforeEnterList" @enter="enterList" @leave="leaveList" mode="out-in">
-                        <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': current }" :to="`/management/${name}`">{{ name }}</NuxtLink>
+                        <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" activeClass="btn-tab-active" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': currentTab == name }" :to="`/management/${name}`">{{ name }}</NuxtLink>
                     </TransitionGroup>
                 </div>
                 <slot />
@@ -23,7 +23,7 @@
 import { onActivated } from "vue"
 const isMenuCondensed = ref(false)
 const showBraedCrumbs = ref(false)
-
+const route = useRoute()
 const tabsGestion = ref([
     { name: "courses", current: true },
     { name: "filieres", current: false },
@@ -31,8 +31,15 @@ const tabsGestion = ref([
     { name: "employees", current: false },
     { name: "academique", current: false },
 ])
-// const currentTab = computed(() => tabsGestion?.value?.find((tab) => tab.current).name.toLowerCase())
+const currentTab = computed(() => tabsGestion?.value?.find((tab) => tab.current)?.name.toLowerCase())
 
+watch(route, (newval, oldval) => {
+    if (newval.path !== oldval.path) {
+        changeTab(newval.path.split('/')[2])
+    }
+    console.log({ newval });
+    console.log({ oldval });
+});
 const router = useRouter()
 onActivated(() => {
     //   document.body.removeAttribute("data-layout", "horizontal")
@@ -65,10 +72,17 @@ function toggleRightSidebar() {
 function hideRightSidebar() {
     document.body.classList.remove("right-bar-enabled")
 }
-function changeTab(indexTab: number) {
-    var currentTrue = tabsGestion.value.findIndex((tab) => tab.current == true)
-    tabsGestion.value[currentTrue].current = false
-    tabsGestion.value[indexTab].current = true
+function changeTab(indexTab: number | string) {
+    if (typeof indexTab == 'string') {
+        var currentTrue: number = tabsGestion.value.findIndex((tab) => tab.current == true)
+        var willTrue: number = tabsGestion.value.findIndex((tab) => tab.name == indexTab)
+        tabsGestion.value[currentTrue].current = false
+        tabsGestion.value[willTrue].current = true
+    } else {
+        var currentTrue = tabsGestion.value.findIndex((tab) => tab.current == true)
+        tabsGestion.value[currentTrue].current = false
+        tabsGestion.value[indexTab].current = true
+    }
 }
 </script>
 <style>

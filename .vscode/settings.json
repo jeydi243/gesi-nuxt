@@ -14,5 +14,6 @@
   "prettier.printWidth": 300,
   "prettier.useTabs": false,
   "html.format.wrapLineLength": 0,
+  "template-string-converter.enable": "on",
   "['vue']": { "editor.autoIndent": "full", "editor.guides.indentation": true, "editor.defaultFormatter": "esbenp.prettier-vscode" }
 }
