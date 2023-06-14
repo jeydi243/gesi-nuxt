@@ -51,7 +51,6 @@
 import * as yup from "yup"
 import { useCourses } from "@/store/courses"
 import { useFileDialog, get } from "@vueuse/core"
-import { ref, watch, computed } from "vue"
 import { Form, ErrorMessage, Field } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const { files, open, reset } = useFileDialog()

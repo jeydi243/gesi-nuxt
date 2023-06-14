@@ -51,11 +51,9 @@
 
 <script setup lang="ts">
 import { useConfig } from "@/store/config"
-import { gsap, Elastic } from "gsap"
+import { gsap } from "gsap"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
-import { useRouter } from "vue-router"
-import { ref, computed, watch, onMounted } from "vue"
 import * as yup from "yup"
 import { useAuth } from "@/store/authentication"
 import anime from "animejs/lib/anime.es.js"
@@ -82,7 +80,7 @@ const isLoading = useToggle(loading)
 const authresponse = computed(() => auth!.authResponse)
 const placeholderSuggestion = ref(["17ki2022", "18gk2022", "55gk20", "18gk2024", "202218gk", "18gk2041", "18gk2022", "18gk1022", "18gk2022"])
 
-watch(token, function (newavalue, oldvalue) {
+watch(token, (newavalue, oldvalue) => {
 	if (newavalue) {
 		router.push("/").catch(() => { })
 	}

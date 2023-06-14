@@ -117,7 +117,6 @@
 <script setup lang="ts">
 import * as yup from "yup"
 import { useManagement } from "@/store/management"
-import { ref, computed, onMounted } from "vue"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, InvalidSubmissionContext } from "vee-validate"
 import { SearchIcon, TrashIcon, ClipboardIcon, DocumentAddIcon, RefreshIcon } from "@heroicons/vue/solid"

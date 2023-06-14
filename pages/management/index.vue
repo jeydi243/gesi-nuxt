@@ -1,11 +1,10 @@
 <template>
   <div>
-sdfgsdfsdf
+    sdfgsdfsdf
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from "vue"
 
 const router = useRouter()
 const tabsGestion = ref([

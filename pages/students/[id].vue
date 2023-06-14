@@ -112,7 +112,7 @@
 <script setup lang="ts">
 // import studentsAPI from "@/api/students"
 // import { UserIcon, ArrowRightIcon } from "@heroicons/vue/24/solid"
-import { computed } from "vue"
+
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const router = useRouter()

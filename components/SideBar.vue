@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { useElementBounding } from "@vueuse/core"
-import { computed, ref, watch } from "vue"
 import { useConfig } from "~~/store/config"
 
 const config = useConfig()

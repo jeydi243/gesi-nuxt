@@ -74,7 +74,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
 import { useManagement } from "@/store/management"
 import { PhoneIcon, PencilIcon, UserIcon } from "@heroicons/vue/24/solid"
 

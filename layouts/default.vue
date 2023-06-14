@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onActivated } from "vue"
+
 const isMenuCondensed = ref(false)
 const showBraedCrumbs = ref(false)
 // props: { typeLayout: String },

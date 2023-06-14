@@ -85,7 +85,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
 import { UseImage } from "@vueuse/components"
 import { storeToRefs } from "pinia"
 import { useCourses } from "~/store/courses"

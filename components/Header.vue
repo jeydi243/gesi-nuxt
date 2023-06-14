@@ -39,7 +39,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
 import { useAuth } from "@/store/authentication"
 import { mapActions } from "pinia"
 import { ArrowLeftIcon } from "@heroicons/vue/24/solid"

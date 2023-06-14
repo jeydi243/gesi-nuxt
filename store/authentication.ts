@@ -7,7 +7,7 @@ export const useAuth = defineStore('authentication', {
 
   actions: {
     async init() {
-      await this.getAllStudents();
+      // await this.getAllStudents();
     },
     async logout() {
       return await usersAPI.logout();

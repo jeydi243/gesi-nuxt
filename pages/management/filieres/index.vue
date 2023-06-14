@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+
 import * as yup from "yup"
 import { useManagement } from "~~/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"

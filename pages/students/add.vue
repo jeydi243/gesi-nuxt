@@ -283,7 +283,6 @@
 <script setup lang="ts">
 import * as yup from "yup"
 import { SaveIcon, UserIcon } from "@heroicons/vue/solid"
-import { markRaw, ref, computed } from "vue"
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { useStudents } from "~~/store/students"
