@@ -40,16 +40,16 @@
               <div class="row items-center my-auto h-full">
                 <div class="backdrop-blur-sm bg-red-white/30 absolute left-[25%] top-[35%] z-10 w-20 h-7 rounded-md text-white text-center cursor-pointer" v-if="editMode"><button type="button" @click="changepicture">Edit</button></div>
                 <!-- <img src="http://localhost:3000/resources/file/63bf2dda6afe67abeb28c994" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" /> -->
-                <img :src="api_resources.getById(userData?.images)" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" />
+                <img :src="`/resources/file/${userData!['images']!['_id']}`" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" />
               </div>
             </div>
             <div v-if="!editMode" class="flex-none">
               <div class="col ml-5 space-y-2">
                 <span class="capitalize font-bold text-xl">{{ userData!.lastname }}</span>
-                <span class="font-bold text-green-600">{{ userData!.position[0] }}</span>
+                <span class="font-bold text-green-600">{{ userData!.position![0] }}</span>
                 <span class="italic text-sm">{{ userData!.emails }}</span>
-                <span class="italic text-sm">{{ userData!.telephones[0] }}</span>
-                <span class="bg-green-100 pl-1 pt-1 pb-1 pr-3 rounded-md font-bold" data-bs-toggle="tooltip" data-bs-placement="right" :title="userData!.hire_date">7 years of experience</span>
+                <span class="italic text-sm">{{ userData!.telephones![0] }}</span>
+                <span class="bg-green-100 pl-1 pt-1 pb-1 pr-3 rounded-md font-bold" data-bs-toggle="tooltip" data-bs-placement="right" :title="`${userData!.hire_date}`">7 years of experience</span>
               </div>
             </div>
             <div v-else class="w-auto grow">
@@ -173,19 +173,19 @@
           <div>
             <span class="font-bold text-xl">Education & Certifiactions</span>
           </div>
-          <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start row md:gap-6 mt-2 transition-all ease-in duration-700" :class="{ 'border-none': editMode, 'md:justify-start': userData!.educations.length == 1 }">
+          <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start row md:gap-6 mt-2 transition-all ease-in duration-700" :class="{ 'border-none': editMode, 'md:justify-start': userData!.educations!.length == 1 }">
             <li v-for="({ name, start, description, end, from_school, _id }, index) in userData!.educations" :key="index" class="transition-all ease-in duration-700 relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': editMode }">
               <div class="flex md:block flex-start items-center pt-2 md:pt-0">
                 <div class="bg-green-300 w-2 h-2 rounded-full -ml-1 md:ml-0 mr-3 md:mr-0 md:-mt-1"></div>
-                <p class="text-green-500 text-sm mt-2">{{ filters.toiso(start) }} - {{ filters.toiso(end) }}</p>
+                <!-- <p class="text-green-500 text-sm mt-2">{{ start - end}}</p> -->
               </div>
               <div class="mt-0.5 ml-4 md:ml-0 pb-5">
                 <h4 class="text-green-800 font-semibold text-xl mb-1.5">{{ name }}</h4>
                 {{ from_school }}
                 <p class="text-gray-500 mb-3">{{ description }}</p>
-                <button v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateEducation(id)">Update</button>
+                <button v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateEducation(_id)">Update</button>
               </div>
-              <button v-if="editMode" @click="deleteEducation(id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
+              <button v-if="editMode" @click="deleteEducation(_id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
                 <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
               </button>
             </li>
@@ -232,9 +232,9 @@
               <Form @submit="updateOnboarding" v-slot="{ isSubmitting, values }" :initial-values="{ ...onboardings }">
                 <div class="form-check form-switch" v-for="(val, key) in onboardings" :key="key">
                   <input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="values[key]" />
-                  <label :for="key" class="form-check-label">{{ userData!.onboarding!.find((e) => e["field"] == key)!["description"] }}</label>
+                  <label :for="`${key}`" class="form-check-label">{{ userData!.onboarding!.find((e) => e["field"] == key)!["description"] }}</label>
 
-                  <ErrorMessage :name="key" v-slot="{ message }">
+                  <ErrorMessage :name="`${key}`" v-slot="{ message }">
                     <p class="input-error">{{ message }}</p>
                   </ErrorMessage>
                 </div>
@@ -560,7 +560,7 @@
 <script setup lang="ts">
 import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
-import { IEmployee, IExperience, useManagement } from "@/store/management"
+import { IEducation, IEmployee, IExperience, useManagement } from "@/store/management"
 import { onBeforeRouteUpdate } from "vue-router"
 import { parseISO } from "date-fns"
 import { useToast } from "vue-toastification";
@@ -575,7 +575,7 @@ const route = useRoute()
 const router = useRouter()
 const userData = computed(() => store.employees.find((emp) => emp._id == route.params._id))
 const editMode = ref(false)
-const onboardings = computed(() => Object.fromEntries(new Map(userData.value!.onboarding.map((obj) => [obj['field'], obj['state']]))))
+const onboardings = computed(() => Object.fromEntries(new Map(userData.value!.onboarding!.map((obj) => [obj['field'], obj['state']]))))
 const showModalAddExper = ref(false)
 const showModalUpdateDoc = ref(false)
 const showModalAddContact = ref(false)
@@ -589,7 +589,9 @@ const basicInfo = ref<IEmployee>({
   middlename: userData.value!.middlename,
   firstname: userData.value!.firstname,
   telephones: userData.value!.telephones,
-  emails: userData.value!.emails
+  emails: userData.value!.emails,
+  code: "",
+  _id: ""
 })
 const tabsEmp = ref([
   { name: "Basic Information", current: true },
@@ -618,14 +620,14 @@ const basicInfoSchema = {
 }
 onBeforeMount(() => {
   console.log("LEKA")
-  console.log(api_resources.getById(userData.value?.images))
+  console.log(api_resources.getById(userData!.value!.images![0]))
 })
 onBeforeRouteUpdate(async (to, from) => {
-  console.log(api_resources.getById(userData.value?.images))
+  console.log(api_resources.getById(userData.value!.images![0]))
   if (to.params._id !== from.params._id) {
     const result = await store.employeeBy(to.params.id)
     if (result) {
-      toast("Route id changed to %s...", to.params.id)
+      toast(`Route id changed to %s...${to.params.id}`)
     } else {
       toast.warning("Something went wrong on refreshing. Try later")
     }
@@ -668,7 +670,7 @@ const contactValue = ref({
   email: chance.email(),
   relationship: "Father",
 })
-const educationValue = ref({
+const educationValue = ref<IEducation>({
   from_school: "Catalyst",
   name: "Master of science",
   start: "2018-05-05",
@@ -680,7 +682,7 @@ const passwordValue = ref({
   password: "123456",
   password_verif: "123456",
 })
-const experienceValue = ref({
+const experienceValue = ref<IExperience | undefined>({
   _id: "",
   company: "Google",
   position: "Frontend developer",
@@ -690,13 +692,13 @@ const experienceValue = ref({
 })
 const educationSchema = ref({
   end(value) {
-    return validator.isDate(parseISO(value)) ? true : "End date must be provided"
+    return validator.isDate(parseISO(value).toDateString()) ? true : "End date must be provided"
   },
   name(value) {
     return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
   },
   start(value) {
-    return validator.isDate(parseISO(value)) ? true : "Start date must be provided"
+    return validator.isDate(parseISO(value).toDateString()) ? true : "Start date must be provided"
   },
   from_school(value) {
     return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
@@ -710,10 +712,10 @@ const experienceSchema = ref({
     return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
   },
   start(value) {
-    return validator.isDate(parseISO(value)) ? true : "Start date must be provided"
+    return validator.isDate(parseISO(value).toDateString()) ? true : "Start date must be provided"
   },
   end(value) {
-    return validator.isDate(parseISO(value)) ? true : "End date must be provided"
+    return validator.isDate(parseISO(value).toDateString()) ? true : "End date must be provided"
   },
   company(value) {
     return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
@@ -757,23 +759,23 @@ async function deleteExperience(experienceID) {
     toast.error("Can't delete experience for this employee")
   }
 }
-async function launchUpdateExperience(experienceID) {
-  const ud:IExperience = userData!.value["experiences"].find((exp) => exp._id == experienceID)
+async function launchUpdateExperience(experienceID: string) {
+  const ud: IExperience | undefined = userData.value!["experiences"]!.find((exp: IExperience) => exp._id == experienceID)
   experienceValue.value = ud
   showModalUpdateExper.value = true
 }
-async function launchUpdateEducation(educationID = 4) {
-  const ud = userData!.value["educations"].find((edu) => edu._id == educationID)
+async function launchUpdateEducation(educationID: string = "4") {
+  const ud = userData.value!["educations"]!.find((edu) => edu._id == educationID)
   console.log({ ...ud })
   // educationValue.value = { ...ud }
   showModalUpdateEducation.value = true
 }
 async function updateExperience(updatedExperience) {
   try {
-    const result = await store.updateExperience(route.params._id, experienceValue.value._id, updatedExperience)
+    const result = await store.updateExperience(route.params._id, experienceValue.value!._id, updatedExperience)
     if (result) {
       closeModal()
-      toast.success(`Update Experience with id ${experienceValue.value._id}`)
+      toast.success(`Update Experience with id ${experienceValue.value!._id}`)
     } else {
       toast.error("Can't update experience for this employee")
     }
@@ -783,7 +785,7 @@ async function updateExperience(updatedExperience) {
 }
 async function updateEducation(updatedEducation) {
   try {
-    const result = await store.updateEducation(route.params._id, educationValue.value._id, updatedEducation)
+    const result = await store.updateEducation(route.params._id, educationValue.value!._id, updatedEducation)
     if (result) {
       closeModal()
       toast.success(`Update education with id ${educationValue.value!._id}`)
@@ -799,7 +801,7 @@ async function updateBiography(biography) {
     const result = await store.updateBiography(route.params._id, biography)
     if (result) {
       closeModal()
-      toast.success(`Update biography with id ${educationValue.value._id}`)
+      toast.success(`Update biography with id ${educationValue.value!._id}`)
     } else {
       toast.error("Can't update biography for this employee")
     }
@@ -870,7 +872,8 @@ function closeModal() {
   showModalDeleteEmployee.value = false
   showModalUpdateEducation.value = false
 }
-function onInvalidEducation({ values, result, errors }) {
+function onInvalidEducation(ctx: InvalidSubmissionContext) {
+  const { values, errors } = ctx
   console.log("Invalid education", errors)
 }
 function onInvalidExperience(ctx: InvalidSubmissionContext) {
@@ -906,7 +909,7 @@ async function changeDocument(values) {
   const formdata = new FormData()
   formdata.append("file", values["myfile"])
   try {
-    const result = store.changedoc(route.params._id, formdata)
+    const result = await store.changedoc(route.params._id, formdata)
     if (result) {
       closeModal()
       toast("Changed dox successfully...")

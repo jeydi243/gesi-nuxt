@@ -2,6 +2,7 @@ const axios = '';
 import { defineStore } from 'pinia';
 import configAPI from '@/api/config';
 import orgsAPI from '@/api/orgs';
+import { useAuth } from './authentication';
 
 export interface Organization {
   org_id: string;
@@ -26,7 +27,7 @@ export const useOrganization = defineStore('organization', {
     },
     async setRootOrg(payload) {
       try {
-        const { data, status } = configAPI.add(payload);
+        const { data, status } = await configAPI.add(payload);
         console.log({ data }, { status });
         if (status == 200 || status == 201) {
           this.organizations.unshift(data);
@@ -37,7 +38,7 @@ export const useOrganization = defineStore('organization', {
     },
     async getOrgs() {
       try {
-        const { data, status } = configAPI.getAll();
+        const { data, status } = await configAPI.getAll();
         console.log({ data }, { status });
         if (status == 200 || status == 201) {
           data.forEach((element) => {

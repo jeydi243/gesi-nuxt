@@ -4,6 +4,7 @@ import { defineStore } from 'pinia';
 import { useTeachers } from './teachers';
 import { useRouter } from 'vue-router';
 import { useConfig } from '@/store/config';
+import { useOrganization } from './organization';
 export interface IDocument {
   _id: string;
   code: string;
@@ -12,35 +13,27 @@ export interface IDocument {
 }
 export interface IPerson {
   _id: string;
-  firstname: string;
-  middlename: string;
-  lastname: string;
-  emails: string;
-  images: Array<string>;
-  telephones: Array<string>;
+  firstname?: string;
+  middlename?: string;
+  lastname?: string;
+  emails?: string;
+  images?: Array<string>;
+  telephones?: Array<string>;
 }
 export interface IEducation {
   _id: string;
   from_school: string;
   name: string;
-  start: Date;
-  end: Date;
-  description: string;
-}
-export interface IExperience {
-  _id: string;
-  from_school: string;
-  name: string;
-  start: Date;
-  end: Date;
+  start: Date | string;
+  end: Date | string;
   description: string;
 }
 export interface IExperience {
   _id: string;
   company: string;
   position: string;
-  start: Date;
-  end: Date;
+  start: Date | string;
+  end: Date | string;
   description: string;
 }
 export interface IContact {
@@ -52,14 +45,14 @@ export interface IContact {
 }
 export interface IEmployee extends IPerson {
   code: string;
-  name: string;
-  resume_file: string;
-  position: string;
-  biography: string;
-  educations: Array<IEducation>;
-  onboarding: Array<Map<string, string>>;
-  contacts: Array<IContact>;
-  experiences: Array<IExperience>;
+  resume_file?: string;
+  hire_date?: Date;
+  position?: string;
+  biography?: string;
+  educations?: Array<IEducation>;
+  onboarding?: Array<Map<string, string>>;
+  contacts?: Array<IContact>;
+  experiences?: Array<IExperience>;
 }
 export interface IContent {
   _id: string;
@@ -101,7 +94,6 @@ export const useManagement = defineStore('management', {
         console.log(error);
       }
     },
-
     async getAllDocuments() {
       this.listDocuments = [];
       console.log('getAllDocuments');
@@ -180,7 +172,7 @@ export const useManagement = defineStore('management', {
         const { data, status } = await mgntAPI.addExperience(id, experience);
         if (status == 200 || status == 201) {
           const index = this.employees.findIndex((emp) => emp._id == data.id);
-          this.employees[index].experiences.unshift(data);
+          this.employees[index].experiences!.unshift(data);
           return true;
         }
         return false;
@@ -210,7 +202,7 @@ export const useManagement = defineStore('management', {
         const { data, status } = await mgntAPI.addEducation(employeeID, education);
         if (status == 201 || status === 200) {
           let index = this.employees.findIndex((em) => em._id == employeeID);
-          this.employees[index].educations.push(data);
+          this.employees![index].educations!.push(data);
           return true;
         }
         return false;
@@ -224,7 +216,7 @@ export const useManagement = defineStore('management', {
         const { data, status } = await mgntAPI.addEmergencyContact(employeeID, contact);
         if (status == 201 || status === 200) {
           let index = this.employees.findIndex((em) => em._id == employeeID);
-          this.employees[index].contacts.unshift(data);
+          this.employees![index].contacts!.unshift(data);
           return true;
         }
         return false;
@@ -239,9 +231,9 @@ export const useManagement = defineStore('management', {
         console.log(status);
         if ((status == 200 || status == 201) && data != '') {
           const indexEmp = this.employees.findIndex((emp) => emp._id == employeeID);
-          const indexEduc = this.employees[indexEmp].educations.findIndex((educ) => educ['id'] == educationID);
+          const indexEduc = this.employees[indexEmp].educations!.findIndex((educ) => educ['id'] == educationID);
           if (indexEduc != -1) {
-            this.employees[indexEmp].educations.splice(indexEduc, 1);
+            this.employees[indexEmp].educations!.splice(indexEduc, 1);
             return true;
           } else {
             return false;
@@ -260,9 +252,9 @@ export const useManagement = defineStore('management', {
         const { data, status, headers } = await mgntAPI.deleteContact(employeeID, contactID);
         if ((status == 200 || status == 201) && data != '') {
           const indexEmp = this.employees.findIndex((emp) => emp._id == employeeID);
-          const indexContact = this.employees[indexEmp].contacts.findIndex((educ) => educ['id'] == contactID);
+          const indexContact = this.employees[indexEmp].contacts!.findIndex((educ) => educ['id'] == contactID);
           if (indexContact != -1) {
-            this.employees[indexEmp].contacts.splice(indexContact, 1);
+            this.employees[indexEmp].contacts!.splice(indexContact, 1);
             return true;
           } else {
             console.log("Ce contact n'exige déja plus");
@@ -283,9 +275,9 @@ export const useManagement = defineStore('management', {
         if (status == 200 || status == 201) {
           const index = this.employees.findIndex((emp) => emp._id == employeeID);
           console.log({ index });
-          const indexExp = this.employees[index].educations.findIndex((educ) => educ['id'] == experienceID);
+          const indexExp = this.employees![index].educations!.findIndex((educ) => educ['id'] == experienceID);
           if (indexExp != -1) {
-            this.employees[index].educations.splice(indexExp, 1);
+            this.employees[index].educations!.splice(indexExp, 1);
             return true;
           } else {
             return false;
@@ -306,9 +298,9 @@ export const useManagement = defineStore('management', {
         console.log({ data, status, headers });
         if ((status == 200 || status == 201) && data != '') {
           const index = this.employees.findIndex((emp) => emp._id == employeeID);
-          const indexExp = this.employees[index].experiences.findIndex((exp) => exp['id'] == experienceID);
+          const indexExp = this.employees[index].experiences!.findIndex((exp) => exp['id'] == experienceID);
           if (indexExp != -1) {
-            this.employees[index].experiences[indexExp] = data;
+            this.employees[index]!.experiences![indexExp] = data;
           } else {
             return false;
           }
@@ -327,9 +319,9 @@ export const useManagement = defineStore('management', {
         const { data, status, headers } = await mgntAPI.updateEducation(employeeID, { id: educationID, ...education });
         if ((status == 200 || status == 201) && data != '') {
           const index = this.employees.findIndex((emp) => emp._id == employeeID);
-          const indexExp = this.employees[index].educations.findIndex((educ) => educ['id'] == educationID);
+          const indexExp = this.employees[index].educations!.findIndex((educ) => educ['id'] == educationID);
           if (indexExp != -1) {
-            this.employees[index].educations[indexExp] = data;
+            this.employees[index].educations![indexExp] = data;
           } else {
             return false;
           }
