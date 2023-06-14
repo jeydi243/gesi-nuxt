@@ -1,7 +1,8 @@
-import coursesAPI from '@/api/courses';
+import contentsAPI from '@/api/contents';
 import { defineStore } from 'pinia';
 import { useAuth } from './authentication';
-export interface ICourse {
+import { ITeacher } from './teachers';
+export interface IContent {
   authors: [];
   title: string;
   images?: string[];
@@ -10,18 +11,18 @@ export interface ICourse {
   parts?: [];
   tags?: [];
 }
-export interface StoreCourse {
-  courses: ICourse[] | [];
+export interface StoreContent {
+  contents: IContent[] | [];
   loading: boolean;
-  defaultCourse: ICourse;
+  defaultContent: IContent;
   error: string;
 }
-export const useCourses = defineStore('courses', {
-  state: (): StoreCourse => ({
-    courses: [],
+export const useContents = defineStore('contents', {
+  state: (): StoreContent => ({
+    contents: [],
     loading: false,
     error: '',
-    defaultCourse: {
+    defaultContent: {
       parts: [],
       images: [],
       tags: [],
@@ -34,18 +35,18 @@ export const useCourses = defineStore('courses', {
   actions: {
     async init() {
       try {
-        await this.getcourses();
+        await this.getcontents();
       } catch (er) {
         console.log('Error initializing: ', er);
       }
     },
-    async getcourses() {
+    async getcontents() {
       try {
-        const { data, status } = await coursesAPI.getAll();
+        const { data, status } = await contentsAPI.getAll();
         if (status || 200 || status == 201) {
           console.log(data);
-          data.forEach((element:ICourse) => {
-            this.courses.unshift(element);
+          data.forEach((element: IContent) => {
+            this.contents.unshift(element);
             setTimeout(() => {}, 1000);
           });
           return true;
@@ -55,13 +56,13 @@ export const useCourses = defineStore('courses', {
         console.log(er);
       }
     },
-    async updateCourse({ idCourse, update }) {
+    async updateContent({ idContent, update }) {
       try {
-        const { status, data } = await coursesAPI.updateById(idCourse, update);
+        const { status, data } = await contentsAPI.updateById(idContent, update);
         if (status == 200 || status == 201) {
-          var foundIndex = this.courses.findIndex((t) => t.id == data.idCourse);
+          var foundIndex = this.contents.findIndex((t) => t.id == data.idContent);
           if (foundIndex) {
-            this.courses[foundIndex] = data;
+            this.contents[foundIndex] = data;
           }
           return true;
         }
@@ -70,31 +71,31 @@ export const useCourses = defineStore('courses', {
         console.log(er);
       }
     },
-    async addCourse(course) {
+    async addContent(content) {
       const auth = useAuth();
       // let dat
       try {
-        const { status, data } = await coursesAPI.add({ ...this.defaultCourse, ...course, authors: [auth.user.id], createdBy: auth.user.id });
+        const { status, data } = await contentsAPI.add({ ...this.defaultContent, ...content, authors: [auth.user.id], createdBy: auth.user.id });
         console.log({ data });
         // dat = data
         if (status == 200 || status == 201) {
-          this.courses.unshift(data as Icourse);
+          this.contents.unshift(data as IContent);
           return true;
         }
         return false;
-      } catch (err:any) {
+      } catch (err: any) {
         // console.log({ err })
         return err.data.dto_validation_error;
       }
     },
   },
   getters: {
-    mycourses: (state) =>
+    contents: (state) =>
       function (filter) {
         if (filter) {
-          return state.courses.find((professor) => professor.name.toLowerCase().includes(filter.toLowerCase()));
+          return state.contents.find((content: IContent) => content.title.toLowerCase().includes(filter.toLowerCase()));
         }
-        return state.courses;
+        return state.contents;
       },
   },
 });

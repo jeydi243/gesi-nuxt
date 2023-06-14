@@ -8,7 +8,7 @@
 
 const router = useRouter()
 const tabsGestion = ref([
-  { name: "courses", current: true },
+  { name: "contents", current: true },
   { name: "filieres", current: false },
   { name: "documents", current: false },
   { name: "employees", current: false },
@@ -18,7 +18,7 @@ const currentTab = computed(() => tabsGestion.value.find((tab) => tab.current).n
 onMounted(() => {
   console.log("mounteing");
   router.push(`/management/${currentTab.value}`)
-  // if (currentTab.value === "employees" || currentTab.value === "courses") {
+  // if (currentTab.value === "employees" || currentTab.value === "contents") {
   // }
   // else {
   // 	router.push(`${currentTab.value}-index`)
@@ -28,7 +28,7 @@ onMounted(() => {
 //watch(currentTab, function (newval) {
 // if (newval != oldval && newval != "employees") {
 //    router.push(`${newval}-index`)
-// } else if (newval == oldval && ["employees", "courses"].includes(newval)) {
+// } else if (newval == oldval && ["employees", "contents"].includes(newval)) {
 //  	router.push(`${newval}-list`)
 // } else {
 // 	router.push(`${newval}-list`)

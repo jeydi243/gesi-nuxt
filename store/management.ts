@@ -1,21 +1,24 @@
 import mgntAPI from '@/api/management';
-import coursesAPI from '@/api/courses';
+import contentsAPI from '@/api/contents';
 import { defineStore } from 'pinia';
 import { useTeachers } from './teachers';
 import { useRouter } from 'vue-router';
 import { useConfig } from '@/store/config';
 import { useOrganization } from './organization';
 export interface IDocument {
-  _id: string;
+  _id?: string;
   code: string;
   name: string;
   description: string;
+
+  show?: boolean;
 }
 export interface IPerson {
   _id: string;
   firstname?: string;
   middlename?: string;
   lastname?: string;
+  gender: 'M' | 'F';
   emails?: string;
   images?: Array<string>;
   telephones?: Array<string>;
@@ -61,7 +64,7 @@ export interface IContent {
   authors: [];
 }
 interface IManagement {
-  courses: Array<IContent>;
+  contents: Array<IContent>;
   laptops: string[];
   token: string;
   routeurs: [];
@@ -73,7 +76,7 @@ interface IManagement {
 // const router = useRouter()
 export const useManagement = defineStore('management', {
   state: (): IManagement => ({
-    courses: [],
+    contents: [],
     laptops: [],
     routeurs: [],
     listDocuments: [],
@@ -500,7 +503,7 @@ export const useManagement = defineStore('management', {
     },
   },
   getters: {
-    getCourses: (state) => state.courses,
+    getContents: (state) => state.contents,
     getEmployees: (state) => state.employees,
     getLaptops: (state) => state.laptops,
     getRouteurs: (state) => state.routeurs,

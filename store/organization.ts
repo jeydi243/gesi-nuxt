@@ -4,9 +4,15 @@ import configAPI from '@/api/config';
 import orgsAPI from '@/api/orgs';
 import { useAuth } from './authentication';
 
-export interface Organization {
+export interface IOrganization {
   org_id: string;
   organization_parent_id: string;
+}
+export interface StoreOrganization {
+  count: number;
+  organizations: Array<IOrganization | null>;
+  requestError: any;
+  responseError: any;
 }
 
 export const useOrganization = defineStore('organization', {
@@ -61,11 +67,11 @@ export const useOrganization = defineStore('organization', {
         return false;
       } catch (err) {
         // console.log({ err })
-        return err.data?.dto_validation_error;
+        return err!.data!.dto_validation_error;
       }
     },
   },
   getters: {
-    rootOrg: (state) => state.organizations.find((org: Organization) => org.organization_parent_id == null),
+    rootOrg: (state) => state.organizations.find((org: IOrganization) => org.organization_parent_id == null),
   },
 });

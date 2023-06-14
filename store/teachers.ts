@@ -2,7 +2,7 @@ import teachersAPI from '@/api/teachers';
 import { defineStore } from 'pinia';
 import { Person } from './students';
 
-export class Teacher implements Person {
+export class ITeacher implements Person {
   _id: string;
   adresse?: string | undefined;
   status: string;
@@ -18,7 +18,7 @@ export class Teacher implements Person {
 }
 
 interface storeTeacher {
-  teachers: Teacher[];
+  teachers: ITeacher[];
   // addTeacher(p: Teacher): true
 }
 
@@ -72,8 +72,8 @@ export const useTeachers = defineStore('teachers', {
     },
   },
   getters: {
-    myteachers: (state) =>
-      function (filter: string): Array<Teacher> {
+    myteachers: (state):Array<ITeacher> =>
+      (filter: string): Array<ITeacher> => {
         if (filter) {
           return state.teachers.find((professor) => professor?.name.toLowerCase().includes(filter.toLowerCase()));
         }

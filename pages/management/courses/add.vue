@@ -1,7 +1,7 @@
 <template>
   <div class="card h-full w-1/2 m-auto">
-    <Form class="col justify-between w-full space-y-4" @submit="submit" v-slot="{ isSubmitting }" :validation-schema="courseSchema" :initial-values="initialCourseValue" @invalid-submit="onInvalidCourse">
-      <div class="row w-full">Add new course</div>
+    <Form class="col justify-between w-full space-y-4" @submit="submit" v-slot="{ isSubmitting }" :validation-schema="contentSchema" :initial-values="initialContentValue" @invalid-submit="onInvalidContent">
+      <div class="row w-full">Add new content</div>
       <Field name="title" v-slot="{ field, errorMessage }">
         <div class="relative group h-10">
           <input v-bind="field" type="text" id="title" required class="input peer" />
@@ -49,13 +49,13 @@
 
 <script setup lang="ts">
 import * as yup from "yup"
-import { useCourses } from "@/store/courses"
+import { useContents } from "@/store/contents"
 import { useFileDialog, get } from "@vueuse/core"
 import { Form, ErrorMessage, Field } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const { files, open, reset } = useFileDialog()
 const router = useRouter()
-const store = useCourses()
+const store = useContents()
 const img = computed({
   get() {
     return URL.createObjectURL(files.value![0])
@@ -65,13 +65,13 @@ const img = computed({
   },
 })
 
-const courseSchema = yup.object({
+const contentSchema = yup.object({
   title: yup.string().required().label("Name"),
   description: yup.string().required().label("Description"),
   expiredate: yup.string().notRequired().label("Expire date"),
 })
-const initialCourseValue = ref({
-  title: "course title",
+const initialContentValue = ref({
+  title: "content title",
   expiredate: "2024-10-10",
   description:
     "Mollit consectetur aute enim aliquip labore aliqua anim enim nulla aliqua. Id adipisicing elit id nulla do id nulla tempor. Commodo reprehenderit veniam sint adipisicing proident et do ad do enim et non adipisicing quis. Voluptate mollit laboris consectetur Lorem id. Occaecat nulla deserunt labore dolor aliqua.",
@@ -79,21 +79,21 @@ const initialCourseValue = ref({
 watch(files, (newv, oldv) => {
   console.log({ myfiles: get(newv) })
 })
-function onInvalidCourse(ctx) {
+function onInvalidContent(ctx) {
   console.log(ctx.errors)
 }
 async function submit(values, { resetForm, setFieldError }) {
   console.log({ values })
   try {
-    var result = await store.addCourse(values)
+    var result = await store.addContent(values)
     if (!result) {
-      router.push("courses-index")
-      // toast.success("Course added successfully !")
+      router.push("contents-index")
+      // toast.success("Content added successfully !")
     } else {
       for (const key in result) {
         setFieldError(key, result[key][0])
       }
-      // toast.error(`Can't add new course ${JSON.stringify(result)}`)
+      // toast.error(`Can't add new content ${JSON.stringify(result)}`)
     }
   } catch (error) {
     console.log(error)

@@ -60,13 +60,13 @@
 			<Form class="col justify-between" @submit="updateDoc" v-slot="{ isSubmitting }" :validation-schema="docSchema" :initial-values="initialDocValue" @invalid-submit="onInvalidDocument">
 				<div class="row">
 					<Field name="name" placeholder="name" v-slot="{ errors, errorMessage, field }">
-						<input type="text" name="name" id="name" class="form-input mb-2" v-bind="field" />
+						<input type="text"  id="name" class="form-input mb-2" v-bind="field" />
 						<p class="input-error">{{ errors }}</p>
 						<p class="input-error">{{ errorMessage }}</p>
 					</Field>
 				</div>
 				<Field name="description" as="textarea" placeholder="Describe the utility of this doc" v-slot="{ field, errorMessage, errors }">
-					<input class="form-textarea mb-4" type="text" name="description" id="description" v-bind="field" />
+					<input class="form-textarea mb-4" type="text" id="description" v-bind="field" />
 					<p class="input-error">{{ errorMessage }}</p>
 					<p class="input-error">{{ errors }}</p>
 				</Field>
@@ -87,11 +87,11 @@
 			<Form class="col" @submit="add" :validation-schema="docSchema" v-slot="{ isSubmitting, resetForm }" :initial-values="initialDocValue" @invalid-submit="onInvalidDocument">
 				<!-- <div class="row w-full items-center space-x-1"> -->
 				<Field as="div" class="col" name="code" placeholder="code" v-slot="{ field, errorMessage }">
-					<input type="text" name="code" id="code" class="form-input mb-2" v-bind="field" />
+					<input type="text"  id="code" class="form-input mb-2" v-bind="field" />
 					<p class="input-error">{{ errorMessage }}</p>
 				</Field>
 				<Field as="div" class="col" name="name" placeholder="name" v-slot="{ field, errorMessage }">
-					<input type="text" name="name" id="name" class="form-input mb-2" v-bind="field" />
+					<input type="text" id="name" class="form-input mb-2" v-bind="field" />
 					<p class="input-error">{{ errorMessage }}</p>
 				</Field>
 				<!-- </div> -->
@@ -191,7 +191,7 @@ function closeModal(resetForm: | null | undefined | MouseEvent | (() => void) = 
 	showModalAdd.value = false
 	showModalUpdate.value = false
 	if (resetForm) {
-		resetForm()
+		// resetForm()
 	}
 }
 function showModif(index, values) {

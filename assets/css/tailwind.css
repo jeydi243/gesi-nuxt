@@ -188,7 +188,7 @@ input:valid + span:after {
   @apply relative items-center z-20 ease-in-out text-gray-700 bg-white border border-transparent rounded-md focus:border-transparent focus:ring-opacity-40 focus:ring-transparent focus:outline-none flex flex-row;
 }
 
-.course-card {
+.content-card {
   @apply overflow-hidden bg-white rounded-lg transition-all delay-150 duration-300 hover:shadow-lg col h-[250px] w-1/5 relative;
 }
 .toggle {

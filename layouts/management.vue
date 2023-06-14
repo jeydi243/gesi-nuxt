@@ -24,7 +24,7 @@ const isMenuCondensed = ref(false)
 const showBraedCrumbs = ref(false)
 const route = useRoute()
 const tabsGestion = ref([
-    { name: "courses", current: true },
+    { name: "contents", current: true },
     { name: "filieres", current: false },
     { name: "documents", current: false },
     { name: "employees", current: false },
