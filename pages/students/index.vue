@@ -28,9 +28,9 @@ const { changeLevel } = storeConfig;
 const { getAllStudents } = store;
 watch(currentTabLevel, (newVal, oldVal) => {
   if (newVal != oldVal) {
-    isLevelChanged = false;
+    isLevelChanged.value = false;
     setTimeout(() => {
-      this.isLevelChanged = true;
+      isLevelChanged.value = true;
     }, 200);
   }
 });

@@ -19,7 +19,7 @@
                   <box-icon name="dots-vertical-rounded" color="green" class="bg-red cursor-pointer"></box-icon>
                 </button>
                 <ul class="dropdown-menu min-w-max absolute bg-white text-base z-50 float-left list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
-                  <li @click="edit_mode = !edit_mode">
+                  <li @click="editMode = !editMode">
                     <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#">Update</a>
                   </li>
                   <li @click="showModalDeleteEmployee = true">
@@ -38,18 +38,18 @@
           <div class="row relative transition-all duration-700 w-full">
             <div class="flex-none relative h-[150px] w-[150px] mr-3 items-center align-middle">
               <div class="row items-center my-auto h-full">
-                <div class="backdrop-blur-sm bg-red-white/30 absolute left-[25%] top-[35%] z-10 w-20 h-7 rounded-md text-white text-center cursor-pointer" v-if="edit_mode"><button type="button" @click="changepicture">Edit</button></div>
-                <!-- <img src="http://localhost:3000/resources/file/63bf2dda6afe67abeb28c994" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': edit_mode }" /> -->
-                <img :src="api_resources.getById(userData?.profile_image)" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': edit_mode }" />
+                <div class="backdrop-blur-sm bg-red-white/30 absolute left-[25%] top-[35%] z-10 w-20 h-7 rounded-md text-white text-center cursor-pointer" v-if="editMode"><button type="button" @click="changepicture">Edit</button></div>
+                <!-- <img src="http://localhost:3000/resources/file/63bf2dda6afe67abeb28c994" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" /> -->
+                <img :src="api_resources.getById(userData?.images)" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" />
               </div>
             </div>
-            <div v-if="!edit_mode" class="flex-none">
+            <div v-if="!editMode" class="flex-none">
               <div class="col ml-5 space-y-2">
-                <span class="capitalize font-bold text-xl">{{ userData.last_name }}</span>
-                <span class="font-bold text-green-600">{{ userData.position[0] }}</span>
-                <span class="italic text-sm">{{ userData.email }}</span>
-                <span class="italic text-sm">{{ userData.telephones[0] }}</span>
-                <span class="bg-green-100 pl-1 pt-1 pb-1 pr-3 rounded-md font-bold" data-bs-toggle="tooltip" data-bs-placement="right" :title="userData.hire_date">7 years of experience</span>
+                <span class="capitalize font-bold text-xl">{{ userData!.lastname }}</span>
+                <span class="font-bold text-green-600">{{ userData!.position[0] }}</span>
+                <span class="italic text-sm">{{ userData!.emails }}</span>
+                <span class="italic text-sm">{{ userData!.telephones[0] }}</span>
+                <span class="bg-green-100 pl-1 pt-1 pb-1 pr-3 rounded-md font-bold" data-bs-toggle="tooltip" data-bs-placement="right" :title="userData!.hire_date">7 years of experience</span>
               </div>
             </div>
             <div v-else class="w-auto grow">
@@ -119,18 +119,18 @@
                 </div>
               </div>
               <div class="row">
-                <a v-if="edit_mode" @click="showModalUpdateDoc = !showModalUpdateDoc" class="text-xs italic text-blue-700 cursor-pointer font-bold">Modifier</a>
+                <a v-if="editMode" @click="showModalUpdateDoc = !showModalUpdateDoc" class="text-xs italic text-blue-700 cursor-pointer font-bold">Modifier</a>
               </div>
             </div>
           </div>
         </div>
         <div class="row justify-center space-x-2 relative mt-4">
           <div class="card min-h-[200px] w-1/2 col justify-between">
-            <div v-if="!edit_mode" class="col">
+            <div v-if="!editMode" class="col">
               <span class="font-bold text-xl">Biography</span>
-              <span> {{ userData.biography }} </span>
+              <span> {{ userData!.biography }} </span>
             </div>
-            <Form v-else class="col justify-between h-full" @submit="updateBiography" v-slot="{ isSubmitting }" :initial-values="{ biography: userData.biography }" @invalid-submit="invalidBio">
+            <Form v-else class="col justify-between h-full" @submit="updateBiography" v-slot="{ isSubmitting }" :initial-values="{ biography: userData!.biography }" @invalid-submit="invalidBio">
               <div>
                 <Field name="biography" as="textarea" placeholder="Biography" class="form-input mb-2 w-full"></Field>
                 <ErrorMessage name="biography" v-slot="{ message }">
@@ -148,33 +148,33 @@
           </div>
           <div class="card min-h-[200px] w-1/2 col justify-between">
             <span class="font-bold text-xl">Emergency Contact</span>
-            <span v-for="(contact, index) in userData.emergencyContacts" :key="index" class="mt-2 relative transition-all ease-in duration-700" :class="{ 'rounded-lg border-2 px-7': edit_mode }">
+            <span v-for="(contact, index) in userData!.contacts" :key="index" class="mt-2 relative transition-all ease-in duration-700" :class="{ 'rounded-lg border-2 px-7': editMode }">
               <div class="row justify-between">
                 <span>Name: </span>
-                <span>{{ contact.name }}</span>
+                <span>{{ contact['name'] }}</span>
               </div>
               <div class="row justify-between">
                 <span>Relationship: </span>
-                <span>{{ contact.relationship }}</span>
+                <span>{{ contact['relationship'] }}</span>
               </div>
               <div class="row justify-between">
                 <span>Telephone: </span>
-                <span>{{ contact.telephone }}</span>
+                <span>{{ contact['telephone'] }}</span>
               </div>
-              <hr class="mb-2 text-green-500" v-if="!edit_mode" />
-              <button v-if="edit_mode" @click="deleteContact(contact.id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
+              <hr class="mb-2 text-green-500" v-if="!editMode" />
+              <button v-if="editMode" @click="deleteContact(contact._id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
                 <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
               </button>
             </span>
-            <button @click="showModalAddContact = true" class="btn-unstate" v-if="edit_mode" data-mdb-ripple="true" data-mdb-ripple-color="success">Add</button>
+            <button @click="showModalAddContact = true" class="btn-unstate" v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success">Add</button>
           </div>
         </div>
         <div class="col card mt-4 min-h-[200px] relative transition-all ease-in duration-700 justify-between">
           <div>
             <span class="font-bold text-xl">Education & Certifiactions</span>
           </div>
-          <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start row md:gap-6 mt-2 transition-all ease-in duration-700" :class="{ 'border-none': edit_mode, 'md:justify-start': userData.educations.length == 1 }">
-            <li v-for="({ name, start, description, end, from_school, id }, index) in userData.educations" :key="index" class="transition-all ease-in duration-700 relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': edit_mode }">
+          <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start row md:gap-6 mt-2 transition-all ease-in duration-700" :class="{ 'border-none': editMode, 'md:justify-start': userData!.educations.length == 1 }">
+            <li v-for="({ name, start, description, end, from_school, _id }, index) in userData!.educations" :key="index" class="transition-all ease-in duration-700 relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': editMode }">
               <div class="flex md:block flex-start items-center pt-2 md:pt-0">
                 <div class="bg-green-300 w-2 h-2 rounded-full -ml-1 md:ml-0 mr-3 md:mr-0 md:-mt-1"></div>
                 <p class="text-green-500 text-sm mt-2">{{ filters.toiso(start) }} - {{ filters.toiso(end) }}</p>
@@ -183,21 +183,21 @@
                 <h4 class="text-green-800 font-semibold text-xl mb-1.5">{{ name }}</h4>
                 {{ from_school }}
                 <p class="text-gray-500 mb-3">{{ description }}</p>
-                <button v-if="edit_mode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateEducation(id)">Update</button>
+                <button v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateEducation(id)">Update</button>
               </div>
-              <button v-if="edit_mode" @click="deleteEducation(id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
+              <button v-if="editMode" @click="deleteEducation(id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
                 <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
               </button>
             </li>
           </ol>
-          <button v-if="edit_mode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddEducation = true">Add Education</button>
+          <button v-if="editMode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddEducation = true">Add Education</button>
         </div>
         <div class="col card mt-4 min-h-[200px] relative justify-between">
           <div>
             <span class="font-bold text-xl">Work Experiences</span>
           </div>
-          <!-- <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start md:gap-6 mt-2" :class="{ 'border-none': edit_mode, 'md:justify-start': userData.experiences.length == 1 }">
-				<li v-for="({ position, start, end, company, id }, index) in userData.experiences" :key="index" class="relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': edit_mode, 'justify-center': userData.experiences.length == 0 }">
+          <!-- <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start md:gap-6 mt-2" :class="{ 'border-none': editMode, 'md:justify-start': userData.experiences.length == 1 }">
+				<li v-for="({ position, start, end, company, id }, index) in userData.experiences" :key="index" class="relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': editMode, 'justify-center': userData.experiences.length == 0 }">
 					<div class="flex md:block flex-start items-center pt-2 md:pt-0">
 						<div class="bg-green-300 w-2 h-2 rounded-full -ml-1 md:ml-0 mr-3 md:mr-0 md:-mt-1"></div>
 						<p class="text-green-500 text-sm mt-2">{{ filters.toiso(start) }} - {{ filters.toiso(end) }}</p>
@@ -206,14 +206,14 @@
 						<h4 class="text-green-800 font-semibold text-xl mb-1.5">{{ position }}</h4>
 						At {{ company }}
 						<p class="text-gray-500 mb-3">Et elementum lorem ornare. Maecenas placerat facilisis mollis.</p>
-						<button v-if="edit_mode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateExperience(id)">Update</button>
+						<button v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateExperience(id)">Update</button>
 					</div>
-					<button v-if="edit_mode" @click="deleteExperience(id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
+					<button v-if="editMode" @click="deleteExperience(id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
 						<box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
 					</button>
 				</li>
 			</ol> -->
-          <button v-if="edit_mode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddExper = true">Add Experience</button>
+          <button v-if="editMode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddExper = true">Add Experience</button>
         </div>
         <div class="col card mt-4 min-h-[200px] relative justify-between">
           <!-- <button class="absolute inline-block top-0 right-0 text-center items-center row bg-green-100 rounded-bl-md rounded-tr-sm" data-mdb-ripple="true" data-mdb-ripple-color="success">
@@ -221,10 +221,10 @@
 			</button> -->
           <span class="font-bold text-xl mb-4">Onboarding</span>
           <article class="row justify-between">
-            <div class="col space-y-2" v-if="!edit_mode">
-              <div class="form-check form-switch" v-for="(value, key) in userData.onboarding" :key="key">
+            <div class="col space-y-2" v-if="!editMode">
+              <div class="form-check form-switch" v-for="(value, key) in userData!.onboarding" :key="key">
                 <!-- {{ value }} -->
-                <input class="toggle" type="checkbox" role="switch" id="work_tools" :disabled="!edit_mode" :checked="value['state']" />
+                <input class="toggle" type="checkbox" role="switch" id="work_tools" :disabled="!editMode" :checked="value['state']" />
                 <label class="form-check-label inline-block text-gray-800" for="work_tools">{{ value["description"] }}</label>
               </div>
             </div>
@@ -232,7 +232,7 @@
               <Form @submit="updateOnboarding" v-slot="{ isSubmitting, values }" :initial-values="{ ...onboardings }">
                 <div class="form-check form-switch" v-for="(val, key) in onboardings" :key="key">
                   <input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="values[key]" />
-                  <label :for="key" class="form-check-label">{{ userData.onboarding.find((e) => e["field"] == key)["description"] }}</label>
+                  <label :for="key" class="form-check-label">{{ userData!.onboarding!.find((e) => e["field"] == key)!["description"] }}</label>
 
                   <ErrorMessage :name="key" v-slot="{ message }">
                     <p class="input-error">{{ message }}</p>
@@ -558,27 +558,24 @@
 </template>
 
 <script setup lang="ts">
-import { parseISO } from "date-fns"
-import { useManagement } from "@/store/management"
-import { onBeforeRouteUpdate } from "vue-router"
-import { isLength, isDate, isEmail } from "validator"
-import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
+import { CirclesToRhombusesSpinner } from "epic-spinners"
+import { IEmployee, IExperience, useManagement } from "@/store/management"
+import { onBeforeRouteUpdate } from "vue-router"
+import { parseISO } from "date-fns"
+import { useToast } from "vue-toastification";
 import api_resources from "@/api/resources.js"
+import validator from "validator"
 
-definePageMeta({
-  middleware(to, from) {
-    to.meta.pageTransition.name = +to.params.id > +from.params.id ? "fadeSlideY" : "fadeSlideX"
-  },
-})
 
+const toast = useToast()
 const error = computed(() => store.error)
 const store = useManagement()
 const route = useRoute()
 const router = useRouter()
-const userData = computed(() => store.employees.find((emp) => emp._id == route.params.id))
+const userData = computed(() => store.employees.find((emp) => emp._id == route.params._id))
 const editMode = ref(false)
-const onboardings = computed(() => Object.fromEntries(new Map(userData.value.onboarding.map((obj) => [obj.field, obj.state]))))
+const onboardings = computed(() => Object.fromEntries(new Map(userData.value!.onboarding.map((obj) => [obj['field'], obj['state']]))))
 const showModalAddExper = ref(false)
 const showModalUpdateDoc = ref(false)
 const showModalAddContact = ref(false)
@@ -586,14 +583,13 @@ const showModalUpdateExper = ref(false)
 const showModalAddEducation = ref(false)
 const showModalDeleteEmployee = ref(false)
 const showModalUpdateEducation = ref(false)
-const basicInfo = ref({
-  position: userData.value.position,
-  last_name: userData.value.last_name,
-  middle_name: userData.value.middle_name,
-  first_name: userData.value.first_name,
-  telephones: userData.value.telephones,
-  middle_name: userData.value.middle_name,
-  email: userData.value.email,
+const basicInfo = ref<IEmployee>({
+  position: userData.value!.position,
+  lastname: userData.value!.lastname,
+  middlename: userData.value!.middlename,
+  firstname: userData.value!.firstname,
+  telephones: userData.value!.telephones,
+  emails: userData.value!.emails
 })
 const tabsEmp = ref([
   { name: "Basic Information", current: true },
@@ -601,46 +597,46 @@ const tabsEmp = ref([
   { name: "Employement status", current: false },
 ])
 
-const currentTab = computed(() => tabsEmp.value.find((tab) => tab.current).name.toLowerCase())
+const currentTab = computed(() => tabsEmp!.value!.find((tab) => tab.current)!.name!.toLowerCase())
 const basicInfoSchema = {
   position(value) {
-    return isLength(value, { min: 2, max: 50 }) ? true : "Position must be between 2 and 50 characters"
+    return validator.isLength(value, { min: 2, max: 50 }) ? true : "Position must be between 2 and 50 characters"
   },
   email(value) {
-    return isEmail(value) ? true : "Must be valid Email"
+    return validator.isEmail(value) ? true : "Must be valid Email"
   },
   first_name(value) {
-    return isLength(value, { min: 2, max: 20 }) ? true : "First name must be between 2 and 20 characters"
+    return validator.isLength(value, { min: 2, max: 20 }) ? true : "First name must be between 2 and 20 characters"
   },
   last_name(value) { },
   telephones(value) {
-    return isLength(value, { min: 10 }) ? true : "telephones must be 10 characters or more"
+    return validator.isLength(value, { min: 10 }) ? true : "telephones must be 10 characters or more"
   },
   middle_name(value) {
-    return isLength(value, { min: 2, max: 20 }) ? true : "Middle name must be between 2 and 20 characters"
+    return validator.isLength(value, { min: 2, max: 20 }) ? true : "Middle name must be between 2 and 20 characters"
   },
 }
 onBeforeMount(() => {
   console.log("LEKA")
-  console.log(api_resources.getById(userData.value?.profile_image))
+  console.log(api_resources.getById(userData.value?.images))
 })
 onBeforeRouteUpdate(async (to, from) => {
-  console.log(api_resources.getById(userData.value?.profile_image))
-  if (to.params.id !== from.params.id) {
+  console.log(api_resources.getById(userData.value?.images))
+  if (to.params._id !== from.params._id) {
     const result = await store.employeeBy(to.params.id)
     if (result) {
       toast("Route id changed to %s...", to.params.id)
     } else {
-      toast.danger("Something went wrong on refreshing. Try later")
+      toast.warning("Something went wrong on refreshing. Try later")
     }
   }
 })
 const passwordSchema = ref({
   password(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
   },
   password_verif(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
   },
 })
 const docSchema = ref({
@@ -653,19 +649,20 @@ const docSchema = ref({
 })
 const contactSchema = ref({
   name(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
   },
   telephone(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 20"
   },
   email(value) {
-    return isEmail(value) ? true : "Un email valide est attendu"
+    return validator.isEmail(value) ? true : "Un email valide est attendu"
   },
   relationship(value) {
-    return isLength(value, { min: 3, max: 20 }) ? true : "Le minimum de caracteres est 3 et le maximum 20"
+    return validator.isLength(value, { min: 3, max: 20 }) ? true : "Le minimum de caracteres est 3 et le maximum 20"
   },
 })
 const contactValue = ref({
+  _id: "string",
   name: chance.last(),
   telephone: chance.phone({ country: "fr", mobile: true }),
   email: chance.email(),
@@ -676,6 +673,7 @@ const educationValue = ref({
   name: "Master of science",
   start: "2018-05-05",
   end: "2020-02-02",
+  _id: "",
   description: "La description des cours",
 })
 const passwordValue = ref({
@@ -683,6 +681,7 @@ const passwordValue = ref({
   password_verif: "123456",
 })
 const experienceValue = ref({
+  _id: "",
   company: "Google",
   position: "Frontend developer",
   start: "2018-05-05",
@@ -691,36 +690,36 @@ const experienceValue = ref({
 })
 const educationSchema = ref({
   end(value) {
-    return isDate(parseISO(value)) ? true : "End date must be provided"
+    return validator.isDate(parseISO(value)) ? true : "End date must be provided"
   },
   name(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
   },
   start(value) {
-    return isDate(parseISO(value)) ? true : "Start date must be provided"
+    return validator.isDate(parseISO(value)) ? true : "Start date must be provided"
   },
   from_school(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
   },
   description(value) {
-    return isLength(value, { min: 3, max: 200 }) ? true : "Le minimum de caracteres est 2 et le maximum 200"
+    return validator.isLength(value, { min: 3, max: 200 }) ? true : "Le minimum de caracteres est 2 et le maximum 200"
   },
 })
 const experienceSchema = ref({
   position(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
   },
   start(value) {
-    return isDate(parseISO(value)) ? true : "Start date must be provided"
+    return validator.isDate(parseISO(value)) ? true : "Start date must be provided"
   },
   end(value) {
-    return isDate(parseISO(value)) ? true : "End date must be provided"
+    return validator.isDate(parseISO(value)) ? true : "End date must be provided"
   },
   company(value) {
-    return isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
+    return validator.isLength(value, { min: 6, max: 20 }) ? true : "Le minimum de caracteres est 6 et le maximum 12"
   },
   description(value) {
-    return isLength(value, { min: 3, max: 200 }) ? true : "Le minimum de caracteres est 2 et le maximum 200"
+    return validator.isLength(value, { min: 3, max: 200 }) ? true : "Le minimum de caracteres est 2 et le maximum 200"
   },
 })
 const docs = ref([
@@ -732,7 +731,7 @@ const docs = ref([
   { name: "school_diploma", link: "https://resume.com" },
 ])
 async function deleteContact(contactID) {
-  const result = await store.deleteContact(route.params.id, contactID)
+  const result = await store.deleteContact(route.params._id, contactID)
   if (result) {
     closeModal()
     toast.success(`Remove Contact with id ${contactID}`)
@@ -741,7 +740,7 @@ async function deleteContact(contactID) {
   }
 }
 async function deleteEducation(educationID) {
-  const result = await store.deleteEducation(route.params.id, educationID)
+  const result = await store.deleteEducation(route.params._id, educationID)
   if (result) {
     closeModal()
     toast.success(`Remove Education with id ${educationID}`)
@@ -750,7 +749,7 @@ async function deleteEducation(educationID) {
   }
 }
 async function deleteExperience(experienceID) {
-  const result = await store.deleteExperience(route.params.id, experienceID)
+  const result = await store.deleteExperience(route.params._id, experienceID)
   if (result) {
     closeModal()
     toast.success(`Remove Experience with id ${experienceID}`)
@@ -759,22 +758,22 @@ async function deleteExperience(experienceID) {
   }
 }
 async function launchUpdateExperience(experienceID) {
-  const ud = userData.value["experiences"].find((exp) => exp.id == experienceID)
+  const ud:IExperience = userData!.value["experiences"].find((exp) => exp._id == experienceID)
   experienceValue.value = ud
   showModalUpdateExper.value = true
 }
 async function launchUpdateEducation(educationID = 4) {
-  const ud = userData.value["educations"].find((edu) => edu.id == educationID)
+  const ud = userData!.value["educations"].find((edu) => edu._id == educationID)
   console.log({ ...ud })
-  educationValue.value = { ...ud }
+  // educationValue.value = { ...ud }
   showModalUpdateEducation.value = true
 }
 async function updateExperience(updatedExperience) {
   try {
-    const result = await store.updateExperience(route.params.id, experienceValue.value.id, updatedExperience)
+    const result = await store.updateExperience(route.params._id, experienceValue.value._id, updatedExperience)
     if (result) {
       closeModal()
-      toast.success(`Update Experience with id ${experienceValue.value.id}`)
+      toast.success(`Update Experience with id ${experienceValue.value._id}`)
     } else {
       toast.error("Can't update experience for this employee")
     }
@@ -784,10 +783,10 @@ async function updateExperience(updatedExperience) {
 }
 async function updateEducation(updatedEducation) {
   try {
-    const result = await store.updateEducation(route.params.id, educationValue.value.id, updatedEducation)
+    const result = await store.updateEducation(route.params._id, educationValue.value._id, updatedEducation)
     if (result) {
       closeModal()
-      toast.success(`Update education with id ${educationValue.value.id}`)
+      toast.success(`Update education with id ${educationValue.value!._id}`)
     } else {
       toast.error("Can't update education for this employee")
     }
@@ -797,10 +796,10 @@ async function updateEducation(updatedEducation) {
 }
 async function updateBiography(biography) {
   try {
-    const result = await store.updateBiography(route.params.id, biography)
+    const result = await store.updateBiography(route.params._id, biography)
     if (result) {
       closeModal()
-      toast.success(`Update biography with id ${educationValue.value.id}`)
+      toast.success(`Update biography with id ${educationValue.value._id}`)
     } else {
       toast.error("Can't update biography for this employee")
     }
@@ -810,14 +809,14 @@ async function updateBiography(biography) {
 }
 async function deleteEmployee() {
   router.push("employees-list")
-  const result = await store.deleteEmployee(route.params.id)
+  const result = await store.deleteEmployee(route.params._id)
   if (result) {
   } else {
     toast.error("Can't delete this employee")
   }
 }
 async function addEducation(values) {
-  const result = await store.addEducation(route.params.id, values)
+  const result = await store.addEducation(route.params._id, values)
   if (result) {
     closeModal()
     toast(`Added ${values.name} to education`)
@@ -826,16 +825,16 @@ async function addEducation(values) {
   }
 }
 async function addExperience(values) {
-  const result = await store.addExperience(route.params.id, values)
+  const result = await store.addExperience(route.params._id, values)
   if (result) {
     closeModal()
     toast(`Added ${values.name} to experience ${result}`)
   } else {
-    toast.error("Impossible d'ajouter une experience a cette employee", result)
+    toast.error(`Impossible d'ajouter une experience a cette employe ${result}`)
   }
 }
 async function addContact(values) {
-  const result = await store.addEmergencyContact(route.params.id, values)
+  const result = await store.addEmergencyContact(route.params._id, values)
   if (result) {
     closeModal()
     toast(`Added ${contactValue.value.name} to contacts`)
@@ -844,7 +843,7 @@ async function addContact(values) {
   }
 }
 async function updatePassword(values) {
-  const result = await store.updateEmployeeConnexion(route.params.id, values)
+  const result = await store.updateEmployeeConnexion(route.params._id, values)
   if (result) {
     closeModal()
     toast(`Successfully update password`)
@@ -853,16 +852,16 @@ async function updatePassword(values) {
   }
 }
 async function refresh() {
-  const result = await store.employeeBy(route.params.id)
+  const result = await store.employeeBy(route.params._id)
   if (result) {
     closeModal()
     toast(`Refreshed...`)
   } else {
-    toast.danger("Something went wrong on refreshing. Try later")
+    toast.warning("Something went wrong on refreshing. Try later")
   }
 }
 function closeModal() {
-  // edit_mode.value = false
+  // editMode.value = false
   showModalAddExper.value = false
   showModalUpdateDoc.value = false
   showModalAddContact.value = false
@@ -875,27 +874,27 @@ function onInvalidEducation({ values, result, errors }) {
   console.log("Invalid education", errors)
 }
 function onInvalidExperience(ctx: InvalidSubmissionContext) {
-  const { values, result, errors } = ctx
+  const { values, errors } = ctx
   console.log("Invalid experience", errors)
 }
-function onInvalidContact({ values, result, errors }) {
-  console.log("Invalid experience ", errors)
+function onInvalidContact(ctx: InvalidSubmissionContext) {
+  console.log("Invalid experience ", ctx.errors)
 }
-function onInvalidPassword({ values, result, errors }) {
-  console.log("Invalid password ", errors)
+function onInvalidPassword(ctx: InvalidSubmissionContext) {
+  console.log("Invalid password ", ctx.errors)
 }
-function invalidBio({ values, result, errors }) {
-  console.log("Invalid biography ", errors)
+function invalidBio(ctx: InvalidSubmissionContext) {
+  console.log("Invalid biography ", ctx.errors)
 }
-function invalidFile({ values, result, errors }) {
-  console.log("Invalid File ", errors)
+function invalidFile(ctx: InvalidSubmissionContext) {
+  console.log("Invalid File ", ctx.errors)
 }
-function onInvalidBasicInfo({ values, result, errors }) {
-  console.log("Invalid basic info ", errors)
+function onInvalidBasicInfo(ctx: InvalidSubmissionContext) {
+  console.log("Invalid basic info ", ctx.errors)
 }
 async function updateOnboarding(values) {
   console.log(values)
-  const result = await store.updateOnboarding(route.params.id, values)
+  const result = await store.updateOnboarding(route.params._id, values)
   if (result) {
     closeModal()
     toast(`Onboarding states was updated successfully`)
@@ -907,7 +906,7 @@ async function changeDocument(values) {
   const formdata = new FormData()
   formdata.append("file", values["myfile"])
   try {
-    const result = store.changedoc(route.params.id, formdata)
+    const result = store.changedoc(route.params._id, formdata)
     if (result) {
       closeModal()
       toast("Changed dox successfully...")

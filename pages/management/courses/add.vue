@@ -54,14 +54,14 @@ import { useFileDialog, get } from "@vueuse/core"
 import { Form, ErrorMessage, Field } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 const { files, open, reset } = useFileDialog()
-
+const router = useRouter()
 const store = useCourses()
 const img = computed({
   get() {
     return URL.createObjectURL(files.value![0])
   },
   set(newVal) {
-    files.value = []
+    // files!.value = []
   },
 })
 
@@ -79,21 +79,21 @@ const initialCourseValue = ref({
 watch(files, (newv, oldv) => {
   console.log({ myfiles: get(newv) })
 })
-function onInvalidCourse({ values, result, errors }) {
-  console.log(errors)
+function onInvalidCourse(ctx) {
+  console.log(ctx.errors)
 }
 async function submit(values, { resetForm, setFieldError }) {
   console.log({ values })
   try {
     var result = await store.addCourse(values)
     if (!result) {
-      routeur.push("courses-index")
-      toast.success("Course added successfully !")
+      router.push("courses-index")
+      // toast.success("Course added successfully !")
     } else {
       for (const key in result) {
         setFieldError(key, result[key][0])
       }
-      toast.error(`Can't add new course ${JSON.stringify(result)}`)
+      // toast.error(`Can't add new course ${JSON.stringify(result)}`)
     }
   } catch (error) {
     console.log(error)

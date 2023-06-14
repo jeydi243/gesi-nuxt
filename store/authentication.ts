@@ -1,9 +1,9 @@
-const axios = ' ';
+
 import usersAPI from '@/api/users';
 import { defineStore } from 'pinia';
 
 export const useAuth = defineStore('authentication', {
-  state: () => ({ user: { id: 'id_of_user' }, token: null, authResponse: null }),
+  state: () => ({ user: { id: '647371e67535e423ab920fcf' }, token: null, authResponse: null }),
 
   actions: {
     async init() {
@@ -22,29 +22,29 @@ export const useAuth = defineStore('authentication', {
           this.user = data.user;
           return this.setAxiosInterceptor();
         } else console.log('No token for this user');
-      } catch (error) {
+      } catch (error: any) {
         this.authResponse = error.response;
       }
     },
     setAxiosInterceptor() {
-      axios.interceptors.request.use(
-        function (config) {
-          config.headers.Authorization = `Bearer ${this.token}`;
-          return config;
-        },
-        null,
-        { synchronous: true }
-      );
-      axios.interceptors.response.use(
-        function (response) {
-          //   console.info(`%c[Axios ${response.status}] `, "color: #0080ff; font-weight: bold;")
-          return response;
-        },
-        function (error) {
-          console.log(`%c[Axios] Error ${JSON.stringify(error)}`, 'color: #ff0000; font-weight: bold;');
-          return Promise.reject(error);
-        }
-      );
+      // axios.interceptors.request.use(
+      //   function (config) {
+      //     config.headers.Authorization = `Bearer ${this.token}`;
+      //     return config;
+      //   },
+      //   null,
+      //   { synchronous: true }
+      // );
+      // axios.interceptors.response.use(
+      //   function (response) {
+      //     //   console.info(`%c[Axios ${response.status}] `, "color: #0080ff; font-weight: bold;")
+      //     return response;
+      //   },
+      //   function (error) {
+      //     console.log(`%c[Axios] Error ${JSON.stringify(error)}`, 'color: #ff0000; font-weight: bold;');
+      //     return Promise.reject(error);
+      //   }
+      // );
     },
   },
   getters: {

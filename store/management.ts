@@ -4,37 +4,78 @@ import { defineStore } from 'pinia';
 import { useTeachers } from './teachers';
 import { useRouter } from 'vue-router';
 import { useConfig } from '@/store/config';
-export interface Document {
-  code: string;
+export interface IDocument {
   _id: string;
+  code: string;
   name: string;
   description: string;
 }
-export interface Employee {
+export interface IPerson {
   _id: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  emails: string;
+  images: Array<string>;
+  telephones: Array<string>;
+}
+export interface IEducation {
+  _id: string;
+  from_school: string;
+  name: string;
+  start: Date;
+  end: Date;
+  description: string;
+}
+export interface IExperience {
+  _id: string;
+  from_school: string;
+  name: string;
+  start: Date;
+  end: Date;
+  description: string;
+}
+export interface IExperience {
+  _id: string;
+  company: string;
+  position: string;
+  start: Date;
+  end: Date;
+  description: string;
+}
+export interface IContact {
+  _id: string;
+  name: string;
+  telephones: Array<string>;
+  email: string;
+  relationship: string;
+}
+export interface IEmployee extends IPerson {
   code: string;
   name: string;
   resume_file: string;
+  position: string;
   biography: string;
-  educations: Array<Map<string, string>>;
+  educations: Array<IEducation>;
   onboarding: Array<Map<string, string>>;
-  emergencyContacts: Array<Map<string, string>>;
-  experiences: Array<Map<string, string>>;
+  contacts: Array<IContact>;
+  experiences: Array<IExperience>;
 }
-export interface Course {
+export interface IContent {
   _id: string;
   code: string;
   name: string;
   authors: [];
 }
 interface IManagement {
-  courses: Array<Course>;
+  courses: Array<IContent>;
   laptops: string[];
   token: string;
   routeurs: [];
-  listDocuments: Document[];
+  listDocuments: IDocument[];
   listFilieres: Map<string, string>[];
-  employees: Array<Employee>;
+  employees: Array<IEmployee>;
+  error: any | null;
 }
 // const router = useRouter()
 export const useManagement = defineStore('management', {
@@ -46,6 +87,7 @@ export const useManagement = defineStore('management', {
     listFilieres: [],
     employees: [],
     token: 'null',
+    error: null,
   }),
 
   actions: {
@@ -182,7 +224,7 @@ export const useManagement = defineStore('management', {
         const { data, status } = await mgntAPI.addEmergencyContact(employeeID, contact);
         if (status == 201 || status === 200) {
           let index = this.employees.findIndex((em) => em._id == employeeID);
-          this.employees[index].emergencyContacts.unshift(data);
+          this.employees[index].contacts.unshift(data);
           return true;
         }
         return false;
@@ -218,9 +260,9 @@ export const useManagement = defineStore('management', {
         const { data, status, headers } = await mgntAPI.deleteContact(employeeID, contactID);
         if ((status == 200 || status == 201) && data != '') {
           const indexEmp = this.employees.findIndex((emp) => emp._id == employeeID);
-          const indexContact = this.employees[indexEmp].emergencyContacts.findIndex((educ) => educ['id'] == contactID);
+          const indexContact = this.employees[indexEmp].contacts.findIndex((educ) => educ['id'] == contactID);
           if (indexContact != -1) {
-            this.employees[indexEmp].emergencyContacts.splice(indexContact, 1);
+            this.employees[indexEmp].contacts.splice(indexContact, 1);
             return true;
           } else {
             console.log("Ce contact n'exige déja plus");
@@ -322,7 +364,7 @@ export const useManagement = defineStore('management', {
     },
     async changedoc(employeeID, newDoc) {
       try {
-        const { data, status } = await mgntAPI.updateDocument(employeeID, newDoc);
+        const { data, status } = await mgntAPI.updateDocument(newDoc);
         if ((status == 200 || status == 201) && data != '') {
           const index = this.employees.findIndex((emp) => emp._id == employeeID);
           if (index != -1) {
