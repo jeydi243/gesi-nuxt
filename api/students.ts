@@ -1,4 +1,4 @@
-const axios = '';
+const axios: any = '';
 
 export default {
   getAll: async function () {
@@ -10,7 +10,7 @@ export default {
   addResponsable: async function (payload) {
     return await axios.post('/students/responsables', payload);
   },
-  removeResponsable: async function (payload) {
+  removeResponsable: async function ({ idStudent, idResponsable }) {
     return await axios.delete('/students/responsables', { params: { idStudent, idResponsable } });
   },
   getById: async function (studentID) {

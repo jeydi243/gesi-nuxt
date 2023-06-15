@@ -1,33 +1,23 @@
 import studentsAPI from '@/api/students';
 import { useConfig } from '@/store/config';
 import { defineStore } from 'pinia';
+import { IPerson } from './management';
 
-export interface Person {
-  _id: string;
-  name: string;
-  adresse?: string;
-  email?: string;
-}
-export class Student implements Person {
-  _id: string;
-  adresse?: string;
-  email?: string;
+export interface IStudent extends IPerson {
   matricule?: string;
+  adresse?: string;
   status?: string;
-  name: string;
+  email?: string;
   level?: string;
-  constructor(id: string, name: string) {
-    this._id = id;
-    this.name = name;
-  }
+  name: string;
 }
-export interface StudentsSTATE {
-  students: Array<Student>;
+export interface StoreStudents {
+  students: IStudent[];
   listDocuments: Array<string>;
 }
 
 export const useStudents = defineStore('students', {
-  state: (): StudentsSTATE => ({ students: [], listDocuments: [] }),
+  state: (): StoreStudents => ({ students: [], listDocuments: [] }),
   actions: {
     async init() {
       try {
@@ -47,7 +37,7 @@ export const useStudents = defineStore('students', {
         console.log(er);
       }
     },
-    async addStudent(newStudent: Student) {
+    async addStudent(newStudent: IStudent) {
       try {
         const { status, data, headers } = await studentsAPI.add(newStudent);
         // console.log({ f })

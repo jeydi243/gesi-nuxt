@@ -10,7 +10,7 @@ export interface IOrganization {
 }
 export interface StoreOrganization {
   count: number;
-  organizations: Array<IOrganization | null>;
+  organizations: IOrganization[];
   requestError: any;
   responseError: any;
 }
@@ -48,7 +48,7 @@ export const useOrganization = defineStore('organization', {
         console.log({ data }, { status });
         if (status == 200 || status == 201) {
           data.forEach((element) => {
-            this.organizations.unshift(element);
+            this.organizations.push(element);
           });
         }
       } catch (error) {
@@ -65,9 +65,9 @@ export const useOrganization = defineStore('organization', {
           return true;
         }
         return false;
-      } catch (err) {
+      } catch (err:any) {
         // console.log({ err })
-        return err!.data!.dto_validation_error;
+        return err!.data?.dto_validation_error;
       }
     },
   },

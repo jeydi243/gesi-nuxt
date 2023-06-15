@@ -1,4 +1,4 @@
 {
   "extends": "./.nuxt/tsconfig.json",
-  "compilerOptions": { "types": ["@nuxt/types"], "allowJs": true, "noImplicitAny": false }
+  "compilerOptions": { "types": ["@nuxt/types"], "allowJs": true, "noImplicitAny": false, "strictNullChecks": false }
 }

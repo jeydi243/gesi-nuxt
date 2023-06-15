@@ -1,20 +1,13 @@
 import teachersAPI from '@/api/teachers';
 import { defineStore } from 'pinia';
-import { Person } from './students';
+import { IPerson } from './management';
 
-export class ITeacher implements Person {
-  _id: string;
+export interface ITeacher extends IPerson {
+  matricule?: string;
   adresse?: string | undefined;
-  status: string;
-  matricule: string;
-  name: string;
+  status?: string;
   email?: string | undefined;
-  constructor(id: string, matricule: string, status: string, name: string) {
-    this._id = id;
-    this.matricule = matricule;
-    this.status = status;
-    this.name = name;
-  }
+  name: string;
 }
 
 interface storeTeacher {
@@ -46,7 +39,7 @@ export const useTeachers = defineStore('teachers', {
       try {
         const { data, status } = await teachersAPI.updateById(idTeacher, update);
         if (status == 200 || status == 201) {
-          var foundIndex = this.teachers.findIndex((t) => t?.id == idTeacher);
+          var foundIndex = this.teachers.findIndex((t) => t?._id == idTeacher);
           if (foundIndex >= 0) {
             this.teachers[foundIndex] = data;
           }

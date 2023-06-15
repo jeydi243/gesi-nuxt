@@ -1,4 +1,4 @@
-const axios = '';
+const axios: any = '';
 
 export default {
   getAll: async function () {

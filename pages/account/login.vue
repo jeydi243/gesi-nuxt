@@ -8,8 +8,8 @@
 			<Form class="mt-6 col transition-all duration-700" @submit="submitForm" :validation-schema="loginSchema" :initial-values="user" v-slot="{ isSubmitting }" @invalid-submit="onInvalidSubmit">
 				<div class="col">
 					<label for="username" class="text-sm text-gray-800 flex">Username</label>
-					<Field name="username" :placeholder="`e.g: ${placeholderSuggestion[forAanime.atat]}`" autocomplete="name" class="flex w-full px-2 py-1 mt-2 bg-gray-100 border-b-blue-500 autofill:bg-yellow-200 text-gray-700 rounded-md focus:ring-green-50 focus:outline-none placeholder:text-gray-50 placeholder:italic placeholder:text-slate-200" />
-					<ErrorMessage id="usernameError" name="username" class="text-red-700 text-xs" />
+					<!-- <Field name="username" :placeholder="`e.g: ${placeholderSuggestion[forAanime.atat]}`" autocomplete="name" class="flex w-full px-2 py-1 mt-2 bg-gray-100 border-b-blue-500 autofill:bg-yellow-200 text-gray-700 rounded-md focus:ring-green-50 focus:outline-none placeholder:text-gray-50 placeholder:italic placeholder:text-slate-200" />
+					<ErrorMessage id="usernameError" name="username" class="text-red-700 text-xs" /> -->
 				</div>
 				<div class="col mt-4">
 					<div class="flex items-center justify-between">
@@ -56,7 +56,6 @@ import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import * as yup from "yup"
 import { useAuth } from "@/store/authentication"
-import anime from "animejs/lib/anime.es.js"
 import { useToggle } from "@vueuse/core"
 const auth = useAuth()
 const config = useConfig()
@@ -72,19 +71,18 @@ const loginSchema = ref(
 	})
 )
 
-const user = ref({ username: "rootuser", password: "rootpass", stay_connected: "on" })
-const token = computed(() => auth.token)
+const user= ref({ username: "rootuser", password: "rootpass", stay_connected: "on" })
 const loading = ref(false)
-const forAanime = ref({ atat: 0 })
+// const forAanime = ref({ atat: 0 })
 const isLoading = useToggle(loading)
 const authresponse = computed(() => auth!.authResponse)
-const placeholderSuggestion = ref(["17ki2022", "18gk2022", "55gk20", "18gk2024", "202218gk", "18gk2041", "18gk2022", "18gk1022", "18gk2022"])
+// const placeholderSuggestion = ref(["17ki2022", "18gk2022", "55gk20", "18gk2024", "202218gk", "18gk2041", "18gk2022", "18gk1022", "18gk2022"])
 
-watch(token, (newavalue, oldvalue) => {
-	if (newavalue) {
-		router.push("/").catch(() => { })
-	}
-})
+// watch(token, (newavalue, oldvalue) => {
+// 	if (newavalue) {
+// 		router.push("/").catch(() => { })
+// 	}
+// })
 // onMounted(function () {
 // 	anime({
 // 		targets: forAanime.value,

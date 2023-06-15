@@ -46,7 +46,7 @@ export const useContents = defineStore('contents', {
         if (status || 200 || status == 201) {
           console.log(data);
           data.forEach((element: IContent) => {
-            this.contents.unshift(element);
+            this.contents.push(element);
             setTimeout(() => {}, 1000);
           });
           return true;

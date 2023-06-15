@@ -44,8 +44,8 @@
                 </ul>
               </div>
               {{ emp._id }}
-              <div class="rounded-full bg-green-50 h-16 w-16 cursor-pointer overflow-clip" @click="router.push({"name":'employees-details',params: {id:emp._id}})">
-                <img :src="`http://localhost:3000/resources/file/${emp.profile_image}`" class="object-cover" />
+              <div class="rounded-full bg-green-50 h-16 w-16 cursor-pointer overflow-clip" @click="router.push({ 'name': 'employees-details', params: { id: emp._id } })">
+                <img :src="`http://localhost:3000/resources/file/${emp.images![0]}`" class="object-cover" />
               </div>
               <span class="text-lg font-bold">{{ emp.gender == "M" ? "M. " : "Ms. " }}{{ firstUpper(emp.lastname ?? "") }}</span>
               <span class="text-lg">{{ firstUpper(emp!.position![0]) }} </span>

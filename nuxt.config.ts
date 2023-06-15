@@ -9,6 +9,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => {
+        return tag.includes('-');
+      },
+    },
+  },
   build: { transpile: ['vue-toastification'] },
   app: {
     head: {
