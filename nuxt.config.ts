@@ -9,6 +9,14 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+vite: {
+    vue: {
+      customElement: true
+    },
+    vueJsx: {
+      mergeProps: true
+    }
+  },
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => {

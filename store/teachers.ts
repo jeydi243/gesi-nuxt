@@ -65,8 +65,9 @@ export const useTeachers = defineStore('teachers', {
     },
   },
   getters: {
-    myteachers: (state):Array<ITeacher> =>
-      (filter: string): Array<ITeacher> => {
+    myteachers:
+      (state): Array<ITeacher> =>
+      (filter: string): ITeacher | any[] => {
         if (filter) {
           return state.teachers.find((professor) => professor?.name.toLowerCase().includes(filter.toLowerCase()));
         }
