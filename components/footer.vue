@@ -7,5 +7,5 @@
 <script setup lang="ts">
 import { UseOnline } from "@vueuse/components"
 </script>
-<style lang="scss" scoped></style>
+<style lang="css" scoped></style>
  

@@ -1,5 +1,9 @@
 import { Schema, model } from 'mongoose';
+import joi from 'joi';
+const Employee: Schema = new Schema({ firstName: { type: String }, lastName: { type: String }, hireDate: { type: Date } }, { timestamps: true });
 
-const User: Schema = new Schema({ firstName: { type: String }, lastName: { type: String }, hireDate: { type: Date } });
+const EmployeeModel = model('Employee', Employee);
 
-export default model('User', User);
+const EmployeeValidation = joi.object({ firstName: joi.string().min(6).required(), lastName: joi.string().min(6).required(), hireDate: joi.date().min(Date()) });
+
+export default { EmployeeModel, EmployeeValidation };

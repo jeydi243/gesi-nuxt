@@ -14,12 +14,9 @@
 </template>
 
 <script setup lang="ts">
-	import { computed } from "vue"
-	import { useRoute } from "vue-router"
-
 	const route = useRoute()
 
 	const b = computed(() => route.path.split("/"))
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped></style>

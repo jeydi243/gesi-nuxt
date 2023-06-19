@@ -1,5 +1,5 @@
-export default defineEventHandler((event) => {
-  return {
-    hello: 'world',
-  };
+import {UserModel} from '~/server/models/User';
+
+export default defineEventHandler(async (event) => {
+  return await UserModel.find();
 });

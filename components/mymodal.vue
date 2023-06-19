@@ -25,7 +25,6 @@
 </template>
 <script setup lang="ts">
 import { useConfig } from "@/store/config"
-import { ref, computed, watch } from "vue"
 import { gsap, Quad } from "gsap"
 const emit = defineEmits(["close"])
 const store = useConfig()
