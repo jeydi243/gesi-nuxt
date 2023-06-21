@@ -13,6 +13,7 @@ const tabsGestion = ref([
   { name: "documents", current: false },
   { name: "employees", current: false },
   { name: "academique", current: false },
+  { name: "lookups", current: false },
 ])
 const currentTab = computed(() => tabsGestion.value.find((tab) => tab.current).name.toLowerCase())
 onMounted(() => {

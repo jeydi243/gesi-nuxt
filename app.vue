@@ -5,11 +5,8 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
+import 'vue3-easy-data-table/dist/style.css';
 const route = useRoute()
-
-console.log(route.path.split('/')[2]);
-
-
 </script>
 
 <style>
