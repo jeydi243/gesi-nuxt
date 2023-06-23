@@ -6,6 +6,8 @@
 </template>
 <script setup lang="ts">
 import 'vue3-easy-data-table/dist/style.css';
+import('preline')
+
 const route = useRoute()
 </script>
 

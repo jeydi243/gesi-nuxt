@@ -7,7 +7,6 @@ module.exports = {
         'node_modules/preline/dist/*.js',
         `${srcDir}/components/**/*.{vue,js,ts}`,
         `${srcDir}/layouts/**/*.vue`,
-        'pages/**/*.vue',
         `${srcDir}/composables/**/*.{js,ts}`,
         `${srcDir}/plugins/**/*.{js,ts}`,
         `${srcDir}/utils/**/*.{js,ts}`,
@@ -15,6 +14,8 @@ module.exports = {
         `${srcDir}/app.{js,ts,vue}`,
         `${srcDir}/Error.{js,ts,vue}`,
         `${srcDir}/error.{js,ts,vue}`,
+        'pages/**/*.vue',
+        './nuxt.config.{js,ts}',
     ],
     theme: {
         screens: {
@@ -834,7 +835,6 @@ module.exports = {
     variants: {
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
     },
-
     variantOrder: ['first', 'last', 'odd', 'even', 'visited', 'checked', 'empty', 'read-only', 'group-hover', 'group-focus', 'focus-within', 'hover', 'focus', 'focus-visible', 'active', 'disabled'],
     extend: {
         backdropBlur: {

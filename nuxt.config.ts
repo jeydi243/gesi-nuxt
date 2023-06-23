@@ -79,12 +79,13 @@ export default defineNuxtConfig({
         pageTransition: {
             name: 'fadeSlideY',
             mode: 'out-in',
-            onBeforeEnter: (el) => {
-                console.log('Before enter...');
-            },
-            onEnter: (el, done) => {},
-            onAfterEnter: (el) => {},
+            // onBeforeEnter: (el) => {
+            //     console.log('Before enter apge...');
+            // },
+            // onEnter: (el, done) => {},
+            // onAfterEnter: (el) => {},
         },
+        layoutTransition: { name: 'fadeSlideX', mode: 'out-in' },
     },
 
     devtools: {
