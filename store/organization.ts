@@ -55,10 +55,10 @@ export const useOrganization = defineStore('organization', {
         console.log("Can't retrieve all organizations: ", error);
       }
     },
-    async addOrg() {
+    async addOrg(newOrg) {
       const auth = useAuth();
       try {
-        const { status, data } = await orgsAPI.add({ createdBy: auth.user.id });
+        const { status, data } = await orgsAPI.add({ ...newOrg, createdBy: auth.user.id });
         console.log({ data });
         if (status == 200 || status == 201) {
           this.organizations.unshift(data);

@@ -84,7 +84,7 @@ export const useManagement = defineStore('management', {
         listFilieres: [],
         employees: [],
         token: 'null',
-        classes: [{ name: 'Filieres', code: 'ORG-001' }],
+        classes: [{ name: "Type d'organisation", code: 'ORG-001', id: '' }],
         error: null,
     }),
 

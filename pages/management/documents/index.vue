@@ -60,7 +60,7 @@
 			<Form class="col justify-between" @submit="updateDoc" v-slot="{ isSubmitting }" :validation-schema="docSchema" :initial-values="initialDocValue" @invalid-submit="onInvalidDocument">
 				<div class="row">
 					<Field name="name" placeholder="name" v-slot="{ errors, errorMessage, field }">
-						<input type="text"  id="name" class="form-input mb-2" v-bind="field" />
+						<input type="text" id="name" class="form-input mb-2" v-bind="field" />
 						<p class="input-error">{{ errors }}</p>
 						<p class="input-error">{{ errorMessage }}</p>
 					</Field>
@@ -87,7 +87,7 @@
 			<Form class="col" @submit="add" :validation-schema="docSchema" v-slot="{ isSubmitting, resetForm }" :initial-values="initialDocValue" @invalid-submit="onInvalidDocument">
 				<!-- <div class="row w-full items-center space-x-1"> -->
 				<Field as="div" class="col" name="code" placeholder="code" v-slot="{ field, errorMessage }">
-					<input type="text"  id="code" class="form-input mb-2" v-bind="field" />
+					<input type="text" id="code" class="form-input mb-2" v-bind="field" />
 					<p class="input-error">{{ errorMessage }}</p>
 				</Field>
 				<Field as="div" class="col" name="name" placeholder="name" v-slot="{ field, errorMessage }">
@@ -120,6 +120,7 @@ import { useManagement } from "@/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, InvalidSubmissionContext } from "vee-validate"
 import { SearchIcon, TrashIcon, ClipboardIcon, DocumentAddIcon, RefreshIcon } from "@heroicons/vue/solid"
+import { useToast } from "vue-toastification"
 definePageMeta({
 	layout: "management",
 	// middleware: 'auth'
@@ -137,7 +138,7 @@ const showModalAdd = ref(false)
 const showModalUpdate = ref(false)
 const initialDocValue = ref({ name: "Bulletin 5eme secondaire", code: "2022", description: "la description du document" })
 const listDocuments = computed(() => store.listDocuments)
-
+const toast = useToast()
 onMounted(() => {
 	window.onclick = (e) => {
 		if (e.target.id !== "toggle-dropdown" && dropdown.value) {
@@ -163,9 +164,9 @@ async function updateDoc(values, { resetForm }) {
 async function softdeleteDoc(code) {
 	var res = await deleteDocument(code)
 	if (res) {
-		// toast.success("Successfully softdelete document")
+		toast.success("Successfully softdelete document")
 	} else {
-		// toast.error("Can't delete document")
+		toast.error("Can't delete document")
 	}
 }
 async function removeDoc(id) {

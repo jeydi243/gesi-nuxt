@@ -88,10 +88,11 @@ import { Form, ErrorMessage, Field } from "vee-validate"
 import { useConfig } from "@/store/config"
 import { useOrganization } from "@/store/organization"
 import { onBeforeRouteLeave, useRouter } from "vue-router"
+import { useToast } from "vue-toastification";
 
 const store = useOrganization()
 const router = useRouter()
-
+const toast = useToast()
 onBeforeRouteLeave((to, from) => {
   const answer = window.confirm("Do you really want to leave? you have unsaved changes!")
   // cancel the navigation and stay on the same page

@@ -590,6 +590,7 @@ const basicInfo = ref<IEmployee>({
   firstname: userData.value!.firstname,
   telephones: userData.value!.telephones,
   emails: userData.value!.emails,
+  gender: userData.value!.gender,
   code: "",
   _id: ""
 })

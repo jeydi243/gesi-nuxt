@@ -2,7 +2,9 @@
 export default defineNuxtConfig({
     modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@pinia/nuxt', '@nuxt/devtools'],
     runtimeConfig: { MONGO_URI_DEV: process.env.MONGO_URI_DEV, MONGO_URI_PROD: process.env.MONGO_URI_PROD },
-
+    experimental: {
+        viewTransition: true,
+    },
     postcss: {
         plugins: {
             tailwindcss: {},
@@ -89,6 +91,6 @@ export default defineNuxtConfig({
     },
 
     devtools: {
-        enabled: false,
+        enabled: true,
     },
 });

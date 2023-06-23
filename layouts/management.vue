@@ -11,8 +11,6 @@
                     </TransitionGroup>
                 </div>
                 <slot />
-                <!-- <Transition name="fade" mode="out-in">
-                </Transition> -->
             </div>
             <Footer />
         </main>

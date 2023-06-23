@@ -1,7 +1,7 @@
 <template>
   <div class="card h-full w-1/2 m-auto">
-    <Form class="col justify-between w-full space-y-4" @submit="submit" v-slot="{ isSubmitting }" :validation-schema="contentSchema" :initial-values="initialContentValue" @invalid-submit="onInvalidContent">
-      <div class="row w-full">Add new content</div>
+    <Form class="col justify-between w-full space-y-4" @submit="submit" v-slot="{ isSubmitting, resetForm }" :validation-schema="contentSchema" :initial-values="initialContentValue" @invalid-submit="onInvalidContent">
+      <div class="row w-full">Add new Content</div>
       <Field name="title" v-slot="{ field, errorMessage }">
         <div class="relative group h-10">
           <input v-bind="field" type="text" id="title" required class="input peer" />
@@ -53,6 +53,7 @@ import { useContents } from "@/store/contents"
 import { useFileDialog, get } from "@vueuse/core"
 import { Form, ErrorMessage, Field } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
+import { useToast } from "vue-toastification"
 const { files, open, reset } = useFileDialog()
 const router = useRouter()
 const store = useContents()
@@ -64,7 +65,7 @@ const img = computed({
     // files!.value = []
   },
 })
-
+const toast = useToast()
 const contentSchema = yup.object({
   title: yup.string().required().label("Name"),
   description: yup.string().required().label("Description"),
@@ -88,12 +89,12 @@ async function submit(values, { resetForm, setFieldError }) {
     var result = await store.addContent(values)
     if (!result) {
       router.push("contents-index")
-      // toast.success("Content added successfully !")
+      toast.success("Content added successfully !")
     } else {
       for (const key in result) {
         setFieldError(key, result[key][0])
       }
-      // toast.error(`Can't add new content ${JSON.stringify(result)}`)
+      toast.error(`Can't add new content ${JSON.stringify(result)}`)
     }
   } catch (error) {
     console.log(error)

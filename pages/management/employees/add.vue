@@ -148,58 +148,61 @@
 </template>
 
 <script setup lang="ts">
-import { parseISO } from "date-fns"
+
 import { UserIcon } from "@heroicons/vue/solid"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
-import { isLength, isDate, isEmail } from "validator"
+import validator from "validator"
 import { Field, Form, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
-import { mapActions } from "pinia"
+
 import { useManagement } from "@/store/management"
+import { useToast } from "vue-toastification"
+const toast = useToast()
 const store = useManagement()
 const src = ref(null)
+const router = useRouter()
 
 const employeeSchema = {
   first_name(value) {
-    return isLength(value, { min: 2, max: 20 }) ? true : "First name must be between 2 and 20 characters"
+    return validator.isLength(value, { min: 2, max: 20 }) ? true : "First name must be between 2 and 20 characters"
   },
   gender(value) {
     return value == "M" || value == "F" ? true : "Must be F or M"
   },
   email(value) {
-    return isEmail(value) ? true : "Must be valid Email"
+    return validator.isEmail(value) ? true : "Must be valid Email"
   },
   address(value) {
-    return isLength(value, { min: 2, max: 200 }) ? true : "Address must be between 2 and 200 characters"
+    return validator.isLength(value, { min: 2, max: 200 }) ? true : "Address must be between 2 and 200 characters"
   },
   position(value) {
-    return isLength(value, { min: 2, max: 50 }) ? true : "Position must be between 2 and 50 characters"
+    return validator.isLength(value, { min: 2, max: 50 }) ? true : "Position must be between 2 and 50 characters"
   },
   skills(value) {
-    return isLength(value, { min: 2, max: 50 }) ? true : "Skils must be between 2 and 50 characters"
+    return validator.isLength(value, { min: 2, max: 50 }) ? true : "Skils must be between 2 and 50 characters"
   },
   telephones(value) {
-    return isLength(value, { min: 10 }) ? true : "telephones must be 10 characters or more"
+    return validator.isLength(value, { min: 10 }) ? true : "telephones must be 10 characters or more"
   },
   cityzenship(value) {
-    return isLength(value, { min: 2, max: 3 }) ? true : "cityzenship must be 2 characters or 3"
+    return validator.isLength(value, { min: 2, max: 3 }) ? true : "cityzenship must be 2 characters or 3"
   },
   last_name(value) {
-    return isLength(value, { min: 2, max: 20 }) ? true : "Last name must be between 2 and 20 characters"
+    return validator.isLength(value, { min: 2, max: 20 }) ? true : "Last name must be between 2 and 20 characters"
   },
   middle_name(value) {
-    return isLength(value, { min: 2, max: 20 }) ? true : "Middle name must be between 2 and 20 characters"
+    return validator.isLength(value, { min: 2, max: 20 }) ? true : "Middle name must be between 2 and 20 characters"
   },
   domain(value) {
-    return isLength(value, { min: 2, max: 20 }) ? true : "domain must be provided"
+    return validator.isLength(value, { min: 2, max: 20 }) ? true : "domain must be provided"
   },
   hire_date(value) {
-    return isDate(parseISO(value)) ? true : "Hire date must be provided"
+    return validator.isDate(value) ? true : "Hire date must be provided"
   },
   cover_letter(value) {
-    return isLength(value, { min: 50, max: 500 }) ? true : "Cover letter must be between 150 and 500 characters"
+    return validator.isLength(value, { min: 50, max: 500 }) ? true : "Cover letter must be between 150 and 500 characters"
   },
   biography(value) {
-    return isLength(value, { min: 30, max: 500 }) ? true : "Biography must be between 30 and 500 characters"
+    return validator.isLength(value, { min: 30, max: 500 }) ? true : "Biography must be between 30 and 500 characters"
   },
 }
 const employeeValues = {
@@ -221,10 +224,10 @@ const employeeValues = {
 }
 
 function beforeCancel(values) {
-  if (values == this.employeeValues) {
-    this.$router.back()
+  if (values == employeeValues) {
+    router.back()
   } else {
-    this.$router.back()
+    router.back()
   }
 }
 function onInvalidEmployee(ctx: InvalidSubmissionContext) {
@@ -234,7 +237,7 @@ function onInvalidEmployee(ctx: InvalidSubmissionContext) {
 function pickFile(idInput) {
   const file_input = document.getElementById(idInput)
   file_input.click()
-  file_input.addEventListener("change", this.onFileChange)
+  file_input.addEventListener("change", onFileChange)
 }
 function onFileChange(event) {
   if (event.target.files && event.target.files[0]) {
@@ -258,7 +261,7 @@ async function submitEmployee(values) {
   try {
     var result = await store.addEmployee(other)
     if (result) {
-      routeur.push("employees-index")
+      router.push("employees-index")
       toast.success("Employee added successfully !")
     } else {
       toast.error(`Can't add new employee`)
