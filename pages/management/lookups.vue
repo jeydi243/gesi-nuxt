@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div id="drawerOP" class="hs-overlay hs-overlay-open:translate-x-0 hidden translate-x-full fixed top-0 right-0 transition-all duration-300 transform h-full max-w-xs w-full z-[60] bg-white border-r dark:bg-white dark:border-gray-700" tabindex="-1">
+        <div id="drawerOP" class="hs-overlay hs-overlay-open:translate-x-0 hidden translate-x-full fixed top-0 right-0 transition-all duration-700 transform h-full max-w-xs w-full z-[60] bg-white border-r dark:bg-white dark:border-gray-700" tabindex="-1">
             <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
                 <h1 class="font-bold text-black ">
                     Add Lookups
@@ -67,23 +67,94 @@
                 </button>
             </div>
             <div class="p-4">
-                
+                <Form class="col justify-between w-full space-y-4" @submit="addLookups" v-slot="{ isSubmitting, resetForm }" :validation-schema="lookupsSchema" :initial-values="initialLookupsValue" @invalid-submit="onInvalidLookups">
+                    <div class="row w-full">Add new Content</div>
+                    <Field name="title" v-slot="{ field, errorMessage }">
+                        <div class="relative group h-10">
+                            <input v-bind="field" type="text" id="title" required class="input peer" />
+                            <label for="title" class="placeholder-label">Title </label>
+                            <p class="input-error">{{ errorMessage }}</p>
+                        </div>
+                    </Field>
+
+                    <Field name="description" v-slot="{ field, errorMessage }">
+                        <div class="relative group">
+                            <textarea v-bind="field" id="description" required class="input-textarea peer" rows="4"></textarea>
+                            <label for="description" class="placeholder-label">Description </label>
+                            <p class="input-error">{{ errorMessage }}</p>
+                        </div>
+                    </Field>
+                    <Field name="expiredate" v-slot="{ field, errorMessage }">
+                        <div class="relative group h-10">
+                            <input v-bind="field" type="text" id="expiredate" required class="input peer" />
+                            <label for="expiredate" class="placeholder-label peer-invalid:text-red-600">Expire date </label>
+                            <p class="input-error">{{ errorMessage }}</p>
+                        </div>
+                    </Field>
+                    <div class="flex flex-row h-1/2 w-full items-center justify-between">
+                        <button class="btn-unstate" @click.prevent.stop="resetForm()">Cancel</button>
+                        <button type="submit" class="btn-primary">
+                            <box-icon type="solid" name="file-plus" color="white"></box-icon>
+                            <span class="font-bold text-white">Add</span>
+                            <CirclesToRhombusesSpinner :size="5" color="#FFF" class="text-white" v-if="isSubmitting" />
+                        </button>
+                    </div>
+                </Form>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useManagement } from '~/store/management';
-import { PlusIcon } from "@heroicons/vue/24/solid"
-
 definePageMeta({
     layout: "management",
 });
+import { CirclesToRhombusesSpinner } from "epic-spinners"
+import * as yup from "yup"
+import { Form, Field } from "vee-validate"
+import { useManagement } from '~/store/management';
+import { PlusIcon } from "@heroicons/vue/24/solid"
+import { InvalidSubmissionContext } from 'vee-validate';
+import { useToast } from 'vue-toastification';
+const store = useManagement()
+const toast = useToast()
+
+const initialLookupsValue = {
+    _id: "",
+    classe: "",
+    parent_lookups_id: "",
+    name: "",
+    description: ""
+}
 const management = useManagement()
 const classes = computed(() => management.classes)
 const isOpen = ref(false)
+const isSubmitting = ref(false)
+const lookupsSchema = yup.object({
+    _id: yup.string().required().label("ID"),
+    classe: yup.string().required().label("Classe ID"),
+    parent_lookups_id: yup.string().required().label("Parent Lookups ID"),
+    name: yup.string().required().label("Name"),
+    description: yup.string().required().label("Description")
+})
 
+async function addLookups(values, { resetForm, setFieldError }) {
+    console.log({ values })
+    try {
+        var result = await store.addLookups(values)
+        if (!result) {
+            toast.success("Lookups added successfully !")
+        } else {
+
+            toast.error(`Can't add new content ${JSON.stringify(result)}`)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+function onInvalidLookups(ctx: InvalidSubmissionContext) {
+
+}
 function closeModal() {
     isOpen.value = false
 }

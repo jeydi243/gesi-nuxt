@@ -13,6 +13,13 @@ export interface IDocument {
 
     show?: boolean;
 }
+export interface ILookups {
+    _id: string;
+    classe: string;
+    parent_lookups_id: string;
+    name: string;
+    description: string;
+}
 export interface IPerson {
     _id: string;
     firstname?: string;
@@ -69,6 +76,7 @@ interface IManagement {
     token: string;
     routeurs: [];
     classes: any[];
+    lookups: any[];
     listDocuments: IDocument[];
     listFilieres: Map<string, string>[];
     employees: Array<IEmployee>;
@@ -79,6 +87,7 @@ export const useManagement = defineStore('management', {
     state: (): IManagement => ({
         contents: [],
         laptops: [],
+        lookups: [],
         routeurs: [],
         listDocuments: [],
         listFilieres: [],
@@ -176,6 +185,20 @@ export const useManagement = defineStore('management', {
                 if (status == 200 || status == 201) {
                     const index = this.employees.findIndex((emp) => emp._id == data.id);
                     this.employees[index].experiences!.unshift(data);
+                    return true;
+                }
+                return false;
+            } catch (er) {
+                console.log(er);
+                return false;
+            }
+        },
+        async addLookups(newLookups: ILookups) {
+            try {
+                const { data, status } = await $fetch<any>('/management/lookups', { method: 'POST', body: { ...newLookups } }); //mgntAPI.addLookups(id, lookups);
+                if (status == 200 || status == 201) {
+                    const index = this.lookups.findIndex((emp) => emp._id == data.id);
+                    this.lookups[index].experiences!.unshift(data);
                     return true;
                 }
                 return false;
