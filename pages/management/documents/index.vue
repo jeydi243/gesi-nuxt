@@ -5,10 +5,10 @@
 				<span class="text-4xl font-bold border-0 border-l-4 border-l-yellow-400 pl-2">Documents</span>
 				<div class="row">
 					<button @click.prevent="getAllDocuments" class="btn-primary mr-1">
-						<RefreshIcon class="h-5 w-5 text-white" />
+						<Icon name="simple-line-icons:pencil" color="white" />
 					</button>
 					<button @click="showModalAdd = !showModalAdd" class="btn-primary">
-						<DocumentAddIcon class="h-5 w-5 text-white" />Add document
+						<Icon name="simple-line-icons:pencil" color="white" />Add document
 					</button>
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 			<div class="flex flex-row justify-between pb-2">
 				<div class="relative flex w-72 flex-wrap items-stretch">
 					<span class="z-10 flex h-full font-normal text-center self-center caret-green-500 text-gray-300 absolute bg-transparent rounded text-base items-center justify-center">
-						<SearchIcon class="h-5 w-5 self-center text-center text-gray-500" />
+						<Icon name="ion:ios-search-strong" class="h-5 w-5 text-white" />
 					</span>
 					<input type="text" v-model="search" placeholder="Find by Code or Name" class="px-1 py-3 caret-green-500 placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm border-0 outline-none focus:outline-none focus:ring-transparent w-full pl-7" />
 				</div>
@@ -119,7 +119,6 @@ import * as yup from "yup"
 import { useManagement } from "@/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, InvalidSubmissionContext } from "vee-validate"
-import { SearchIcon, TrashIcon, ClipboardIcon, DocumentAddIcon, RefreshIcon } from "@heroicons/vue/solid"
 import { useToast } from "vue-toastification"
 definePageMeta({
 	layout: "management",

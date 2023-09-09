@@ -1,4 +1,6 @@
 <template>
+  {{ $route.fullPath }}
+  <!-- {{ router }} -->
   <NuxtLayout>
     <NuxtLoadingIndicator />
     <NuxtPage :key="$route.fullPath" />
@@ -6,9 +8,10 @@
 </template>
 <script setup lang="ts">
 import 'vue3-easy-data-table/dist/style.css';
-import('preline')
+// import('preline')
 
-const route = useRoute()
+// const route = useRoute()
+// const router = useRouter()
 </script>
 
 <style>

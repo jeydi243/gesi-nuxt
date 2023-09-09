@@ -50,7 +50,7 @@
       </div>
 
       <div class="contentTab">
-        <Transition name="fadeSlideX" mode="out-in">
+       
           <KeepAlive>
             <div class="flex h-full w-full" v-if="currentComponent == 'Calendar'">
               <Calendar />
@@ -96,7 +96,7 @@
               </div>
             </div>
           </KeepAlive>
-        </Transition>
+        
       </div>
     </div>
     <Modal v-model="canshowModal" @click-outside="clickOutside" classes="flex flex-col h-1/3 justify-center items-center" content-class="flex flex-col max-h-full rounded bg-white">
@@ -110,8 +110,6 @@
 </template>
 
 <script setup lang="ts">
-// import studentsAPI from "@/api/students"
-// import { UserIcon, ArrowRightIcon } from "@heroicons/vue/24/solid"
 
 import { Field, Form, ErrorMessage } from "vee-validate"
 import { CirclesToRhombusesSpinner } from "epic-spinners"

@@ -9,7 +9,7 @@
         <div class="col-span-3 bg-white p-2 h-full rounded-md ml-3 hover:shadow-lg transition-all duration-700">
             <div class="flex flex-row-reverse mb-2">
                 <button @click="openModal" class="btn-primary">
-                    <PlusIcon class="h-5 w-5 text-white" />
+                    <Icon name="ion:school-sharp" class="h-5 w-5 text-white" />
                     <span class="self-center ml-2"> Organisation </span>
                 </button>
             </div>
@@ -86,7 +86,7 @@
 <script setup lang="ts">
 import { useConfig } from '~/store/config';
 import { useManagement } from '~/store/management';
-import { PlusIcon } from "@heroicons/vue/24/solid"
+
 definePageMeta({
     layout: "management",
 });

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <transition name="fadeSlide" mode="out-in" :duration="500">
+    <Transition name="fadeSlide" mode="out-in" :duration="500">
       <div class="display-list" v-if="display == 'list'" key="h4">
         <ListTeacher />
       </div>
-      <div class="display-grid grid grid-cols-4 gap-2 auto-cols-auto h-full auto-rows-auto" v-else key="h1">
+      <div v-else class="display-grid grid grid-cols-4 gap-2 auto-cols-auto h-full auto-rows-auto" key="h1">
         <div class="h-[200px] bg-white rounded-lg shadow-lg relative" v-for="(prof, index) in teachers" :key="index">
           <div class="card-img h-[30%] bg-green-50 w-full">
             <!-- <img :src="'~/assets/img/user.png'" class="object-cover" /> -->
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-    </transition>
+    </Transition>
   </div>
 </template>
 

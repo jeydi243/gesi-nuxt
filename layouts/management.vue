@@ -21,6 +21,7 @@
 const isMenuCondensed = ref(false)
 const showBraedCrumbs = ref(false)
 const route = useRoute()
+const router = useRouter()
 const tabsGestion = ref([
     { name: "contents", current: true },
     { name: "filieres", current: false },
@@ -39,7 +40,7 @@ watch(route, (newval, oldval) => {
     console.log({ newval });
     console.log({ oldval });
 });
-const router = useRouter()
+
 onActivated(() => {
     //   document.body.removeAttribute("data-layout", "horizontal")
     //   document.body.removeAttribute("data-topbar", "dark")
@@ -73,13 +74,13 @@ function hideRightSidebar() {
 }
 function changeTab(indexTab: number | string) {
     if (typeof indexTab == 'string') {
-        var currentTrue: number = tabsGestion.value.findIndex((tab) => tab.current == true)
-        var willTrue: number = tabsGestion.value.findIndex((tab) => tab.name == indexTab)
-        tabsGestion.value[currentTrue].current = false
-        tabsGestion.value[willTrue].current = true
+        var currentTabIndex: number = tabsGestion.value.findIndex((tab) => tab.current === true)
+        var nextTabIndex: number = tabsGestion.value.findIndex((tab) => tab.name === indexTab)
+        tabsGestion.value[currentTabIndex].current = false
+        tabsGestion.value[nextTabIndex].current = true
     } else {
-        var currentTrue = tabsGestion.value.findIndex((tab) => tab.current == true)
-        tabsGestion.value[currentTrue].current = false
+        var currentTabIndex = tabsGestion.value.findIndex((tab) => tab.current === true)
+        tabsGestion.value[currentTabIndex].current = false
         tabsGestion.value[indexTab].current = true
     }
 }

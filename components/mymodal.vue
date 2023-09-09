@@ -1,27 +1,25 @@
 <template>
-	<Transition name="fadeSlideY" mode="out-in">
-		<div class="modal-backdrop w-full relative">
-			<div class="bg-white rounded-lg w-1/3" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
-				<header class="modal-header text-3xl font-bold text-white rounded-t-lg row justify-between w-full bg-blue-800">
-					<slot name="header"> </slot>
-					<box-icon @click="close" class="icons" color="red" name="x"></box-icon>
-					<!-- <XIcon @click="close" aria-label="Close modal" class="h-5 w-5 py-5 px-5 rounded-full hover:shadow-lg text-red-600 bg-red-500" data-mdb-ripple="true" data-mdb-ripple-color="light" /> -->
-				</header>
-				<section class="w-full h-full p-3 mb-2" id="modalDescription">
-					<slot> </slot>
-				</section>
+	<div class="modal-backdrop w-full relative">
+		<div class="bg-white rounded-lg w-1/3" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+			<header class="modal-header text-3xl font-bold text-white rounded-t-lg row justify-between w-full bg-blue-800">
+				<slot name="header"> </slot>
+				<box-icon @click="close" class="icons" color="red" name="x"></box-icon>
+				<!-- <XIcon @click="close" aria-label="Close modal" class="h-5 w-5 py-5 px-5 rounded-full hover:shadow-lg text-red-600 bg-red-500" data-mdb-ripple="true" data-mdb-ripple-color="light" /> -->
+			</header>
+			<section class="w-full h-full p-3 mb-2" id="modalDescription">
+				<slot> </slot>
+			</section>
 
-				<footer class="" :class="{ 'modal-footer mt-2': $slots.footer }">
-					<transition name="fadeSlideX" mode="out-in">
-						<div v-if="isNewError" id="result" class="bg-red-500 text-white text-xs text-center h-8 w-full rounded-b-lg">
-							{{ !Array.isArray(responseError!["message"]) ? responseError!["message"] : responseError!["message"][0] }}
-						</div>
-					</transition>
-					<slot name="footer"> </slot>
-				</footer>
-			</div>
+			<footer class="" :class="{ 'modal-footer mt-2': $slots.footer }">
+
+				<div v-if="isNewError" id="result" class="bg-red-500 text-white text-xs text-center h-8 w-full rounded-b-lg">
+					{{ !Array.isArray(responseError!["message"]) ? responseError!["message"] : responseError!["message"][0] }}
+				</div>
+
+				<slot name="footer"> </slot>
+			</footer>
 		</div>
-	</Transition>
+	</div>
 </template>
 <script setup lang="ts">
 import { useConfig } from "@/store/config"

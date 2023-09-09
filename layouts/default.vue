@@ -5,9 +5,8 @@
       <Header />
       <BreadCrumbs v-if="showBraedCrumbs" />
       <div class="h-[90%] w-full bg-gray-100 px-6 py-6 overflow-auto">
-        <Transition name="fade" mode="out-in">
-          <slot />
-        </Transition>
+
+        <slot />
       </div>
       <Footer />
     </main>

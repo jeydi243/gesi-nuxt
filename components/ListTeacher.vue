@@ -25,15 +25,15 @@
         </tr>
       </thead>
       <!-- <tbody v-if="professors != null"> -->
-      <transition-group name="fade" tag="tbody" mode="out-in">
-        <tr class="table-row cursor-pointer" v-for="(teacher, index) in teachers" :key="index" @click="router.push(`${index}`)">
-          <td class="table-cell">{{ index }}</td>
-          <td class="table-cell">{{ teacher.matricule }}</td>
-          <td class="table-cell">{{ teacher.name }}</td>
-          <td class="table-cell">{{ teacher.email }}</td>
-          <td class="table-cell">{{ teacher.status }}</td>
-        </tr>
-      </transition-group>
+
+      <tr class="table-row cursor-pointer" v-for="(teacher, index) in teachers" :key="index" @click="router.push(`${index}`)">
+        <td class="table-cell">{{ index }}</td>
+        <td class="table-cell">{{ teacher.matricule }}</td>
+        <td class="table-cell">{{ teacher.name }}</td>
+        <td class="table-cell">{{ teacher.email }}</td>
+        <td class="table-cell">{{ teacher.status }}</td>
+      </tr>
+
       <!-- </tbody> -->
     </table>
   </div>

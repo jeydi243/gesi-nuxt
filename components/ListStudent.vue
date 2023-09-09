@@ -3,17 +3,17 @@
     <div class="flex flex-row justify-between w-full pb-5">
       <div class="relative flex w-72 flex-wrap items-stretch">
         <span class="z-10 flex h-full font-normal text-center self-center caret-green-500 text-gray-300 absolute bg-transparent rounded text-base items-center justify-center">
-          <CheckCircleIcon class="h-5 w-5 self-center text-center text-gray-300" />
+          <Icon name="ion:school-sharp" class="h-5 w-5 text-white" />
         </span>
         <input type="text" :placeholder="`Find by Username or Matricule`" class="px-1 py-3 caret-green-500 placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm border-0 outline-none focus:outline-none focus:ring-transparent w-full pl-7" />
       </div>
 
-      <button @click="refresh" class="btn-primary">
-        <ArrowPathRoundedSquareIcon class="h-5 w-5 text-white" />
+      <button  class="btn-primary">
+        <Icon name="ion:school-sharp" class="h-5 w-5 text-white" />
         <span class="self-center ml-2">Rafraichir</span>
       </button>
       <button v-if="currentTabLevel.toLowerCase() == 'candidat'" @click="$router.push({ name: 'students-add' })" class="btn-primary">
-        <UserPlusIcon class="h-5 w-5 text-white" />
+        <Icon name="ion:school-sharp" class="h-5 w-5 text-white" />
         <span class="self-center ml-2">Ajouter</span>
       </button>
     </div>
@@ -30,7 +30,7 @@
       </thead>
       <!-- <tbody v-if="students != null"> -->
       <TransitionGroup :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" tag="tbody" mode="out-in">
-        <tr class="table-row cursor-pointer" v-for="(student, index) in students" :key="index" @click="router.push(index)" :data-index="index">
+        <tr class="table-row cursor-pointer" v-for="(student, index) in students" :key="index"  :data-index="index">
           <td>{{ index }}</td>
           <td>{{ student.matricule }}</td>
           <td>{{ student.name }}</td>
@@ -47,7 +47,6 @@
 import { useConfig } from "@/store/config"
 import { useStudents } from "~~/store/students"
 import { mapState, mapActions } from "pinia"
-import {  UserPlusIcon, ArrowPathRoundedSquareIcon,CheckCircleIcon } from "@heroicons/vue/24/solid"
 import { gsap } from "gsap"
 const store = useStudents()
 const config = useConfig()

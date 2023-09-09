@@ -7,7 +7,7 @@
     <div class="flex border-b border-gray-200 mb-2">
       <button v-for="({ current, id, name }, index) in levels" :key="index" class="btn-tab" :class="{ 'btn-tab-active': current }" @click="changeLevel(id)">{{ name }}</button>
     </div>
-    <transition name="fade" mode="out-in" duration="500">
+    <transition name="fade" mode="out-in" :duration="500">
       <ListStudent :level="currentTabLevel" v-if="isLevelChanged" />
     </transition>
   </div>

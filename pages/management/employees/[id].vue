@@ -32,113 +32,68 @@
         </div>
       </div>
     </div>
-    <transition name="fadeSlideX" mode="out-in">
-      <div class="" v-if="currentTab == 'basic information'">
-        <div class="card row mt-4 min-h-[200px] relative w-full">
-          <div class="row relative transition-all duration-700 w-full">
-            <div class="flex-none relative h-[150px] w-[150px] mr-3 items-center align-middle">
-              <div class="row items-center my-auto h-full">
-                <div class="backdrop-blur-sm bg-red-white/30 absolute left-[25%] top-[35%] z-10 w-20 h-7 rounded-md text-white text-center cursor-pointer" v-if="editMode"><button type="button" @click="changepicture">Edit</button></div>
-                <!-- <img src="http://localhost:3000/resources/file/63bf2dda6afe67abeb28c994" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" /> -->
-                <img :src="`/resources/file/${userData!['images']!['_id']}`" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" />
-              </div>
-            </div>
-            <div v-if="!editMode" class="flex-none">
-              <div class="col ml-5 space-y-2">
-                <span class="capitalize font-bold text-xl">{{ userData!.lastname }}</span>
-                <span class="font-bold text-green-600">{{ userData!.position![0] }}</span>
-                <span class="italic text-sm">{{ userData!.emails }}</span>
-                <span class="italic text-sm">{{ userData!.telephones![0] }}</span>
-                <span class="bg-green-100 pl-1 pt-1 pb-1 pr-3 rounded-md font-bold" data-bs-toggle="tooltip" data-bs-placement="right" :title="`${userData!.hire_date}`">7 years of experience</span>
-              </div>
-            </div>
-            <div v-else class="w-auto grow">
-              <Form class="w-full" @submit="updateBasic" v-slot="{ isSubmitting }" :validation-schema="basicInfoSchema" :initial-values="basicInfo" @invalid-submit="onInvalidBasicInfo">
-                <div class="row space-x-2">
-                  <div>
-                    <Field name="first_name" class="w-full g-input-text"></Field>
-                    <ErrorMessage name="first_name" v-slot="{ message }">
-                      <p class="input-error">{{ message }}</p>
-                    </ErrorMessage>
-                  </div>
-                  <div>
-                    <Field name="last_name" class="w-full g-input-text"></Field>
-                    <ErrorMessage name="last_name" v-slot="{ message }">
-                      <p class="input-error">{{ message }}</p>
-                    </ErrorMessage>
-                  </div>
-                  <div>
-                    <Field name="middle_name" class="w-full g-input-text"></Field>
-                    <ErrorMessage name="middle_name" v-slot="{ message }">
-                      <p class="input-error">{{ message }}</p>
-                    </ErrorMessage>
-                  </div>
-                </div>
-                <div>
-                  <Field name="email" class="w-full g-input-text"></Field>
-                  <ErrorMessage name="email" v-slot="{ message }">
-                    <p class="input-error">{{ message }}</p>
-                  </ErrorMessage>
-                </div>
-                <div>
-                  <Field name="position" class="w-full g-input-text"></Field>
-                  <ErrorMessage name="position" v-slot="{ message }">
-                    <p class="input-error">{{ message }}</p>
-                  </ErrorMessage>
-                </div>
-                <div>
-                  <Field name="telephones" class="w-full g-input-text"></Field>
-                  <ErrorMessage name="telephones" v-slot="{ message }">
-                    <p class="input-error">{{ message }}</p>
-                  </ErrorMessage>
-                </div>
-                <div class="flex flex-row h-1/2 w-full items-center justify-between">
-                  <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button>
-                  <button type="submit" class="btn-primary">
-                    <span class="font-bold text-white" v-if="!isSubmitting">Update</span>
-                    <CirclesToRhombusesSpinner :size="25" class="text-white" v-if="isSubmitting" />
-                  </button>
-                </div>
-              </Form>
+
+    <div class="" v-if="currentTab == 'basic information'">
+      <div class="card row mt-4 min-h-[200px] relative w-full">
+        <div class="row relative transition-all duration-700 w-full">
+          <div class="flex-none relative h-[150px] w-[150px] mr-3 items-center align-middle">
+            <div class="row items-center my-auto h-full">
+              <div class="backdrop-blur-sm bg-red-white/30 absolute left-[25%] top-[35%] z-10 w-20 h-7 rounded-md text-white text-center cursor-pointer" v-if="editMode"><button type="button" @click="changepicture">Edit</button></div>
+              <!-- <img src="http://localhost:3000/resources/file/63bf2dda6afe67abeb28c994" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" /> -->
+              <img :src="`/resources/file/${userData!['images']!['_id']}`" class="rounded-lg h-[150px] w-[150px] select-none relative top-0 left-0 z-0" :class="{ 'border-2 border-dashed p-2': editMode }" />
             </div>
           </div>
-        </div>
-        <div class="card mt-4 min-h-[200px] relative">
-          <span class="font-bold text-xl">Documents</span>
-          <div class="row w-full justify-evenly space-x-6 a my-auto">
-            <div class="col justify-items-end" v-for="(doc, index) in docs" :key="index">
-              <div class="row bg-clip-border justify-between min-w-[300px] items-center bg-green-50 h-9 rounded-md pl-2 border-dashed border-2 border-green-300 text-green-900 self-center">
-                <span class="capitalize font-bold">{{ doc.name }}</span>
-                <div class="row">
-                  <a :download="doc.link" class="bg-green-900 text-white h-8 border-2 rounded-md rounded-br-md cursor-pointer text-center" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                    <span class="px-3 cursor-pointer">Voir</span>
-                  </a>
-                  <a :download="doc.link" class="bg-green-900 h-8 w-8 border-2 rounded-md rounded-br-md cursor-pointer text-center" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                    <box-icon type="regular" name="down-arrow-alt" color="white"></box-icon>
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <a v-if="editMode" @click="showModalUpdateDoc = !showModalUpdateDoc" class="text-xs italic text-blue-700 cursor-pointer font-bold">Modifier</a>
-              </div>
+          <div v-if="!editMode" class="flex-none">
+            <div class="col ml-5 space-y-2">
+              <span class="capitalize font-bold text-xl">{{ userData!.lastname }}</span>
+              <span class="font-bold text-green-600">{{ userData!.position![0] }}</span>
+              <span class="italic text-sm">{{ userData!.emails }}</span>
+              <span class="italic text-sm">{{ userData!.telephones![0] }}</span>
+              <span class="bg-green-100 pl-1 pt-1 pb-1 pr-3 rounded-md font-bold" data-bs-toggle="tooltip" data-bs-placement="right" :title="`${userData!.hire_date}`">7 years of experience</span>
             </div>
           </div>
-        </div>
-        <div class="row justify-center space-x-2 relative mt-4">
-          <div class="card min-h-[200px] w-1/2 col justify-between">
-            <div v-if="!editMode" class="col">
-              <span class="font-bold text-xl">Biography</span>
-              <span> {{ userData!.biography }} </span>
-            </div>
-            <Form v-else class="col justify-between h-full" @submit="updateBiography" v-slot="{ isSubmitting }" :initial-values="{ biography: userData!.biography }" @invalid-submit="invalidBio">
+          <div v-else class="w-auto grow">
+            <Form class="w-full" @submit="updateBasic" v-slot="{ isSubmitting }" :validation-schema="basicInfoSchema" :initial-values="basicInfo" @invalid-submit="onInvalidBasicInfo">
+              <div class="row space-x-2">
+                <div>
+                  <Field name="first_name" class="w-full g-input-text"></Field>
+                  <ErrorMessage name="first_name" v-slot="{ message }">
+                    <p class="input-error">{{ message }}</p>
+                  </ErrorMessage>
+                </div>
+                <div>
+                  <Field name="last_name" class="w-full g-input-text"></Field>
+                  <ErrorMessage name="last_name" v-slot="{ message }">
+                    <p class="input-error">{{ message }}</p>
+                  </ErrorMessage>
+                </div>
+                <div>
+                  <Field name="middle_name" class="w-full g-input-text"></Field>
+                  <ErrorMessage name="middle_name" v-slot="{ message }">
+                    <p class="input-error">{{ message }}</p>
+                  </ErrorMessage>
+                </div>
+              </div>
               <div>
-                <Field name="biography" as="textarea" placeholder="Biography" class="form-input mb-2 w-full"></Field>
-                <ErrorMessage name="biography" v-slot="{ message }">
+                <Field name="email" class="w-full g-input-text"></Field>
+                <ErrorMessage name="email" v-slot="{ message }">
                   <p class="input-error">{{ message }}</p>
                 </ErrorMessage>
               </div>
-              <div class="row h-1/2 w-full items-center justify-end">
-                <!-- <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button> -->
+              <div>
+                <Field name="position" class="w-full g-input-text"></Field>
+                <ErrorMessage name="position" v-slot="{ message }">
+                  <p class="input-error">{{ message }}</p>
+                </ErrorMessage>
+              </div>
+              <div>
+                <Field name="telephones" class="w-full g-input-text"></Field>
+                <ErrorMessage name="telephones" v-slot="{ message }">
+                  <p class="input-error">{{ message }}</p>
+                </ErrorMessage>
+              </div>
+              <div class="flex flex-row h-1/2 w-full items-center justify-between">
+                <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button>
                 <button type="submit" class="btn-primary">
                   <span class="font-bold text-white" v-if="!isSubmitting">Update</span>
                   <CirclesToRhombusesSpinner :size="25" class="text-white" v-if="isSubmitting" />
@@ -146,57 +101,102 @@
               </div>
             </Form>
           </div>
-          <div class="card min-h-[200px] w-1/2 col justify-between">
-            <span class="font-bold text-xl">Emergency Contact</span>
-            <span v-for="(contact, index) in userData!.contacts" :key="index" class="mt-2 relative transition-all ease-in duration-700" :class="{ 'rounded-lg border-2 px-7': editMode }">
-              <div class="row justify-between">
-                <span>Name: </span>
-                <span>{{ contact['name'] }}</span>
+        </div>
+      </div>
+      <div class="card mt-4 min-h-[200px] relative">
+        <span class="font-bold text-xl">Documents</span>
+        <div class="row w-full justify-evenly space-x-6 a my-auto">
+          <div class="col justify-items-end" v-for="(doc, index) in docs" :key="index">
+            <div class="row bg-clip-border justify-between min-w-[300px] items-center bg-green-50 h-9 rounded-md pl-2 border-dashed border-2 border-green-300 text-green-900 self-center">
+              <span class="capitalize font-bold">{{ doc.name }}</span>
+              <div class="row">
+                <a :download="doc.link" class="bg-green-900 text-white h-8 border-2 rounded-md rounded-br-md cursor-pointer text-center" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                  <span class="px-3 cursor-pointer">Voir</span>
+                </a>
+                <a :download="doc.link" class="bg-green-900 h-8 w-8 border-2 rounded-md rounded-br-md cursor-pointer text-center" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                  <box-icon type="regular" name="down-arrow-alt" color="white"></box-icon>
+                </a>
               </div>
-              <div class="row justify-between">
-                <span>Relationship: </span>
-                <span>{{ contact['relationship'] }}</span>
-              </div>
-              <div class="row justify-between">
-                <span>Telephone: </span>
-                <span>{{ contact['telephone'] }}</span>
-              </div>
-              <hr class="mb-2 text-green-500" v-if="!editMode" />
-              <button v-if="editMode" @click="deleteContact(contact._id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
-                <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
-              </button>
-            </span>
-            <button @click="showModalAddContact = true" class="btn-unstate" v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success">Add</button>
+            </div>
+            <div class="row">
+              <a v-if="editMode" @click="showModalUpdateDoc = !showModalUpdateDoc" class="text-xs italic text-blue-700 cursor-pointer font-bold">Modifier</a>
+            </div>
           </div>
         </div>
-        <div class="col card mt-4 min-h-[200px] relative transition-all ease-in duration-700 justify-between">
-          <div>
-            <span class="font-bold text-xl">Education & Certifiactions</span>
+      </div>
+      <div class="row justify-center space-x-2 relative mt-4">
+        <div class="card min-h-[200px] w-1/2 col justify-between">
+          <div v-if="!editMode" class="col">
+            <span class="font-bold text-xl">Biography</span>
+            <span> {{ userData!.biography }} </span>
           </div>
-          <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start row md:gap-6 mt-2 transition-all ease-in duration-700" :class="{ 'border-none': editMode, 'md:justify-start': userData!.educations!.length == 1 }">
-            <li v-for="({ name, start, description, end, from_school, _id }, index) in userData!.educations" :key="index" class="transition-all ease-in duration-700 relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': editMode }">
-              <div class="flex md:block flex-start items-center pt-2 md:pt-0">
-                <div class="bg-green-300 w-2 h-2 rounded-full -ml-1 md:ml-0 mr-3 md:mr-0 md:-mt-1"></div>
-                <!-- <p class="text-green-500 text-sm mt-2">{{ start - end}}</p> -->
-              </div>
-              <div class="mt-0.5 ml-4 md:ml-0 pb-5">
-                <h4 class="text-green-800 font-semibold text-xl mb-1.5">{{ name }}</h4>
-                {{ from_school }}
-                <p class="text-gray-500 mb-3">{{ description }}</p>
-                <button v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateEducation(_id)">Update</button>
-              </div>
-              <button v-if="editMode" @click="deleteEducation(_id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
-                <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
+          <Form v-else class="col justify-between h-full" @submit="updateBiography" v-slot="{ isSubmitting }" :initial-values="{ biography: userData!.biography }" @invalid-submit="invalidBio">
+            <div>
+              <Field name="biography" as="textarea" placeholder="Biography" class="form-input mb-2 w-full"></Field>
+              <ErrorMessage name="biography" v-slot="{ message }">
+                <p class="input-error">{{ message }}</p>
+              </ErrorMessage>
+            </div>
+            <div class="row h-1/2 w-full items-center justify-end">
+              <!-- <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button> -->
+              <button type="submit" class="btn-primary">
+                <span class="font-bold text-white" v-if="!isSubmitting">Update</span>
+                <CirclesToRhombusesSpinner :size="25" class="text-white" v-if="isSubmitting" />
               </button>
-            </li>
-          </ol>
-          <button v-if="editMode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddEducation = true">Add Education</button>
+            </div>
+          </Form>
         </div>
-        <div class="col card mt-4 min-h-[200px] relative justify-between">
-          <div>
-            <span class="font-bold text-xl">Work Experiences</span>
-          </div>
-          <!-- <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start md:gap-6 mt-2" :class="{ 'border-none': editMode, 'md:justify-start': userData.experiences.length == 1 }">
+        <div class="card min-h-[200px] w-1/2 col justify-between">
+          <span class="font-bold text-xl">Emergency Contact</span>
+          <span v-for="(contact, index) in userData!.contacts" :key="index" class="mt-2 relative transition-all ease-in duration-700" :class="{ 'rounded-lg border-2 px-7': editMode }">
+            <div class="row justify-between">
+              <span>Name: </span>
+              <span>{{ contact['name'] }}</span>
+            </div>
+            <div class="row justify-between">
+              <span>Relationship: </span>
+              <span>{{ contact['relationship'] }}</span>
+            </div>
+            <div class="row justify-between">
+              <span>Telephone: </span>
+              <span>{{ contact['telephone'] }}</span>
+            </div>
+            <hr class="mb-2 text-green-500" v-if="!editMode" />
+            <button v-if="editMode" @click="deleteContact(contact._id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
+              <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
+            </button>
+          </span>
+          <button @click="showModalAddContact = true" class="btn-unstate" v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success">Add</button>
+        </div>
+      </div>
+      <div class="col card mt-4 min-h-[200px] relative transition-all ease-in duration-700 justify-between">
+        <div>
+          <span class="font-bold text-xl">Education & Certifiactions</span>
+        </div>
+        <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start row md:gap-6 mt-2 transition-all ease-in duration-700" :class="{ 'border-none': editMode, 'md:justify-start': userData!.educations!.length == 1 }">
+          <li v-for="({ name, start, description, end, from_school, _id }, index) in userData!.educations" :key="index" class="transition-all ease-in duration-700 relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': editMode }">
+            <div class="flex md:block flex-start items-center pt-2 md:pt-0">
+              <div class="bg-green-300 w-2 h-2 rounded-full -ml-1 md:ml-0 mr-3 md:mr-0 md:-mt-1"></div>
+              <!-- <p class="text-green-500 text-sm mt-2">{{ start - end}}</p> -->
+            </div>
+            <div class="mt-0.5 ml-4 md:ml-0 pb-5">
+              <h4 class="text-green-800 font-semibold text-xl mb-1.5">{{ name }}</h4>
+              {{ from_school }}
+              <p class="text-gray-500 mb-3">{{ description }}</p>
+              <button v-if="editMode" data-mdb-ripple="true" data-mdb-ripple-color="success" type="button" class="btn-unstate-min w-[80px]" @click="launchUpdateEducation(_id)">Update</button>
+            </div>
+            <button v-if="editMode" @click="deleteEducation(_id)" class="absolute inline-block bottom-0 right-0 text-center items-center row bg-red-100 rounded-tl-md rounded-br-sm" data-mdb-ripple="true" data-mdb-ripple-color="danger">
+              <box-icon type="regular" name="trash" color="red" size="sm" class="text-green-900"></box-icon>
+            </button>
+          </li>
+        </ol>
+        <button v-if="editMode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddEducation = true">Add Education</button>
+      </div>
+      <div class="col card mt-4 min-h-[200px] relative justify-between">
+        <div>
+          <span class="font-bold text-xl">Work Experiences</span>
+        </div>
+        <!-- <ol class="border-l md:border-l-0 md:border-t border-gray-300 md:flex md:justify-start md:gap-6 mt-2" :class="{ 'border-none': editMode, 'md:justify-start': userData.experiences.length == 1 }">
 				<li v-for="({ position, start, end, company, id }, index) in userData.experiences" :key="index" class="relative" :class="{ 'border-2 border-dashed rounded-lg pl-5': editMode, 'justify-center': userData.experiences.length == 0 }">
 					<div class="flex md:block flex-start items-center pt-2 md:pt-0">
 						<div class="bg-green-300 w-2 h-2 rounded-full -ml-1 md:ml-0 mr-3 md:mr-0 md:-mt-1"></div>
@@ -213,77 +213,77 @@
 					</button>
 				</li>
 			</ol> -->
-          <button v-if="editMode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddExper = true">Add Experience</button>
-        </div>
-        <div class="col card mt-4 min-h-[200px] relative justify-between">
-          <!-- <button class="absolute inline-block top-0 right-0 text-center items-center row bg-green-100 rounded-bl-md rounded-tr-sm" data-mdb-ripple="true" data-mdb-ripple-color="success">
+        <button v-if="editMode" class="btn-unstate w-1/3 self-center mt-4" data-mdb-ripple="true" data-mdb-ripple-color="success" @click="showModalAddExper = true">Add Experience</button>
+      </div>
+      <div class="col card mt-4 min-h-[200px] relative justify-between">
+        <!-- <button class="absolute inline-block top-0 right-0 text-center items-center row bg-green-100 rounded-bl-md rounded-tr-sm" data-mdb-ripple="true" data-mdb-ripple-color="success">
 				<box-icon type="regular" name="pencil" color="green" size="sm" class="text-green-900"></box-icon>
 			</button> -->
-          <span class="font-bold text-xl mb-4">Onboarding</span>
-          <article class="row justify-between">
-            <div class="col space-y-2" v-if="!editMode">
-              <div class="form-check form-switch" v-for="(value, key) in userData!.onboarding" :key="key">
-                <!-- {{ value }} -->
-                <input class="toggle" type="checkbox" role="switch" id="work_tools" :disabled="!editMode" :checked="value['state']" />
-                <label class="form-check-label inline-block text-gray-800" for="work_tools">{{ value["description"] }}</label>
-              </div>
+        <span class="font-bold text-xl mb-4">Onboarding</span>
+        <article class="row justify-between">
+          <div class="col space-y-2" v-if="!editMode">
+            <div class="form-check form-switch" v-for="(value, key) in userData!.onboarding" :key="key">
+              <!-- {{ value }} -->
+              <input class="toggle" type="checkbox" role="switch" id="work_tools" :disabled="!editMode" :checked="value['state']" />
+              <label class="form-check-label inline-block text-gray-800" for="work_tools">{{ value["description"] }}</label>
             </div>
-            <div v-else>
-              <Form @submit="updateOnboarding" v-slot="{ isSubmitting, values }" :initial-values="{ ...onboardings }">
-                <div class="form-check form-switch" v-for="(val, key) in onboardings" :key="key">
-                  <input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="values[key]" />
-                  <label :for="`${key}`" class="form-check-label">{{ userData!.onboarding!.find((e) => e["field"] == key)!["description"] }}</label>
+          </div>
+          <div v-else>
+            <Form @submit="updateOnboarding" v-slot="{ isSubmitting, values }" :initial-values="{ ...onboardings }">
+              <div class="form-check form-switch" v-for="(val, key) in onboardings" :key="key">
+                <input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="values[key]" />
+                <label :for="`${key}`" class="form-check-label">{{ userData!.onboarding!.find((e) => e["field"] == key)!["description"] }}</label>
 
-                  <ErrorMessage :name="`${key}`" v-slot="{ message }">
-                    <p class="input-error">{{ message }}</p>
-                  </ErrorMessage>
-                </div>
-                {{ values }}
-                <div class="flex flex-row h-1/2 w-full items-center justify-between">
-                  <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button>
-                  <button type="submit" class="btn-primary">
-                    <span class="font-bold text-white" v-if="!isSubmitting">Update</span>
-                    <CirclesToRhombusesSpinner :size="25" class="text-white" v-if="isSubmitting" />
-                  </button>
-                </div>
-              </Form>
-            </div>
-          </article>
-        </div>
-      </div>
-      <div class="r" v-else-if="currentTab == 'account and settings'">
-        <div class="card col">
-          <span class="text-2xl font-bold">Account and Login</span>
-          <div class="password">
-            <Form @submit="updatePassword" class="col" v-slot="{ isSubmitting }" :validation-schema="passwordSchema" :initial-values="passwordValue" @invalid-submit="onInvalidPassword">
-              <div class="row space-x-1">
-                <div class="w-full">
-                  <label for="password_verif">Password</label>
-                  <Field name="password" type="password" placeholder="Password" class="form-input mb-2 w-full"></Field>
-                  <ErrorMessage name="password" v-slot="{ message }">
-                    <p class="input-error">{{ message }}</p>
-                  </ErrorMessage>
-                </div>
-                <div class="w-full">
-                  <label for="password_verif">Password verification</label>
-                  <Field name="password_verif" id="password_verif" type="password" placeholder="Password verification" class="form-input mb-2 w-full"></Field>
-                  <ErrorMessage name="password_verif" v-slot="{ message }">
-                    <p class="input-error">{{ message }}</p>
-                  </ErrorMessage>
-                </div>
+                <ErrorMessage :name="`${key}`" v-slot="{ message }">
+                  <p class="input-error">{{ message }}</p>
+                </ErrorMessage>
               </div>
-              <div class="row w-full items-center justify-between">
+              {{ values }}
+              <div class="flex flex-row h-1/2 w-full items-center justify-between">
                 <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button>
                 <button type="submit" class="btn-primary">
-                  <span class="font-bold text-white" v-if="!isSubmitting">Update password</span>
+                  <span class="font-bold text-white" v-if="!isSubmitting">Update</span>
                   <CirclesToRhombusesSpinner :size="25" class="text-white" v-if="isSubmitting" />
                 </button>
               </div>
             </Form>
           </div>
+        </article>
+      </div>
+    </div>
+    <div class="r" v-else-if="currentTab == 'account and settings'">
+      <div class="card col">
+        <span class="text-2xl font-bold">Account and Login</span>
+        <div class="password">
+          <Form @submit="updatePassword" class="col" v-slot="{ isSubmitting }" :validation-schema="passwordSchema" :initial-values="passwordValue" @invalid-submit="onInvalidPassword">
+            <div class="row space-x-1">
+              <div class="w-full">
+                <label for="password_verif">Password</label>
+                <Field name="password" type="password" placeholder="Password" class="form-input mb-2 w-full"></Field>
+                <ErrorMessage name="password" v-slot="{ message }">
+                  <p class="input-error">{{ message }}</p>
+                </ErrorMessage>
+              </div>
+              <div class="w-full">
+                <label for="password_verif">Password verification</label>
+                <Field name="password_verif" id="password_verif" type="password" placeholder="Password verification" class="form-input mb-2 w-full"></Field>
+                <ErrorMessage name="password_verif" v-slot="{ message }">
+                  <p class="input-error">{{ message }}</p>
+                </ErrorMessage>
+              </div>
+            </div>
+            <div class="row w-full items-center justify-between">
+              <button class="btn-unstate" @click.prevent.stop="closeModal">Cancel</button>
+              <button type="submit" class="btn-primary">
+                <span class="font-bold text-white" v-if="!isSubmitting">Update password</span>
+                <CirclesToRhombusesSpinner :size="25" class="text-white" v-if="isSubmitting" />
+              </button>
+            </div>
+          </Form>
         </div>
       </div>
-    </transition>
+    </div>
+
     <!-- <form class="mt-12" action="" method="POST">
 			<div class="relative">
 				<input id="email" name="email" type="text" class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600" placeholder="john@doe.com" />

@@ -140,7 +140,7 @@
         <div class="flex flex-col mb-4 h-1/2 items-center justify-center">
           <div class="mb-4" id="preview" @click.stop="pickPicture" :class="{ profile2: !previewSRC }">
             <img v-if="previewSRC" :src="previewSRC" class="flex z-10 cursor-pointer self-center object-cover rounded-lg h-[100px] w-[100px]" />
-            <UserIcon class="h-10 w-10 text-green-500" v-else />
+            <Icon name="ion:md-person-add" color="white" />
           </div>
           <Field name="profile" v-slot="{ handleChange, handleBlur }">
             <input id="bind-profile" type="file" @change="handleChange" @blur="handleBlur" class="w-full text-sm text-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 hidden" hidden />
@@ -249,15 +249,9 @@
           </div>
           <div class="input-group-grid diploma">
             <Field placeholder="Diploma" v-slot="{ handleChange, handleBlur }" name="diploma">
-              <input
-                type="file"
-                name="diploma"
-                accept=".pdf"
-                id="diploma"
-                @change="handleChange"
-                @blur="handleBlur"
-                class="text-sm text-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 w-full"
-              />
+              <input type="file" name="diploma" accept=".pdf"
+                     id="diploma" @change="handleChange" @blur="handleBlur"
+                     class="text-sm text-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 w-full" />
             </Field>
             <ErrorMessage name="diploma" v-slot="{ message }">
               <p class="input-error">{{ message }}</p>
@@ -272,8 +266,8 @@
         <button class="btn-unstate" @click="goBack">Cancel</button>
         <button type="submit" class="btn-primary">
           <span class="font-bold text-white"> {{ step === 4 ? "Save" : "Suivant" }}</span>
-          <SaveIcon class="h-5 w-5 text-white" v-if="!isSubmitting && step === 4" />
-          <CirclesToRhombusesSpinner :size="25" :color="'#FFF'" v-else-if="isSubmitting" />
+          <Icon name="ion:ios-search-strong" class="h-5 w-5 text-white" />
+          <!-- <CirclesToRhombusesSpinner :size="25" :color="'#FFF'" v-else-if="isSubmitting" /> -->
         </button>
       </div>
     </Form>
@@ -375,7 +369,7 @@ function goNext(values) {
       const re = store.addStudent(values)
       console.log(re)
     }
-  } catch (error) {}
+  } catch (error) { }
 
   step.value++
 }

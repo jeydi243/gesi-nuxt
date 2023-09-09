@@ -3,7 +3,8 @@
     <div class="row mb-4 justify-between">
       <span class="text-4xl font-bold border-0 border-l-4 border-l-yellow-400 pl-2">Filières</span>
       <button type="button" class="btn-primary" @click="showModalFiliere = !showModalFiliere">
-        <AcademicCapIcon class="h-5 w-5 text-white" />
+        <!-- <AcademicCapIcon class="h-5 w-5 text-white" /> -->
+        <Icon name="ion:school-sharp" class="h-5 w-5 text-white" />
         <span class="self-center ml-2">Add fielère</span>
       </button>
     </div>
@@ -13,7 +14,7 @@
           <div class="flex justify-center">
             <div class="rounded-lg shadow-lg bg-white max-w-sm">
               <a href="#!" class="aspect-h-16 aspect-w-9">
-                <img class="rounded-t-lg" :src="`~/assets/img/academic-${indexFiliere + 1}.jpg`" :alt="`Image - ${indexFiliere}`" />
+                <NuxtImg class="rounded-t-lg" :src="`~/assets/img/academic-${indexFiliere + 1}.jpg`" :alt="`Image - ${indexFiliere}`" />
               </a>
               <div class="p-6">
                 <h5 class="text-gray-900 text-xl font-medium mb-2">Card title</h5>
@@ -89,7 +90,6 @@ import * as yup from "yup"
 import { useManagement } from "~~/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
-import { AcademicCapIcon } from "@heroicons/vue/24/solid"
 
 definePageMeta({
   layout: "management",
@@ -190,7 +190,7 @@ const employees = computed(() => management.employees)
 function add(values: any, { resetForm }) {
   try {
     var response = this.addFiliere(values)
-    if (res) {
+    if (response) {
       toast.success("Document modifié avec succes")
     } else {
       this.closeModal()

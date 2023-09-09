@@ -15,7 +15,7 @@ export interface IItem {
   to: string;
   icon: string;
   active: boolean;
-  mouseHover: false;
+  mouseHover: boolean;
 }
 export interface ILevel {
   id: string;

@@ -2,19 +2,6 @@
   <div class="card">
     <Form v-slot="{ isSubmitting, values }" @submit="submitEmployee" :validation-schema="employeeSchema" :initial-values="employeeValues" @invalid-submit="onInvalidEmployee">
       <div class="grid grid-cols-3 gap-4 auto-cols-min w-full h-full">
-        <!-- <fieldset class="border-2 block col border-yellow-200 rounded-lg px-2 py-4 items-center align-middle justify-center content-center">
-					<legend class="italic text-yellow-600 pr-3">Profile Picture</legend>
-					<div class="mb-4 h-1/2" id="preview" @click.prevent="pickFile('profile_img')" :class="{ 'profile-square': !src }">
-						<img v-if="src" :src="src" class="flex z-10 cursor-pointer self-center object-cover rounded-lg h-1/2 w-full" />
-						<UserIcon class="h-10 w-10 text-green-500" v-else />
-					</div>
-					<Field name="profile_img" v-slot="{ handleChange, handleBlur }">
-						<input id="profile_img" type="file" @change="handleChange" @blur="handleBlur" accept="image/*," class="w-full text-sm text-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 hidden" hidden />
-					</Field>
-					<ErrorMessage name="profile" v-slot="{ message }">
-						<p class="input-error">{{ message }}</p>
-					</ErrorMessage>
-				</fieldset> -->
         <div>
           <fieldset class="border-2 border-green-50 rounded-lg px-2 py-4">
             <legend class="italic text-green-500 pr-3">Informations</legend>
@@ -111,12 +98,7 @@
 					</fieldset> -->
           <fieldset class="border-2 border-sky-500 rounded-lg px-2 py-4">
             <legend class="italic text-yellow-600 pr-3">Applications</legend>
-            <!-- <Field v-slot="{ handleChange, handleBlur }" name="resume_file" class="w-full">
-							<input type="file" @change="handleChange" accept=".pdf" @blur="handleBlur" class="w-full form-file" />
-						</Field>
-						<ErrorMessage name="resume_file" v-slot="{ message }">
-							<p class="input-error">{{ message }}</p>
-						</ErrorMessage> -->
+
             <Field as="textarea" placeholder="Cover letter" id="cover_letter" name="cover_letter" class="w-full form-input h-56" />
             <ErrorMessage name="cover_letter" v-slot="{ message }">
               <p class="input-error">{{ message }}</p>

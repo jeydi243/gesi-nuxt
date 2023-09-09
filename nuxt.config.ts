@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@pinia/nuxt', '@nuxt/devtools'],
+    modules: ['@vueuse/nuxt', '@pinia/nuxt', '@nuxt/devtools', '@nuxt/ui', 'nuxt-icon', '@nuxt/image'],
     runtimeConfig: { public: { baseURL: process.env.API_URL }, MONGO_URI_DEV: process.env.MONGO_URI_DEV, MONGO_URI_PROD: process.env.MONGO_URI_PROD },
     experimental: {
         viewTransition: true,
@@ -69,18 +69,12 @@ export default defineNuxtConfig({
                     href: 'https://fonts.googleapis.com/css2?family=Newsreader:wght@600&display=swap',
                 },
             ],
-            script: [
-                {
-                    src: '/vendor/preline/dist/preline.js',
-                    body: true,
-                    defer: true,
-                },
-            ],
         },
 
         pageTransition: {
             name: 'fadeSlideY',
             mode: 'out-in',
+
             // onBeforeEnter: (el) => {
             //     console.log('Before enter apge...');
             // },
@@ -89,8 +83,12 @@ export default defineNuxtConfig({
         },
         layoutTransition: { name: 'fadeSlideX', mode: 'out-in' },
     },
+    ui: {
+        global: true,
+        icons: ['mdi', 'simple-icons'],
+    },
 
     devtools: {
-        enabled: true,
+        enabled: false,
     },
 });

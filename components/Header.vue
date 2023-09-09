@@ -9,7 +9,8 @@
     </MenuItems>
   </Menu> -->
   <header class="sticky top-0 right-0 z-0 flex w-full h-[6%] bg-white text-black select-none items-center justify-between pr-10 pl-5 border-t-2 border-t-gray-300">
-    <ArrowLeftIcon class="flex h-5 w-5 text-green-600 cursor-pointer" @click="useRouter().back()" />
+
+    <Icon name="ion:school-sharp" class="h-5 w-5 text-white" @click="useRouter().back()" />
     <BreadCrumbs />
 
     <div class="relative row space-x-5">
