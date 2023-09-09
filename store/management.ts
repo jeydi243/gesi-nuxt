@@ -25,6 +25,7 @@ export interface IPerson {
     firstname?: string;
     middlename?: string;
     lastname?: string;
+    name?: string;
     gender: 'M' | 'F';
     emails?: string;
     images?: Array<string>;

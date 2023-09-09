@@ -19,7 +19,7 @@
               Molestias explicabo corporis voluptatem?
             </p>
 
-            <a href="#" @click="routeur.push('contents-details', item)" class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
+            <a href="#" @click="$router.push('contents-details')" class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
               Find out more
               <span aria-hidden="true" class="block transition group-hover:translate-x-0.5"> &rarr; </span>
             </a>
@@ -28,7 +28,7 @@
             </NuxtLink>
           </div>
           <footer class="flex items-center justify-start leading-none bottom-0 left-0 p-2 h-[20%] w-full">
-            <img @click="routeur.push(`/teachers/${item.authors[0]}`)" class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
+            <img @click="$router.push(`/teachers/${item.authors[0]}`)" class="block avatar rounded-full" :src="`https://mdbcdn.b-cdn.net/img/new/avatars/${rand(20)}.webp`" />
             <NuxtLink :to="`/teachers/${index}`" class="flex cursor-pointer items-center no-underline hover:underline text-black">
               <p class="ml-2 text-sm text-black">By {{ chance.name() }}</p>
             </NuxtLink>

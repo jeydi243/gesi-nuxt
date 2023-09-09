@@ -90,7 +90,8 @@ import * as yup from "yup"
 import { useManagement } from "~~/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
-
+import validator from 'validator'
+const { isLength } = validator
 definePageMeta({
   layout: "management",
 });
@@ -130,7 +131,7 @@ const filiereSchema = ref({
 // 	"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
 // ];
 
-let previewSRC: string | null = ref<string | null>(null)
+let previewSRC = ref<string | null>(null)
 const filieres = ref([
   {
     name: "G1",
@@ -189,11 +190,11 @@ const employees = computed(() => management.employees)
 
 function add(values: any, { resetForm }) {
   try {
-    var response = this.addFiliere(values)
+    var response = addFiliere(values)
     if (response) {
-      toast.success("Document modifié avec succes")
+      // toast.success("Document modifié avec succes")
     } else {
-      this.closeModal()
+      closeModal()
       resetForm()
     }
   } catch (e) { }
@@ -205,7 +206,7 @@ function pickPicture() {
   document.getElementById("bind-profile").click()
   const fi = document.getElementById("bind-profile")
   console.log(fi)
-  fi.addEventListener("change", this.onProfilePictureChange)
+  fi.addEventListener("change", onProfilePictureChange)
 }
 function onProfilePictureChange(event) {
   console.log("Profile picture change and is ", event.target.files[0])
@@ -213,7 +214,7 @@ function onProfilePictureChange(event) {
     previewSRC.value = window.URL.createObjectURL(event.target.files[0])
     window.URL.revokeObjectURL(event.target.files[0]) // free memory
   } else {
-    previewSRC.value = null
+    previewSRC = null
   }
 }
 function clickOutside() { }

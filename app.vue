@@ -1,6 +1,4 @@
 <template>
-  {{ $route.fullPath }}
-  <!-- {{ router }} -->
   <NuxtLayout>
     <NuxtLoadingIndicator />
     <NuxtPage :key="$route.fullPath" />
