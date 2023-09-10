@@ -7,10 +7,11 @@
             <div class="h-[90%] w-full bg-gray-100 px-6 py-6 overflow-auto">
                 <div class="flex border-b border-gray-200 mb-2 select-none">
 
-                    <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" activeClass="btn-tab-active" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': currentTab == name }" :to="`/management/${name}`">{{ name }}</NuxtLink>
+                    <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" activeClass="btn-tab-active" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': currentTab == name }" :to="`/management/${name}`" @click="changeTab(indexTab)">{{ name }}</NuxtLink>
 
                 </div>
-                <slot />
+                <!-- <slot /> -->
+                <NuxtPage :page-key="route => route.fullPath" />
             </div>
             <Footer />
         </main>
@@ -20,7 +21,6 @@
 <script lang="ts" setup>
 const isMenuCondensed = ref(false)
 const showBraedCrumbs = ref(false)
-const route = useRoute()
 const router = useRouter()
 const tabsGestion = ref([
     { name: "contents", current: true },
@@ -33,13 +33,13 @@ const tabsGestion = ref([
 ])
 const currentTab = computed(() => tabsGestion?.value?.find((tab) => tab.current)?.name.toLowerCase())
 
-watch(route, (newval, oldval) => {
-    if (newval.path !== oldval.path) {
-        changeTab(newval.path.split('/')[2])
-    }
-    console.log({ newval });
-    console.log({ oldval });
-});
+// watch(route, (newval, oldval) => {
+//     if (newval.path !== oldval.path) {
+//         changeTab(newval.path.split('/')[2])
+//     }
+//     console.log({ newval });
+//     console.log({ oldval });
+// });
 
 onActivated(() => {
     //   document.body.removeAttribute("data-layout", "horizontal")

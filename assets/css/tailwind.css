@@ -167,7 +167,7 @@ input:valid + span:after {
   @apply px-4 py-2 ease-in-out overflow-visible flex flex-row hover:cursor-pointer justify-center items-center text-center tracking-wide shadow-red-200 text-white transition-colors duration-200 transform bg-red-500 rounded-md hover:bg-red-600 focus:outline-none;
 }
 .btn-tab {
-  @apply h-10 cursor-pointer px-4 py-2 -mb-px text-sm transition-border ease-in-out hover:border-green-500 duration-700 text-center border-b-2 sm:text-base whitespace-nowrap focus:outline-none;
+  @apply h-10 text-[#111827] cursor-pointer px-4 py-2 -mb-px text-sm transition-border ease-in-out hover:border-green-500 duration-700 text-center border-b-2 sm:text-base whitespace-nowrap focus:outline-none;
 }
 .btn-tab2 {
   @apply h-10 cursor-pointer px-4 py-2 -mb-px text-sm transition-border ease-in-out hover:border-blue-500 duration-700 text-center border-b-2 sm:text-base whitespace-nowrap focus:outline-none;

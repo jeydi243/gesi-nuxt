@@ -45,7 +45,7 @@ export const useConfig = defineStore('config', {
     sideMenus: [
       { text: 'Home', to: '/', icon: 'home', active: true, mouseHover: false },
       { text: 'Students', to: '/students', icon: 'group', active: false, mouseHover: false },
-      { text: 'Teachers', to: '/employees', icon: 'adjust', active: false, mouseHover: false },
+      { text: 'Teachers', to: '/management/employees', icon: 'adjust', active: false, mouseHover: false },
       { text: 'Calendar', to: '/calendar', icon: 'message-square', active: false, mouseHover: false },
       { text: 'Library', to: '/library', icon: 'library', active: false, mouseHover: false },
       { text: 'Management', to: '/management/employees', icon: 'book', active: false, mouseHover: false },

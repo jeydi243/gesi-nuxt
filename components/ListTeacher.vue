@@ -48,7 +48,7 @@ const management = useManagement()
 
 const teachers = computed(() => management.getTeachers)
 async function goto(index: number) {
-  return await router.push(`/employees/${teachers.value[index]._id}`)
+  return await router.push(`/management/employees/${teachers.value[index]._id}`)
 }
 </script>
 

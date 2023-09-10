@@ -1,7 +1,6 @@
 import contentsAPI from '@/api/contents';
 import { defineStore } from 'pinia';
 import { useAuth } from './authentication';
-import { ITeacher } from './employees';
 export interface IContent {
     authors: Array<any>;
     title: string;
