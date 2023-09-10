@@ -29,7 +29,7 @@
         </tr>
       </thead>
       <!-- <tbody v-if="students != null"> -->
-      <TransitionGroup :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" tag="tbody" mode="out-in">
+   
         <tr class="table-row cursor-pointer" v-for="(student, index) in students" :key="index"  :data-index="index">
           <td>{{ index }}</td>
           <td>{{ student.matricule }}</td>
@@ -38,7 +38,7 @@
           <td>{{ student.level }}</td>
           <td>{{ student.status }}</td>
         </tr>
-      </TransitionGroup>
+
     </table>
   </div>
 </template>

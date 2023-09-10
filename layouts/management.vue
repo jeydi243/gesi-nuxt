@@ -6,9 +6,9 @@
             <BreadCrumbs v-if="showBraedCrumbs" />
             <div class="h-[90%] w-full bg-gray-100 px-6 py-6 overflow-auto">
                 <div class="flex border-b border-gray-200 mb-2 select-none">
-                    <TransitionGroup :css="false" @before-enter="beforeEnterList" @enter="enterList" @leave="leaveList" mode="out-in">
-                        <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" activeClass="btn-tab-active" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': currentTab == name }" :to="`/management/${name}`">{{ name }}</NuxtLink>
-                    </TransitionGroup>
+
+                    <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" activeClass="btn-tab-active" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': currentTab == name }" :to="`/management/${name}`">{{ name }}</NuxtLink>
+
                 </div>
                 <slot />
             </div>

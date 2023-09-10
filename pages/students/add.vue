@@ -13,7 +13,6 @@
       </div>
     </div>
 
-    <!-- <Transition name="fadeSlideY" mode="out-in"> -->
     <Form class="form grow" @submit="goNext" :validation-schema="currentSchema" keep-values :initial-values="currentValues" v-slot="{ isSubmitting }">
       <template class="step-content" v-if="step === 0">
         <h1 class="text-4xl mb-4">Informations préliminaires</h1>
@@ -283,7 +282,7 @@ import { useStudents } from "~~/store/students"
 
 const step = ref(0)
 const store = useStudents()
-const previewSRC = ref(null)
+const previewSRC = ref<string | null>(null)
 
 const basicInfoSchema = markRaw(
   yup.object({
@@ -299,7 +298,7 @@ const profileSchema = yup.object({
   profile: yup
     .mixed()
     .test("fileSize", "File size must be less than 5MB", (value) => value instanceof File || value instanceof Blob)
-    .test("fileType", "Unsupported file type", (value) => value && ["image/png", "image/jpeg"].includes(value.type)),
+  // .test("fileType", "Unsupported file type", (value) => value && ["image/png", "image/jpeg"].includes(value.type)),
   //   profile: function (value) {
   //     if (value instanceof File || value instanceof Blob || value[0] instanceof File || value[0] instanceof Blob) {
   //       return true
@@ -356,10 +355,10 @@ function pickPicture() {
 function onFileChange(event) {
   console.log("Profile picture change and is ", event.target.files[0])
   if (event.target.files && event.target.files[0]) {
-    this.previewSRC = window.URL.createObjectURL(event.target.files[0])
+    previewSRC.value = window.URL.createObjectURL(event.target.files[0])
     window.URL.revokeObjectURL(event.target.files[0]) // free memory
   } else {
-    this.previewSRC = null
+    previewSRC.value = null
   }
 }
 function goNext(values) {

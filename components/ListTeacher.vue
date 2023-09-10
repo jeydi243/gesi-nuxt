@@ -30,8 +30,8 @@
         <td class="table-cell">{{ index }}</td>
         <td class="table-cell">{{ teacher.matricule }}</td>
         <td class="table-cell">{{ teacher.name }}</td>
-        <td class="table-cell">{{ teacher.email }}</td>
-        <td class="table-cell">{{ teacher.status }}</td>
+        <td class="table-cell">{{ teacher.emails }}</td>
+        <td class="table-cell">{{ teacher.name }}</td>
       </tr>
 
       <!-- </tbody> -->
@@ -41,14 +41,14 @@
 
 <script setup lang="ts">
 import { mapState } from "pinia"
-import { useTeachers } from "@/store/teachers"
+import { useManagement } from "@/store/management"
 const router = useRouter()
 const filtre = ref("")
-const teacherStore = useTeachers()
+const management = useManagement()
 
-const teachers = computed(() => teacherStore.myteachers(filtre.value))
+const teachers = computed(() => management.getTeachers)
 async function goto(index: number) {
-  return await router.push(`/teachers/${teachers.value[index]._id}`)
+  return await router.push(`/employees/${teachers.value[index]._id}`)
 }
 </script>
 

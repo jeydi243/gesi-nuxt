@@ -9,18 +9,6 @@
           <p class="input-error">{{ errorMessage }}</p>
         </div>
       </Field>
-      <!-- <Transition name="fadeSlideX" mode="out-in">
-        <div v-if="!img" @click="open" class="col h-[70px] w-full cursor-pointer bg-gray-50 border-2 border-dashed rounded-md justify-center items-center">
-          <box-icon name="upload" color="gray"></box-icon>
-          <span>Choisissez une image</span>
-        </div>
-        <div v-else class="w-full h-[250px] overflow-clip relative">
-          <img :src="img" class="object-fill rounded-lg absolute top-0 z-1 transition-all delay-500" />
-          <button @click.stop="reset" class="absolute rounded-tr-lg rounded-bl-lg z-10 top-0 right-0 bg-red-500 h-5 w-10 row justify-center">
-            <box-icon name="x" color="white"></box-icon>
-          </button>
-        </div>
-      </Transition> -->
       <Field name="description" v-slot="{ field, errorMessage }">
         <div class="relative group">
           <textarea v-bind="field" id="description" required class="input-textarea peer" rows="4"></textarea>
@@ -100,6 +88,10 @@ async function submit(values, { resetForm, setFieldError }) {
     console.log(error)
   }
   // resetForm()
+}
+
+async function closeModal(reset) {
+  reset()
 }
 </script>
 

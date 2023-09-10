@@ -44,8 +44,8 @@
 						<td class="table-cell">{{ doc.description }}</td>
 						<td class="table-cell relative flex-row items-center">
 							<div class="flex flex-row">
-								<ClipboardIcon href="#" class="h-4 w-4 text-blue-500 m-4 bg-blue-50 cursor-pointer" @click="showModif(indexDoc, doc)" />
-								<TrashIcon href="#" class="h-4 w-4 text-red-500 m-4 bg-red-50 cursor-pointer" @click="softdeleteDoc(doc.code)" />
+								<Icon name="ion:save-outline" class="h-4 w-4 text-blue-500 m-4 bg-blue-50 cursor-pointer" @click="showModif(indexDoc, doc)" />
+								<Icon name="ion:md-trash" class="h-4 w-4 text-red-500 m-4 bg-red-50 cursor-pointer" @click="softdeleteDoc(doc.code)" />
 							</div>
 						</td>
 					</tr>

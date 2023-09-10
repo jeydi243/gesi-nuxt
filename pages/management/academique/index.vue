@@ -12,6 +12,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "management",
+  name: "Management"
 });
 </script>
 

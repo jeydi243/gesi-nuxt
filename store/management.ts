@@ -1,10 +1,10 @@
 import mgntAPI from '@/api/management';
 import contentsAPI from '@/api/contents';
 import { defineStore } from 'pinia';
-import { useTeachers } from './teachers';
 import { useRouter } from 'vue-router';
 import { useConfig } from '@/store/config';
 import { useOrganization } from './organization';
+import { ofetch } from 'ofetch';
 export interface IDocument {
     _id?: string;
     code: string;
@@ -57,6 +57,7 @@ export interface IContact {
 export interface IEmployee extends IPerson {
     code: string;
     resume_file?: string;
+    matricule: string;
     hire_date?: Date;
     position?: string;
     biography?: string;
@@ -101,8 +102,6 @@ export const useManagement = defineStore('management', {
     actions: {
         async init() {
             try {
-                const t = useTeachers();
-                t.init();
                 await this.getAllDocuments();
                 await this.getAllEmployees();
             } catch (error) {
@@ -113,7 +112,7 @@ export const useManagement = defineStore('management', {
             this.listDocuments = [];
             console.log('getAllDocuments');
             try {
-                const { data, status } = await mgntAPI.getDocuments();
+                const { data, status } = await ofetch(mgntAPI.getDocuments, {});
                 console.log({ data }, { status });
                 if (status == 200 || status == 201 || status == 304) {
                     data.map((doc) => {
@@ -131,7 +130,7 @@ export const useManagement = defineStore('management', {
         async getAllEmployees() {
             this.employees = [];
             try {
-                const { data, status } = await mgntAPI.getEmployees();
+                const { data, status } = await ofetch(mgntAPI.getEmployees, { method: 'GET' });
                 console.log({ status });
                 if (status == 200 || status == 201 || status == 304) {
                     // console.log({ employees: JSON.parse(data) })
@@ -151,7 +150,7 @@ export const useManagement = defineStore('management', {
         },
         async deleteEmployee(employeeID) {
             try {
-                const { status } = await mgntAPI.deleteEmployee(employeeID);
+                const { status } = await ofetch(mgntAPI.deleteEmployee + '/' + employeeID, { method: 'DELETE' });
                 if (status == 200 || status == 201) {
                     const index = this.employees.findIndex((emp) => emp._id == employeeID);
                     if (index != -1) this.employees.splice(index, 1);
@@ -169,7 +168,7 @@ export const useManagement = defineStore('management', {
         },
         async employeeBy(employeeID) {
             try {
-                const { data, status } = await mgntAPI.employeeBy(employeeID);
+                const { data, status } = await ofetch(mgntAPI.routeEmployees + '/' + employeeID, { method: 'GET' });
                 if (status == 200 || status == 201) {
                     const index = this.employees.findIndex((emp) => emp._id == employeeID);
                     this.employees[index] = data[0];
@@ -180,9 +179,9 @@ export const useManagement = defineStore('management', {
                 console.log(er);
             }
         },
-        async addExperience(id, experience) {
+        async addArrayField({ field, idEmployee, payload }) {
             try {
-                const { data, status } = await mgntAPI.addExperience(id, experience);
+                const { data, status } = await ofetch(mgntAPI.addArrayField, { method: 'POST', body: { field, idEmployee, payload } });
                 if (status == 200 || status == 201) {
                     const index = this.employees.findIndex((emp) => emp._id == data.id);
                     this.employees[index].experiences!.unshift(data);
@@ -210,7 +209,7 @@ export const useManagement = defineStore('management', {
         },
         async addEmployee(newEmployee) {
             try {
-                const { data, status, headers } = await mgntAPI.addEmployee(newEmployee);
+                const { data, status, headers } = await ofetch(mgntAPI.addEmployee, { method: 'POST', body: newEmployee });
                 if (status == 200 || status == 201) {
                     console.log({ data });
                     this.employees.unshift({ ...data, show: false });
@@ -224,108 +223,14 @@ export const useManagement = defineStore('management', {
                 console.log(er);
             }
         },
-        async addEducation(employeeID, education) {
+
+        async updateElementArrayField(employeeID, field, idElement, payload) {
             try {
-                const { data, status } = await mgntAPI.addEducation(employeeID, education);
-                if (status == 201 || status === 200) {
-                    let index = this.employees.findIndex((em) => em._id == employeeID);
-                    this.employees![index].educations!.push(data);
-                    return true;
-                }
-                return false;
-            } catch (err) {
-                console.log(err);
-                return false;
-            }
-        },
-        async addEmergencyContact(employeeID, contact) {
-            try {
-                const { data, status } = await mgntAPI.addEmergencyContact(employeeID, contact);
-                if (status == 201 || status === 200) {
-                    let index = this.employees.findIndex((em) => em._id == employeeID);
-                    this.employees![index].contacts!.unshift(data);
-                    return true;
-                }
-                return false;
-            } catch (err) {
-                console.log(err);
-                return false;
-            }
-        },
-        async deleteEducation(employeeID, educationID) {
-            try {
-                const { data, status, headers } = await mgntAPI.deleteEducation(employeeID, educationID);
-                console.log(status);
-                if ((status == 200 || status == 201) && data != '') {
-                    const indexEmp = this.employees.findIndex((emp) => emp._id == employeeID);
-                    const indexEduc = this.employees[indexEmp].educations!.findIndex((educ) => educ['id'] == educationID);
-                    if (indexEduc != -1) {
-                        this.employees[indexEmp].educations!.splice(indexEduc, 1);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if (status == 304) {
-                    console.log({ headers });
-                }
-                return false;
-            } catch (er) {
-                console.log(er);
-                return false;
-            }
-        },
-        async deleteContact(employeeID, contactID) {
-            try {
-                const { data, status, headers } = await mgntAPI.deleteContact(employeeID, contactID);
-                if ((status == 200 || status == 201) && data != '') {
-                    const indexEmp = this.employees.findIndex((emp) => emp._id == employeeID);
-                    const indexContact = this.employees[indexEmp].contacts!.findIndex((educ) => educ['id'] == contactID);
-                    if (indexContact != -1) {
-                        this.employees[indexEmp].contacts!.splice(indexContact, 1);
-                        return true;
-                    } else {
-                        console.log("Ce contact n'exige déja plus");
-                        return false;
-                    }
-                } else if (status == 304) {
-                    console.log({ headers });
-                }
-                return false;
-            } catch (er) {
-                console.log(er);
-                return false;
-            }
-        },
-        async deleteExperience(employeeID, experienceID) {
-            try {
-                const { status, headers } = await mgntAPI.deleteExperience(employeeID, experienceID);
-                if (status == 200 || status == 201) {
-                    const index = this.employees.findIndex((emp) => emp._id == employeeID);
-                    console.log({ index });
-                    const indexExp = this.employees![index].educations!.findIndex((educ) => educ['id'] == experienceID);
-                    if (indexExp != -1) {
-                        this.employees[index].educations!.splice(indexExp, 1);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if (status == 304) {
-                    console.log({ headers });
-                    return false;
-                }
-                return false;
-            } catch (er) {
-                console.log(er);
-                return false;
-            }
-        },
-        async updateExperience(employeeID, experienceID, experience) {
-            try {
-                const { data, status, headers } = await mgntAPI.updateExperience(employeeID, { id: experienceID, ...experience });
+                const { data, status, headers } = await ofetch(mgntAPI.updateElementArrayField + '/' + employeeID, { method: 'PATCH', body: { field, idElement, payload } });
                 console.log({ data, status, headers });
                 if ((status == 200 || status == 201) && data != '') {
                     const index = this.employees.findIndex((emp) => emp._id == employeeID);
-                    const indexExp = this.employees[index].experiences!.findIndex((exp) => exp['id'] == experienceID);
+                    const indexExp = this.employees[index].experiences!.findIndex((exp) => exp['id'] == idElement);
                     if (indexExp != -1) {
                         this.employees[index]!.experiences![indexExp] = data;
                     } else {
@@ -341,30 +246,10 @@ export const useManagement = defineStore('management', {
                 return false;
             }
         },
-        async updateEducation(employeeID, educationID, education) {
-            try {
-                const { data, status, headers } = await mgntAPI.updateEducation(employeeID, { id: educationID, ...education });
-                if ((status == 200 || status == 201) && data != '') {
-                    const index = this.employees.findIndex((emp) => emp._id == employeeID);
-                    const indexExp = this.employees[index].educations!.findIndex((educ) => educ['id'] == educationID);
-                    if (indexExp != -1) {
-                        this.employees[index].educations![indexExp] = data;
-                    } else {
-                        return false;
-                    }
-                    return true;
-                } else if (status == 304) {
-                    console.log("Education can't be updated ", headers);
-                    return false;
-                }
-            } catch (er) {
-                console.log(er);
-                return false;
-            }
-        },
+
         async updateBiography(employeeID, biography) {
             try {
-                const { data, status } = await mgntAPI.updateBiography(employeeID, biography);
+                const { data, status } = await ofetch(mgntAPI.updateBiography + '/' + employeeID, { method: 'PATCH', body: { biography } });
                 if ((status == 200 || status == 201) && data != '') {
                     const index = this.employees.findIndex((emp) => emp._id == employeeID);
                     if (index != -1) {
@@ -383,7 +268,7 @@ export const useManagement = defineStore('management', {
         },
         async changedoc(employeeID, newDoc) {
             try {
-                const { data, status } = await mgntAPI.updateDocument(newDoc);
+                const { data, status } = await ofetch(mgntAPI.updateDocument + '/update/', { body: newDoc, method: 'PATCH' });
                 if ((status == 200 || status == 201) && data != '') {
                     const index = this.employees.findIndex((emp) => emp._id == employeeID);
                     if (index != -1) {
@@ -402,7 +287,7 @@ export const useManagement = defineStore('management', {
         },
         async updateOnboarding(employeeID, onboarding) {
             try {
-                const { data, status } = await mgntAPI.updateOnboarding(employeeID, onboarding);
+                const { data, status } = await ofetch(mgntAPI.updateOnboarding + '/' + employeeID, { method: 'PATCH', body: { onboarding } });
                 if ((status == 200 || status == 201) && data != '') {
                     const index = this.employees.findIndex((emp) => emp._id == employeeID);
                     if (index != -1) {
@@ -421,7 +306,7 @@ export const useManagement = defineStore('management', {
         },
         async addDocument(newDocument) {
             try {
-                const { data, status } = await mgntAPI.addDocument(newDocument);
+                const { data, status } = await ofetch(mgntAPI.addDocument, { body: newDocument });
                 if (status == 200 || status == 201) {
                     this.listDocuments.unshift({ ...data, show: false });
                     return true;
@@ -434,7 +319,7 @@ export const useManagement = defineStore('management', {
         },
         async removeDocument(idDocument) {
             try {
-                const { data, status } = await mgntAPI.removeDocument(idDocument);
+                const { data, status } = await ofetch(mgntAPI.removeDocument, idDocument);
                 if (status == 200 || status == 201) {
                     var index = this.listDocuments.findIndex((doc) => doc._id == idDocument);
                     this.listDocuments.splice(index, 1);
@@ -448,7 +333,7 @@ export const useManagement = defineStore('management', {
         },
         async deleteDocument(code) {
             try {
-                const { data, status } = await mgntAPI.deleteDocument(code);
+                const { data, status } = await ofetch(mgntAPI.deleteDocument, { body: { code } });
                 console.log({ data }, { status });
                 if (status == 200 || status == 201) {
                     var index = this.listDocuments.findIndex((doc) => doc.code == code);
@@ -461,9 +346,9 @@ export const useManagement = defineStore('management', {
                 return false;
             }
         },
-        async updateDocument(newValues) {
+        async updateDocument(newValues: IDocument) {
             try {
-                const { data, status } = await mgntAPI.updateDocument(newValues);
+                const { data, status } = await ofetch(mgntAPI.updateDocument + '/' + newValues._id, { body: newValues });
                 console.log({ data });
                 if (status < 300) {
                     var index = this.listDocuments.findIndex((doc) => doc.code == data.code);
@@ -475,60 +360,11 @@ export const useManagement = defineStore('management', {
                 console.log(er);
             }
         },
-        async addFiliere(newFiliere) {
-            try {
-                const { data, status } = await mgntAPI.addFiliere(newFiliere);
-                if (status < 300) {
-                    this.listFilieres.unshift({ ...data, show: false });
-                    return true;
-                }
-                console.log(data);
-            } catch (er) {
-                console.log(er);
-            }
-        },
-        async removeFiliere(idFiliere) {
-            try {
-                const { data, status } = await mgntAPI.removeFiliere(idFiliere);
-                if (status == 200 || status == 201) {
-                    var index = this.listFilieres.findIndex((filiere) => filiere['id'] == data.id);
-                    this.listFilieres.splice(index, 1);
-                    console.log(data);
-                    return true;
-                }
-                return false;
-            } catch (er) {
-                console.log(er);
-            }
-        },
-        async updateFiliere(newValues) {
-            try {
-                const { data, status } = await mgntAPI.updateFiliere(newValues);
-                if (status == 200 || status == 201) {
-                    const index = this.listFilieres.findIndex((filiere) => filiere._id == data.id);
-                    this.listFilieres[index] = data;
-                    return true;
-                }
-                return false;
-            } catch (er) {
-                console.log(er);
-            }
-        },
-        async updateEmployeeConnexion(employeeID, values) {
-            try {
-                const { data, status } = await mgntAPI.updateEmployeeConnexion(employeeID, values);
-                if (status == 200 || status == 201) {
-                    return true;
-                }
-                return false;
-            } catch (er) {
-                console.log(er);
-            }
-        },
     },
     getters: {
         getContents: (state) => state.contents,
         getEmployees: (state) => state.employees,
+        getTeachers: (state) => state.employees,
         getLaptops: (state) => state.laptops,
         getRouteurs: (state) => state.routeurs,
         getListDocuments: (state) => state.listDocuments,

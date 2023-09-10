@@ -222,7 +222,7 @@ async function addFiledoc(values: any) {
 
   const studentId: string | string[] = route.params.id
   console.log(values.document[0], studentId)
-  const { data, pending } = await useFetch("/teachers")
+  const { data, pending } = await useFetch("/employees")
   // studentsAPI
   //   .addDocument(studentId, formdata)
   //   .then((response: any) => {

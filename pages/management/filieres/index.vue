@@ -91,12 +91,14 @@ import { useManagement } from "~~/store/management"
 import { CirclesToRhombusesSpinner } from "epic-spinners"
 import { Form, Field, ErrorMessage, InvalidSubmissionContext } from "vee-validate"
 import validator from 'validator'
+import { useOrganization } from "~/store/organization"
 const { isLength } = validator
 definePageMeta({
   layout: "management",
 });
 const management = useManagement()
-const { addFiliere } = management
+const organizationstore = useOrganization()
+const { addOrg: addFiliere } = organizationstore
 const filiereSchema = ref({
   img(value) {
     if (value) {
@@ -132,50 +134,8 @@ const filiereSchema = ref({
 // ];
 
 let previewSRC = ref<string | null>(null)
-const filieres = ref([
-  {
-    name: "G1",
-    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    manager: "John Doe",
-    long_name: "Genie Logiciel - Systemes informatique",
-    sub_manager: "Pere Nsuko",
-  },
-  {
-    name: "G2",
-    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    long_name: "Genie Logiciel - Gestion",
-    manager: "John Doe",
-    sub_manager: "Nsulo George",
-  },
-  {
-    name: "G3",
-    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    long_name: "Design et Multimedia",
-    manager: "John Doe",
-    sub_manager: "Ndize Mbirwe",
-  },
-  {
-    name: "Prépa",
-    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    long_name: "Reseau et telecom",
-    manager: "John Doe",
-    sub_manager: "Kongolo Nbiko",
-  },
-  {
-    name: "G3",
-    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    long_name: "Design et Multimedia",
-    manager: "John Doe",
-    sub_manager: "Ndize Mbirwe",
-  },
-  {
-    name: "Prepa",
-    img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    long_name: "Reseau et telecom",
-    sub_manager: "Kongolo Nbiko",
-    manager: "John Doe",
-  },
-])
+const store = useOrganization()
+const filieres = computed(() => store.filieres)
 const showModalFiliere = ref(false)
 const initialFiliereValue = ref({
   name: "",
