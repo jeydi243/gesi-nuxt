@@ -92,14 +92,6 @@ definePageMeta({
 });
 const management = useManagement()
 const classes = computed(() => management.classes)
-import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-} from '@headlessui/vue'
-
 const isOpen = ref(false)
 
 function closeModal() {

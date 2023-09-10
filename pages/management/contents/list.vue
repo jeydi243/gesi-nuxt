@@ -49,7 +49,9 @@
 import { UseImage } from "@vueuse/components"
 import { storeToRefs } from "pinia"
 import { useContents } from "~/store/contents"
-
+definePageMeta({
+  layout: "management",
+});
 const store = useContents()
 const router = useRouter()
 const contents = computed(() => store.contents)

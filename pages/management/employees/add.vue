@@ -142,7 +142,9 @@ const toast = useToast()
 const store = useManagement()
 const src = ref(null)
 const router = useRouter()
-
+definePageMeta({
+  layout: "management",
+});
 const employeeSchema = {
   first_name(value) {
     return validator.isLength(value, { min: 2, max: 20 }) ? true : "First name must be between 2 and 20 characters"

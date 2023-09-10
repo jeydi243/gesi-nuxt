@@ -566,7 +566,9 @@ import { parseISO } from "date-fns"
 import { useToast } from "vue-toastification";
 import api_resources from "@/api/resources.js"
 import validator from "validator"
-
+definePageMeta({
+  layout: "management",
+});
 
 const toast = useToast()
 const error = computed(() => store.error)

@@ -6,12 +6,11 @@
             <BreadCrumbs v-if="showBraedCrumbs" />
             <div class="h-[90%] w-full bg-gray-100 px-6 py-6 overflow-auto">
                 <div class="flex border-b border-gray-200 mb-2 select-none">
-
                     <NuxtLink v-for="({ current, name }, indexTab) in tabsGestion" :key="indexTab" :data-index="indexTab" activeClass="btn-tab-active" class="btn-tab first-letter:uppercase" :class="{ 'btn-tab-active': currentTab == name }" :to="`/management/${name}`" @click="changeTab(indexTab)">{{ name }}</NuxtLink>
 
                 </div>
-                <!-- <slot /> -->
-                <NuxtPage :page-key="route => route.fullPath" />
+                <slot />
+                <!-- <NuxtPage :page-key="route => route.fullPath" /> -->
             </div>
             <Footer />
         </main>
